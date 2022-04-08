@@ -1,8 +1,10 @@
 <resources>
+    <string name="app_name">Android Development Group7</string>
+
+
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">962521014407744</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
-
 
     <!--    <string name="app_name">Android Development Group7</string>-->
 
@@ -129,4 +131,13 @@
     <string name="change_password_btn_text">Thay đổi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Kha -->
+    <string name="vendor_my_services">My Services</string>
+    <string name="edit_btn_text">Edit</string>
+    <string name="pro_details_delete_btn_desc">Delete Service Listing</string>
+    <string name="img_item_vendor_service">Service Image</string>
+    <string name="vendor_add_service">Add Service Listing</string>
+
+   
 </resources>

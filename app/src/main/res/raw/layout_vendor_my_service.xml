@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/service_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="0dp"
+    app:checkedIcon="@null"
+    app:strokeColor="@color/light_gray"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/service_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_outline_rect"
+            android:contentDescription="@string/img_item_vendor_service"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <RatingBar
+            android:id="@+id/service_rating_bar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:progressTint="@color/gold"
+            android:rating="2"
+            android:secondaryProgressTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/service_edit_btn"
+            app:layout_constraintEnd_toEndOf="@+id/service_image_view"
+            app:layout_constraintStart_toStartOf="@+id/service_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/service_image_view" />
+
+
+        <TextView
+            android:id="@+id/name_vendor_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Giáo sư Kha chuyên sửa ống nước - sửa ống nước"/>
+
+        <TextView
+            android:id="@+id/description_vendor_service"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minLines="2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/name_vendor_service"
+            tools:text="Chuyên sửa các loại ống nước lớn nhỏ, sửa luôn tivi, máy vi tính" />
+
+        <TextView
+            android:id="@+id/cost_vendor_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
+            tools:text="Giá cả: cô chủ nhà đẹp là được" />
+
+        <Button
+            android:id="@+id/service_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/blue_accent_300"
+            android:padding="16dp"
+            android:text="@string/edit_btn_text"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cost_vendor_service" />
+
+        <ImageView
+            android:id="@+id/service_delete_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/round_button"
+            android:contentDescription="@string/pro_details_delete_btn_desc"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/service_edit_btn"
+            app:layout_constraintStart_toEndOf="@+id/service_edit_btn"
+            app:layout_constraintTop_toTopOf="@+id/service_edit_btn"
+            app:srcCompat="@drawable/ic_delete_24"
+            app:tint="@color/gray" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
