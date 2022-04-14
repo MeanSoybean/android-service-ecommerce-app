@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.124" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.11302083333333333" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.1935" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/ic_delete_24.xml" value="0.1935" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/ic_outline_library_books_24.xml" value="0.1935" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/round_button.xml" value="0.1935" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/round_outline_rect.xml" value="0.1935" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_test1.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/home_vendor_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_top_bar_not_icon.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_vendor_my_service.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
