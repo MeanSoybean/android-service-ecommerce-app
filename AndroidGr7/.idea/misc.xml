@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.124" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>
