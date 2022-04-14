@@ -1,10 +1,10 @@
 <resources>
+    <string name="app_name">AndroidGr7</string>
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">962521014407744</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
 
 
-    <string name="app_name">Android Development Group7</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="vendor_my_services">DỊCH VỤ CỦA TÔI</string>
     <string name="edit_btn_text">CHỈNH SỬA</string>
@@ -30,6 +30,6 @@
     <string name="bottom_nav_my_account">Tài khoản</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    <string name="home_customer">TRANG CHỦ</string>
+    <string name="take_schedule">ĐẶT LỊCH</string>
 </resources>
