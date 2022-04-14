@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">AndroidGr7</string>
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">962521014407744</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
+
+
+    <string name="app_name">Android Development Group7</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="vendor_my_services">DỊCH VỤ CỦA TÔI</string>
+    <string name="edit_btn_text">CHỈNH SỬA</string>
+    <string name="pro_details_delete_btn_desc">Xoá dịch vụ này</string>
+    <string name="img_item_vendor_service">Hình ảnh dịch vụ</string>
+    <string name="vendor_add_service">Thêm dịch vụ mới</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="add_new_service">Thêm dịch vụ mới</string>
+    <string name="type_service_text">Loại dịch vụ</string>
+    <string name="vendor_name_service_text">Tên dịch vụ</string>
+    <string name="vendor_description_service_text">Mô tả dịch vụ</string>
+    <string name="vendor_cost_service_text">Giá dịch vụ</string>
+    <string name="vendor_contact_label_text">Số điện thoại</string>
+    <string name="vendor_imge_label_text">Hình ảnh minh hoạ</string>
+    <string name="add_service_btn_text">Thêm dịch vụ</string>
+    <string name="add_images_label_text">Thêm hình ảnh cho dịch vụ</string>
+
+
+    <!--   Bottom navigation bar-->
+    <string name="bottom_nav_my_services_label">Dịch vụ</string>
+    <string name="bottom_nav_my_order_label">Đơn đặt</string>
+    <string name="bottom_nav_my_account">Tài khoản</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
