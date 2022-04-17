@@ -10,6 +10,67 @@
         android:layout_height="match_parent"
         android:layout_marginTop="-1dp">
 
+        <EditText
+            android:id="@+id/profile_payment_details_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="16dp"
+            android:singleLine="true"
+            android:textAlignment="viewEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_payment_details_label_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_payment_details_label_tv"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="************899" />
+
+        <TextView
+            android:id="@+id/profile_payment_details_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="PaymentDetails"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/credit_account_drawable"
+            app:drawableTint="@color/blue_accent_300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_rating_label_tv" />
+
+        <EditText
+            android:id="@+id/profile_rating_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+
+            android:padding="16dp"
+            android:singleLine="true"
+            android:textAlignment="viewEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_rating_label_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_rating_label_tv"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="99" />
+
+        <TextView
+            android:id="@+id/profile_rating_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:drawablePadding="16dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Rating"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/favorite_account_drawable"
+            app:drawableTint="@color/blue_accent_300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_password_label_tv" />
+
         <TextView
             android:id="@+id/profile_password_tv"
             android:layout_width="wrap_content"
@@ -29,7 +90,7 @@
             android:id="@+id/profile_sign_out_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="232dp"
+            android:layout_marginBottom="128dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:drawablePadding="16dp"
@@ -42,12 +103,12 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textSize="16sp"
             app:drawableLeftCompat="@drawable/signout_account_drawable"
-            app:drawableTint="@color/blue_accent_300"
+            app:drawableTint="@color/green_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.166"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_password_label_tv"
+            app:layout_constraintTop_toBottomOf="@+id/profile_payment_details_label_tv"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -70,9 +131,10 @@
             android:id="@+id/profile_address_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="textLongMessage"
             android:padding="16dp"
-            android:singleLine="true"
 
+            android:singleLine="true"
             android:text="TP. Ho Chi Minh"
             android:textAlignment="viewEnd"
             app:layout_constraintBottom_toBottomOf="@+id/profile_address_label_tv"
@@ -120,6 +182,7 @@
             android:layout_marginStart="8dp"
 
             android:gravity="center"
+            android:inputType="textShortMessage"
             android:minHeight="48dp"
             android:text="Username"
             android:textSize="16sp"
@@ -156,9 +219,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:editable="false"
+            android:inputType="textEmailAddress"
+
             android:padding="16dp"
             android:singleLine="true"
-
             android:text="somemail@example.com"
             android:textAlignment="viewEnd"
             app:layout_constraintBottom_toBottomOf="@+id/profile_email_label_tv"
@@ -190,17 +255,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:padding="16dp"
+            android:inputType="phone"
 
-            android:text="+91 9999988888"
+            android:minWidth="48dp"
+            android:padding="16dp"
+            android:text="082"
             android:textAlignment="viewEnd"
             app:layout_constraintBottom_toBottomOf="@+id/profile_mobile_label_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toEndOf="@+id/profile_mobile_label_tv"
             app:layout_constraintTop_toTopOf="@+id/profile_mobile_label_tv"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="+91 9999988888" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/updateBtn"
