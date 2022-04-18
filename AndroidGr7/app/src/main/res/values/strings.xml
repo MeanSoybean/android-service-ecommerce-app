@@ -32,4 +32,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home_customer">TRANG CHỦ</string>
     <string name="take_schedule">ĐẶT LỊCH</string>
+    <string name="ORDER">ĐƠN DỊCH VỤ</string>
+    <string name="price_card_divider_desc">Divider Line</string>
+    <string name="Name_fix">Tên</string>
+    <string name="price_card_status_label_string">Trạng thái đơn</string>
+    <string name="Completed">Hoàn thành</string>
+    <string name="timeorder">Thời gian</string>
+    <string name="price_card_total_label_text">Tổng giá</string>
+    <string name="products_label_text">Dịch vụ</string>
+    <string name="add_img_item_desc">Ảnh dịch vụ</string>
+    <string name="shipping_details_label_text">Chi tiết dịch vụ</string>
+    <string name="change_status_label_text">Change Order Status Button</string>
+    <string name="ship_date_text">Thời gian đến</string>
+    <string name="shipping_address_label_string">Địa chỉ</string>
+    <string name="ship_curr_status_label_text">Trạng thái hiện tại</string>
+    <string name="payment_details_label_text">Tổng giá phải trả</string>
+    <string name="price_card_shipping_label_string">Chi phí đi lại</string>
+    <string name="price_service">Giá dịch vụ</string>
+    <string name="price_card_charges_label_text">Chi phí khác</string>
 </resources>

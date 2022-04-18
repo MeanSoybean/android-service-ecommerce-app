@@ -3,8 +3,7 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-tools:context=".OrderDetailFragment">
+android:layout_height="wrap_content">
 
     <include
         android:id="@+id/order_detail_app_bar"
@@ -45,7 +44,7 @@ tools:context=".OrderDetailFragment">
             android:layout_marginEnd="16dp"
             android:text="@string/products_label_text"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+            android:textAppearance="@style/AppBarTitleStyle"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +74,7 @@ tools:context=".OrderDetailFragment">
             android:layout_marginEnd="16dp"
             android:text="@string/shipping_details_label_text"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+            android:textAppearance="@style/AppBarTitleStyle"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +116,7 @@ tools:context=".OrderDetailFragment">
             android:layout_marginEnd="16dp"
             android:text="@string/payment_details_label_text"
             android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+            android:textAppearance="@style/AppBarTitleStyle"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

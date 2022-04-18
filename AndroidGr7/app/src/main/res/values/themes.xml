@@ -27,5 +27,6 @@
 
     <!--                <item name="android:windowLightStatusBar">true</item>-->
     <!-- Customize your theme here. -->
+    <item name="textAppearanceHeadline6">@style/AppBarTitleStyle</item>
 </style>
 </resources>
