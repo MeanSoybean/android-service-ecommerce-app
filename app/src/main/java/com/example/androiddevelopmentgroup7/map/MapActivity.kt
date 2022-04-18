@@ -21,12 +21,12 @@ class MapActivity : AppCompatActivity() {
         val fragmentManager: FragmentManager = this.supportFragmentManager
         myMapFragment = fragmentManager.findFragmentById(R.id.fragment_map) as MapFragment?
 
-        val distanceTv = findViewById<TextView>(R.id.distanceTv)
-        val routeBtn: Button = findViewById<Button>(R.id.routeBtn)
-
-        routeBtn.setOnClickListener() {
-
-        }
+//        val distanceTv = findViewById<TextView>(R.id.distanceTv)
+//        val routeBtn: Button = findViewById<Button>(R.id.routeBtn)
+//
+//        routeBtn.setOnClickListener() {
+//
+//        }
     }
 
     private fun getAddress(latLng: LatLng): String {
@@ -45,13 +45,4 @@ class MapActivity : AppCompatActivity() {
         }
         return addressText
     }
-
-    data class Profile(
-        public var accountID: String,
-        public var name: String,
-        public var phoneNumber: String,
-        public var address: String,
-        public var rating: Int,
-        public var paymentDetails: String
-    )
 }

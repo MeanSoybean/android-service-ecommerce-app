@@ -44,8 +44,9 @@
             android:id="@+id/profile_rating_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:editable="false"
 
+            android:editable="false"
+            android:focusableInTouchMode="false"
             android:padding="16dp"
             android:singleLine="true"
             android:textAlignment="viewEnd"
@@ -84,7 +85,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/profile_password_label_tv"
             app:layout_constraintTop_toTopOf="@+id/profile_password_label_tv"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/profile_sign_out_tv"
@@ -188,7 +189,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/profile_image_view"
-            app:layout_constraintEnd_toStartOf="@+id/updateBtn"
+            app:layout_constraintEnd_toStartOf="@+id/update_btn"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/profile_image_view"
             app:layout_constraintTop_toTopOf="@+id/profile_image_view"
@@ -220,8 +221,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:editable="false"
-            android:inputType="textEmailAddress"
 
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
             android:singleLine="true"
             android:text="somemail@example.com"
@@ -259,17 +262,17 @@
 
             android:minWidth="48dp"
             android:padding="16dp"
-            android:text="082"
+            android:text="09999999999"
             android:textAlignment="viewEnd"
             app:layout_constraintBottom_toBottomOf="@+id/profile_mobile_label_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintHorizontal_bias="0.952"
             app:layout_constraintStart_toEndOf="@+id/profile_mobile_label_tv"
             app:layout_constraintTop_toTopOf="@+id/profile_mobile_label_tv"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/updateBtn"
+            android:id="@+id/update_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
