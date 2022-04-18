@@ -7,8 +7,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:checkable="true"
-    android:clickable="true"
-    android:focusable="true"
     app:cardElevation="0dp"
     app:strokeWidth="1dp"
     app:strokeColor="@color/light_gray">
@@ -17,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:clickable="false">
 
         <ImageView
             android:id="@+id/service_image_view"

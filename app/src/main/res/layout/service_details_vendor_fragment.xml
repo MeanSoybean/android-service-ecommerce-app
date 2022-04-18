@@ -99,6 +99,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +142,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,13 +178,15 @@
                 app:layout_constraintTop_toBottomOf="@id/descriptionServiceTextField" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/streetAddOutlinedTextField"
+                android:id="@+id/costServiceTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +218,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/streetAddOutlinedTextField" />
+                app:layout_constraintTop_toBottomOf="@id/costServiceTextField" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/contactServiceTextField"
@@ -222,6 +228,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,21 +263,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/contactServiceTextField" />
 
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="300dp"
-                android:layout_marginTop="16dp"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/imageServiceTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintStart_toStartOf="@+id/vendor_image_service_label"
                 app:layout_constraintTop_toBottomOf="@+id/vendor_image_service_label"
-                app:layout_constraintEnd_toEndOf="@+id/vendor_image_service_label"
-                android:backgroundTint="@color/loader_background_color"
-                android:contentDescription="@string/add_images_label_text"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/ic_add_48"
-                app:tint="@color/white"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintEnd_toEndOf="@+id/vendor_image_service_label">
 
+                <ImageView
+                    android:id="@+id/descriptionImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:contentDescription="@string/add_images_label_text"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_add_48"
+                    android:background="@color/gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <Button

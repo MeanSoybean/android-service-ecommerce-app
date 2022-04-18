@@ -11,12 +11,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController : NavController
     private val serviceViewModel: ServiceViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         serviceViewModel.setServiceList(ArrayList())

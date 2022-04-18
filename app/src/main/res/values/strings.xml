@@ -32,4 +32,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+
+
+    <!--    service_details_vendor_fragment-->
+    <string name="name_service_emty_string">Vui lòng nhập tên dịch vụ</string>
+    <string name="description_service_emty_string">Vui lòng nhập mô tả dịch vụ</string>
+    <string name="cost_service_emty_string">Vui lòng nhập mô tả dịch vụ</string>
+    <string name="contact_service_emty_string">SĐT không được trống và đúng định dạng</string>
+    <string name="image_service_emty_string">Vui lòng nhập hình ảnh dịch vụ</string>
+
+    cost_service_emty_string
+
 </resources>

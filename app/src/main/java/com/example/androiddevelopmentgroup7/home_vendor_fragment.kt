@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,7 +56,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
         holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
-        holder.service_rating_bar.rating = serviceList.get(position).serviceRating.toFloat()
+        holder.service_rating_bar.rating = (3.5).toFloat()
 //        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
         //event
         holder.service_edit_btn.setOnClickListener {
@@ -75,6 +77,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
 
 
 class home_vendor_fragment : Fragment() {
+    val db = Firebase.firestore
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
@@ -94,8 +97,6 @@ class home_vendor_fragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_vendor_fragment, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
-
-
 
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
