@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private val serviceViewModel: ServiceViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        serviceViewModel.setServiceList(ArrayList())
         setContentView(R.layout.activity_main)
         setupNav()
     }

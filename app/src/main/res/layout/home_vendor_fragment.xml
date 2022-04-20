@@ -12,13 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
-
-<!--    <include-->
-<!--        android:id="@+id/loader_layout"-->
-<!--        layout="@layout/layout_circular_loader"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@id/services_app_bar" />-->
+    <include
+        android:id="@+id/loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/services_app_bar" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -75,6 +74,6 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationY="-8dp" />
+        android:translationY="-8dp"/>
 
 </RelativeLayout>

@@ -15,10 +15,15 @@ class ServiceViewModel :  ViewModel(){
 
     val selectedServiceList: LiveData<ArrayList<Service>> get() = serviceList
 
-    fun setServiceList(serviceListArg: ArrayList<Service>){
+    val status: MutableLiveData<String> = MutableLiveData("loading")
+
+    val serviceTypeLivaData: MutableLiveData<ArrayList<String>> = MutableLiveData<ArrayList<String>>()
+
+    fun setServiceList(){
+
 //        serviceList.value = serviceListArg
         val temp = ArrayList<Service>()
-        serviceList.value = ArrayList<Service>()
+        serviceList.value = temp
         db.collection("Vendor").document("CbcUnjIZh9tqHrxeuxEP")
             .collection("ServiceListing")
             .get()
@@ -36,13 +41,14 @@ class ServiceViewModel :  ViewModel(){
                     temp.add(serviceTemp)
                     Log.i("aaa", temp.size.toString())
                 }
-
+                Log.i("aaa", serviceList.value!!.size.toString())
                 serviceList.value = temp
+                status.value = "hide_loader"
+
             }
             .addOnFailureListener { exception ->
                 Log.i("ASD", "Error getting documents.", exception)
             }
-
 //        val service = Service(
 //            "Sửa đồ gia dụng",
 //            "Sửa tivi tận nơi",

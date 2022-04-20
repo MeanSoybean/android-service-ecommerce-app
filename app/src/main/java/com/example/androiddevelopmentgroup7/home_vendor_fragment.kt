@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -18,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -31,6 +29,7 @@ import com.google.firebase.ktx.Firebase
  * Use the [home_vendor_fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 
 
 class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
@@ -97,19 +96,38 @@ class home_vendor_fragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_vendor_fragment, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
+        serviceViewModel.status.value = "loading"
 
+        serviceViewModel.setServiceList()
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
         recyclerView_services.layoutManager = LinearLayoutManager(activity)
 
+        val loader = rootView.findViewById<FrameLayout>(R.id.loader_layout)
+
         val addBtn = rootView.findViewById<Button>(R.id.service_add_btn)
         addBtn.setOnClickListener {
             findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment)
+            //loader.visibility = View.GONE
         }
 
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
-            adapter.notifyItemInserted(list.size - 1)
+            adapter.notifyDataSetChanged()
+        })
+
+        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            // Update the list UI
+            when(status){
+                "hide_loader" -> {
+                    loader.visibility = View.GONE
+                    addBtn.isClickable = true
+                }
+                "loading"-> {
+                    loader.visibility = View.VISIBLE
+                    addBtn.isClickable = false
+                }
+            }
         })
         return rootView
     }

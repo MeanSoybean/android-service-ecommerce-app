@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
@@ -19,7 +21,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
 import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,10 +36,11 @@ import kotlin.collections.ArrayList
 
 class service_details_vendor_fragment : Fragment(){
 //    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
+    private var typeActivity: String? = null
+    lateinit var service:Service
     val db = Firebase.firestore
-
+    private val serviceViewModel : ServiceViewModel by activityViewModels()
+    lateinit var loader:FrameLayout
     private lateinit var viewBinding: View
     private lateinit var addBtn : Button
     private lateinit var toolbar: MaterialToolbar
@@ -58,16 +60,15 @@ class service_details_vendor_fragment : Fragment(){
     private lateinit var serviceContactLayout: TextInputLayout
     private lateinit var serviceImageLayout: TextInputLayout
     private var isSetImage: Boolean = false
+
     companion object{
         val INTENT_SELECT_IMAGE: Int = 10000
     }
-    private val serviceViewModel: ServiceViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
+        arguments?.let {
+            typeActivity = it.getString("type_activity")
+        }
     }
 
     override fun onCreateView(
@@ -76,10 +77,12 @@ class service_details_vendor_fragment : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         viewBinding =  inflater.inflate(R.layout.service_details_vendor_fragment, container, false)
-
+        serviceViewModel.status.value = "loading"
 
         toolbar = viewBinding.findViewById(R.id.topAppBar)
         addBtn = viewBinding.findViewById(R.id.add_service_save_btn)
+        loader = viewBinding.findViewById(R.id.loader_layout)
+
 
         serviceType = viewBinding.findViewById(R.id.vendor_type_service_edit_text)
         serviceName = viewBinding.findViewById(R.id.vendor_name_service_edit_text)
@@ -103,20 +106,50 @@ class service_details_vendor_fragment : Fragment(){
         serviceImage.setOnClickListener { selectFileFromIntent() } //start intent filechooser
         toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         setFocusChangeListener()
+
+
+        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            // Update the list UI
+            when(status){
+                "hide_loader" -> {
+                    loader.visibility = View.GONE
+                    addBtn.isClickable = true
+                }
+                "loading"-> {
+                    loader.visibility = View.VISIBLE
+                    addBtn.isClickable = false
+                }
+            }
+        })
         return viewBinding
     }
 
     private fun setServicesTypeFromDatabase(service: AutoCompleteTextView){
-        service.setText("Sửa ống nước",false)
-        var serviceType = ArrayList<String>().also{
-            it.add("Sửa máy may")
-            it.add("Sửa bếp ga")
-            it.add("Sửa nồi cơm điện")
-            it.add("Sửa quạt gió")
-            it.add("Sửa các loại mô tơ đây")
-        }
-        val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, serviceType)
-        service.setAdapter(adapter)
+        db.collection("ServiceType").get()
+            .addOnSuccessListener { serviceTypes ->
+                var nameType = ArrayList<String>()
+                for(serviceType in serviceTypes){
+                    nameType.add(serviceType.data.get("name").toString())
+                }
+                service.setText(nameType.get(0),false)
+                val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, nameType)
+                service.setAdapter(adapter)
+                serviceViewModel.status.value = "hide_loader"
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d("AAA", "get failed with ", exception)
+            }
+//        service.setText("Sửa ống nước",false)
+//        var serviceType = ArrayList<String>().also{
+//            it.add("Sửa máy may")
+//            it.add("Sửa bếp ga")
+//            it.add("Sửa nồi cơm điện")
+//            it.add("Sửa quạt gió")
+//            it.add("Sửa các loại mô tơ đây")
+//        }
+//        val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, serviceType)
+//        service.setAdapter(adapter)
     }
 
     private fun processingData(){
