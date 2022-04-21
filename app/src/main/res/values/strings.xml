@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Android Development Group7</string>
-
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">962521014407744</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
@@ -30,15 +28,10 @@
     <string name="otp_fragment_label">Otp Fragment</string>
     <string name="signup_welcome_hello">Hello,</string>
     <string name="signup_welcome_text">Sign Up!</string>
-    <string name="signup_name_hint">USER NAME</string>
     <string name="signup_mobile_hint">MOBILE</string>
-    <string name="signup_password_hint">PASSWORD</string>
-    <string name="signup_conf_password_hint">CONFIRM PASSWORD</string>
     <string name="signup_switch_tnc_label">I accept the policy and terms</string>
-    <string name="signup_btn_text">Sign Up</string>
     <string name="signup_name_ph">Your Name</string>
     <string name="signup_mobile_ph">Your Mobile</string>
-    <string name="signup_email_hint">E-Mail</string>
     <string name="signup_email_ph">Your email</string>
     <string name="signup_password_ph">Enter Password</string>
     <string name="signup_cnf_password_ph">Enter Password Again</string>
@@ -189,20 +182,25 @@
     <string name="Completed">Completed</string>
     <string name="timeorder">Time</string>
     <string name="Name_fix">Name</string>
-    <string name="activity_launch_title">Vendor - Customer eCommerce App</string>
+
+
+
+    <string name="app_name">Service Marketplace</string>
+    <string name="activity_launch_title">Service Marketplace</string>
     <string name="button_sign_in">Sign In</string>
     <string name="button_sign_up">Sign Up</string>
-    <string name="title_activity_sign_up">SignUpActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
     <string name="activity_sign_up_title">Sign Up</string>
-    <string name="sign_up_email_TV">Email</string>
-    <string name="sign_up_password_TV">Password</string>
-    <string name="activity_sign_up_button">Sign Up</string>
+    <string name="fragment_sign_up_vendor_label">Vendor Sign Up</string>
+    <string name="fragment_sign_up_customer_label">Customer Sign Up</string>
+    <string name="signup_name_hint">Full Name</string>
+    <string name="signup_email_hint">E-Mail</string>
+    <string name="signup_password_hint">Password</string>
+    <string name="signup_conf_password_hint">Confirm Password</string>
+    <string name="cancel_btn_text">Cancel</string>
+    <string name="signup_btn_text">Sign Up</string>
+    <string name="vendor_signup_switch_text">Sign up as Vendor</string>
+    <string name="customer_signup_switch_text">Sign up as Customer</string>
+    <string name="signup_phone_number_hint">Phone Number</string>
+    <string name="signup_vendor_name_hint">Full Name / Company Name</string>
+    <string name="signup_address_hint">Address</string>
 </resources>

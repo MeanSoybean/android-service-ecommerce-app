@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signup_nav_graph"
+    app:startDestination="@id/signUpCustomerFragment">
+
+    <fragment
+        android:id="@+id/signUpVendorFragment"
+        android:name="com.example.androiddevelopmentgroup7.SignUpVendorFragment"
+        android:label="@string/fragment_sign_up_vendor_label"
+        tools:layout="@layout/fragment_sign_up_vendor" />
+    <fragment
+        android:id="@+id/signUpCustomerFragment"
+        android:name="com.example.androiddevelopmentgroup7.SignUpCustomerFragment"
+        android:label="@string/fragment_sign_up_customer_label"
+        tools:layout="@layout/fragment_sign_up_customer" >
+        <action
+            android:id="@+id/action_signUpCustomerFragment_to_signUpVendorFragment"
+            app:destination="@id/signUpVendorFragment" />
+    </fragment>
+</navigation>
