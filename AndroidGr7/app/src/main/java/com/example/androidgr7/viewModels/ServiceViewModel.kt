@@ -14,18 +14,33 @@ class ServiceViewModel :  ViewModel(){
     val selectedServiceList: LiveData<ArrayList<Service>> get() = serviceList
 
     fun setServiceList(serviceListArg: ArrayList<Service>){
-//        serviceList.value = serviceListArg
-        val service = Service(
+          serviceList.value = serviceListArg
+/*        val service = Service(
             "Sửa đồ gia dụng",
             "Sửa tivi tận nơi",
+            "Nguyen Van A",
             "Nhận sửa các loại tivi công nghệ cao, an toàn, nhanh chống",
+            "Giá cả thương lượng","123",
+            "")
+        val service1 = Service(
+            "Sửa điện",
+            "Sửa điện tận nhà",
+            "Huynh Van C",
+            "Nhận sửa điện tới tận nơi, nhiệt tình, an toàn",
+            "Giá cả thương lượng","123",
+            "")
+        val service2 = Service(
+            "Sửa ống nước",
+            "Sửa ống nước tận nơi",
+            "Tran Van D",
+            "Nhận sửa các loại ống nước tại gia, uy tín",
             "Giá cả thương lượng","123",
             "")
         val temp = ArrayList<Service>()
         temp.add(service)
-        temp.add(service)
-        temp.add(service)
-        serviceList.value = temp
+        temp.add(service1)
+        temp.add(service2)
+        serviceList.value = temp*/
     }
 
     fun addServiceToList(service: Service){

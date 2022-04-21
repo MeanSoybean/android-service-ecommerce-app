@@ -117,7 +117,7 @@
             app:layout_constraintTop_toBottomOf="@id/order_summary_status_label_tv" />
 
         <TextView
-            android:id="@+id/order_summary_items_count_tv"
+            android:id="@+id/order_time_coming_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"

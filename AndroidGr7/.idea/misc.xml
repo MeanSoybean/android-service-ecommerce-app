@@ -15,15 +15,19 @@
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/cart_list_item.xml" value="0.4" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_order.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_order_detail.xml" value="0.264" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_test1.xml" value="0.25416666666666665" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/home_customer_fragment.xml" value="0.20092592592592592" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_order_details.xml" value="0.24010416666666667" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_test1.xml" value="0.264" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_test2.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/fragment_user.xml" value="0.11302083333333333" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/home_customer_fragment.xml" value="0.3829787234042553" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/home_vendor_fragment.xml" value="0.25416666666666665" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_order_summary_card.xml" value="0.2" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_order_summary_card.xml" value="0.4" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_price_card.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_shipping_card.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_top_bar.xml" value="0.1" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_top_bar_not_icon.xml" value="0.1" />
-        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_vendor_my_service.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/layout_vendor_my_service.xml" value="0.264" />
+        <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/layout/service_details_vendor_fragment.xml" value="0.18177083333333333" />
         <entry key="..\:/android-service-ecommerce-app/AndroidGr7/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

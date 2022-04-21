@@ -28,7 +28,7 @@ import com.example.androidgr7.viewModels.ServiceViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Use the [home_vendor_fragment.newInstance] factory method to
+ * Use the [home_customer_fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 
@@ -36,6 +36,7 @@ import com.example.androidgr7.viewModels.ServiceViewModel
 class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
         var name_vendor_service: TextView = listItemView.findViewById(R.id.name_vendor_service)
+        var name_of_vendor: TextView = listItemView.findViewById(R.id.name_of_vendor)
         var description_vendor_service: TextView = listItemView.findViewById(R.id.description_vendor_service)
         var cost_vendor_service: TextView = listItemView.findViewById(R.id.cost_vendor_service)
         var service_image_view: ImageView = listItemView.findViewById(R.id.service_image_view)
@@ -52,6 +53,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
+        holder.name_of_vendor.text = serviceList.get(position).Name
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
         holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
@@ -72,7 +74,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
 
 
 
-class home_vendor_fragment : Fragment() {
+class home_customer_fragment : Fragment() {
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
