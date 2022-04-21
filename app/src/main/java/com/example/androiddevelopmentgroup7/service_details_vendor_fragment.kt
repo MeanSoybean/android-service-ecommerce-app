@@ -2,6 +2,10 @@ package com.example.androiddevelopmentgroup7
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -11,17 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlin.collections.ArrayList
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,10 +37,40 @@ import kotlin.collections.ArrayList
  */
 
 class service_details_vendor_fragment : Fragment(){
+
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+            }
+            catch (e: Exception) {
+                Log.e("Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
+    }
+
 //    // TODO: Rename and change types of parameters
     private var typeActivity: String? = null
-    lateinit var service:Service
-    val db = Firebase.firestore
+    private var type:String? = null
+    private var name:String? = null
+    private var description:String? = null
+    private var price:String? = null
+    private var contact:String? = null
+    private var image:String? = null
+    private var position:Int? = null
+
+
+    private val vendorID = "CbcUnjIZh9tqHrxeuxEP"
+
+    //val db = Firebase.firestore
     private val serviceViewModel : ServiceViewModel by activityViewModels()
     lateinit var loader:FrameLayout
     private lateinit var viewBinding: View
@@ -59,8 +91,9 @@ class service_details_vendor_fragment : Fragment(){
     private lateinit var serviceCostLayout: TextInputLayout
     private lateinit var serviceContactLayout: TextInputLayout
     private lateinit var serviceImageLayout: TextInputLayout
-    private var isSetImage: Boolean = false
+    private lateinit var imageUri:Uri
 
+    private var isSetImage: Boolean = false
     companion object{
         val INTENT_SELECT_IMAGE: Int = 10000
     }
@@ -68,6 +101,13 @@ class service_details_vendor_fragment : Fragment(){
         super.onCreate(savedInstanceState)
         arguments?.let {
             typeActivity = it.getString("type_activity")
+            type = it.getString("type")
+            name = it.getString("name")
+            description = it.getString("description")
+            price = it.getString("price")
+            contact = it.getString("contact")
+            image = it.getString("image")
+            position = it.getInt("position")
         }
     }
 
@@ -77,7 +117,6 @@ class service_details_vendor_fragment : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         viewBinding =  inflater.inflate(R.layout.service_details_vendor_fragment, container, false)
-        serviceViewModel.status.value = "loading"
 
         toolbar = viewBinding.findViewById(R.id.topAppBar)
         addBtn = viewBinding.findViewById(R.id.add_service_save_btn)
@@ -91,7 +130,6 @@ class service_details_vendor_fragment : Fragment(){
         serviceContact = viewBinding.findViewById(R.id.vendor_contact_edit_text)
         serviceImage = viewBinding.findViewById(R.id.descriptionImage)
 
-
         serviceNameLayout = viewBinding.findViewById(R.id.nameServiceTextField)
         serviceDescriptionLayout = viewBinding.findViewById(R.id.descriptionServiceTextField)
         serviceCostLayout = viewBinding.findViewById(R.id.costServiceTextField)
@@ -99,10 +137,25 @@ class service_details_vendor_fragment : Fragment(){
         serviceImageLayout = viewBinding.findViewById(R.id.imageServiceTextField)
 
 
-        setServicesTypeFromDatabase(serviceType) // custom adapter for select services
+        serviceViewModel.setServicesTypeFromDatabase() // custom adapter for select services
 
         //Event listener
-        addBtn.setOnClickListener{ processingData() }
+        addBtn.setOnClickListener{
+            if(processingData())
+            {
+                val service = hashMapOf(
+                "serviceType" to serviceType.text.toString(),
+                "serviceName" to serviceName.text.toString(),
+                "serviceDescription" to  serviceDescription.text.toString(),
+                "servicePrice" to  serviceCost.text.toString(),
+                "serviceImage" to "",
+                "servicePhoneNumber" to serviceContact.text.toString(),
+                "vendorName" to "Tran Tuan Kha",
+                "vendorID" to vendorID,
+                "serviceRating" to "5",)
+                serviceViewModel.uploadFileAndSaveService(imageUri, vendorID, service)
+            }
+        }
         serviceImage.setOnClickListener { selectFileFromIntent() } //start intent filechooser
         toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
         setFocusChangeListener()
@@ -119,40 +172,62 @@ class service_details_vendor_fragment : Fragment(){
                     loader.visibility = View.VISIBLE
                     addBtn.isClickable = false
                 }
+                "add_service_sucess" -> {
+                    loader.visibility = View.GONE
+                    findNavController().navigate(R.id.action_service_details_vendor_fragment_to_home_vendor_fragment)
+                }
             }
         })
+
+
+        serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { type ->
+            // Update the list UI
+            serviceType.setText(type.get(0), false)
+            val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, type)
+            serviceType.setAdapter(adapter)
+        })
+
+
+        if(typeActivity.equals("edit")){
+            toolbar.setTitle(R.string.edit_tittle_string)
+            serviceType.setText(type, false)
+            serviceName.setText(name)
+            serviceDescription.setText(description)
+            serviceCost.setText(price)
+            serviceContact.setText(contact)
+            DownloadImageFromInternet(serviceImage).execute(image)
+
+            addBtn.setText(R.string.save_edit_string)
+            addBtn.setOnClickListener {
+                if(processingDataForUpdate()) {
+                    val service = hashMapOf(
+                        "serviceType" to serviceType.text.toString(),
+                        "serviceName" to serviceName.text.toString(),
+                        "serviceDescription" to  serviceDescription.text.toString(),
+                        "servicePrice" to  serviceCost.text.toString(),
+                        "serviceImage" to "",
+                        "servicePhoneNumber" to serviceContact.text.toString(),
+                        "vendorName" to "Tran Tuan Kha",
+                        "vendorID" to vendorID,
+                        "serviceRating" to "5",
+                    )
+                    if(!isSetImage){
+                        service.set("serviceImage", image!!)
+                        serviceViewModel.updateService(position!!, service)
+                    }
+                    else serviceViewModel.uploadFileAndUpdateService(imageUri, vendorID, service, position!!)
+                }
+            }
+
+        }
+
+
         return viewBinding
     }
 
-    private fun setServicesTypeFromDatabase(service: AutoCompleteTextView){
-        db.collection("ServiceType").get()
-            .addOnSuccessListener { serviceTypes ->
-                var nameType = ArrayList<String>()
-                for(serviceType in serviceTypes){
-                    nameType.add(serviceType.data.get("name").toString())
-                }
-                service.setText(nameType.get(0),false)
-                val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, nameType)
-                service.setAdapter(adapter)
-                serviceViewModel.status.value = "hide_loader"
 
-            }
-            .addOnFailureListener { exception ->
-                Log.d("AAA", "get failed with ", exception)
-            }
-//        service.setText("Sửa ống nước",false)
-//        var serviceType = ArrayList<String>().also{
-//            it.add("Sửa máy may")
-//            it.add("Sửa bếp ga")
-//            it.add("Sửa nồi cơm điện")
-//            it.add("Sửa quạt gió")
-//            it.add("Sửa các loại mô tơ đây")
-//        }
-//        val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, serviceType)
-//        service.setAdapter(adapter)
-    }
 
-    private fun processingData(){
+    private fun processingData():Boolean{
         var isSuccess: Boolean = true
         serviceName.clearFocus()
         serviceCost.clearFocus()
@@ -174,26 +249,39 @@ class service_details_vendor_fragment : Fragment(){
             serviceContactLayout.error = getString(R.string.contact_service_emty_string)
             isSuccess = false
         }
-        if(!isSetImage){
+        if(!isSetImage) {
             serviceImageLayout.error = getString(R.string.image_service_emty_string)
             isSuccess = false
         }
-        Log.i("AAA", "btn click insert service")
-        if(!isSuccess){
-            return
-        }
-
-
-        val service = Service(
-            "Sửa đồ gia dụng",
-            "Sửa tivi tận nơi",
-            "Nhận sửa các loại tivi công nghệ cao, an toàn, nhanh chống",
-            "Giá cả thương lượng","123",
-            "")
-        serviceViewModel.addServiceToList(service)
-        findNavController().navigate(R.id.action_service_details_vendor_fragment_to_home_vendor_fragment)
+        return isSuccess
     }
 
+
+
+    private fun processingDataForUpdate():Boolean{
+        var isSuccess: Boolean = true
+        serviceName.clearFocus()
+        serviceCost.clearFocus()
+        serviceContact.clearFocus()
+        serviceDescription.clearFocus()
+        if(serviceName.text.toString().isBlank() || serviceName.text.toString().isEmpty()){
+            serviceNameLayout.error = getString(R.string.name_service_emty_string)
+            isSuccess = false
+        }
+        if(serviceDescription.text.toString().isBlank() || serviceDescription.text.toString().isEmpty()){
+            serviceDescriptionLayout.error = getString(R.string.description_service_emty_string)
+            isSuccess = false
+        }
+        if(serviceCost.text.toString().isBlank() || serviceCost.text.toString().isEmpty()){
+            serviceCostLayout.error = getString(R.string.cost_service_emty_string)
+            isSuccess = false
+        }
+        if(serviceContact.text.toString().isBlank() || serviceContact.text.toString().isEmpty()){
+            serviceContactLayout.error = getString(R.string.contact_service_emty_string)
+            isSuccess = false
+        }
+        return isSuccess
+    }
     private fun setFocusChangeListener(){
         serviceName.setOnFocusChangeListener{v, b ->
             if(b){
@@ -226,7 +314,6 @@ class service_details_vendor_fragment : Fragment(){
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.i("456","asdasd")
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == INTENT_SELECT_IMAGE){
             if(resultCode == Activity.RESULT_OK){
@@ -235,6 +322,7 @@ class service_details_vendor_fragment : Fragment(){
                     val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, data.data);
                     serviceImage.setImageBitmap(bitmap);
                     isSetImage = true
+                    imageUri = data.data!!
                 }
             }
         }

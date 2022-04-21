@@ -33,6 +33,8 @@
             android:id="@+id/action_service_details_vendor_fragment_to_home_vendor_fragment"
             app:destination="@id/home_vendor_fragment"
             app:popUpTo="@id/home_vendor_fragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true"
+            />
+
     </fragment>
 </navigation>

@@ -1,5 +1,8 @@
 package com.example.androiddevelopmentgroup7
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,10 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -32,7 +34,29 @@ import com.google.firebase.ktx.Firebase
 
 
 
+
 class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
+    lateinit var onClickListener: OnClickListener
+
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+            }
+            catch (e: Exception) {
+                Log.e("Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
+    }
+
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
         var name_vendor_service: TextView = listItemView.findViewById(R.id.name_vendor_service)
         var description_vendor_service: TextView = listItemView.findViewById(R.id.description_vendor_service)
@@ -54,16 +78,23 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
-        holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
-        holder.service_rating_bar.rating = (3.5).toFloat()
+
+        DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
+//        holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
+        holder.service_rating_bar.rating = serviceList.get(position).serviceRating
+
+                //
 //        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
+
         //event
         holder.service_edit_btn.setOnClickListener {
             Log.i("EDIT", "edit")
+            onClickListener.onEditClick(position)
         }
 
         holder.service_delete_btn.setOnClickListener {
             Log.i("DELETE", "delete")
+            onClickListener.onDeleteClick(position)
         }
     }
 
@@ -71,6 +102,11 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         return serviceList.size
     }
 
+
+    interface OnClickListener {
+        fun onEditClick(position: Int)
+        fun onDeleteClick(position: Int)
+    }
 }
 
 
@@ -81,6 +117,9 @@ class home_vendor_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
+    private var serviceIDList = ArrayList<String>()
+    val vendorID = "CbcUnjIZh9tqHrxeuxEP"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
@@ -96,10 +135,27 @@ class home_vendor_fragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_vendor_fragment, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
-        serviceViewModel.status.value = "loading"
 
-        serviceViewModel.setServiceList()
+        serviceViewModel.setServiceList(vendorID)
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
+        adapter.onClickListener = object : MyServiceAdapter.OnClickListener{
+            override fun onEditClick(position: Int) {
+                val service = serviceViewModel.selectedServiceList.value!!.get(position)
+                val bundle = Bundle()
+                bundle.putString("type_activity", "edit")
+                bundle.putInt("position", position)
+                bundle.putString("type", service.serviceType)
+                bundle.putString("name", service.serviceName)
+                bundle.putString("description", service.serviceDescription)
+                bundle.putString("price", service.servicePrice)
+                bundle.putString("contact", service.serviceContact)
+                bundle.putString("image", service.serviceImage)
+                findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment, bundle)
+            }
+            override fun onDeleteClick(position: Int) {
+                showDeleteDialog(position)
+            }
+        }
         recyclerView_services.adapter = adapter
         recyclerView_services.layoutManager = LinearLayoutManager(activity)
 
@@ -107,7 +163,9 @@ class home_vendor_fragment : Fragment() {
 
         val addBtn = rootView.findViewById<Button>(R.id.service_add_btn)
         addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment)
+            val bundle = Bundle()
+            bundle.putString("type_activity", "add")
+            findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment, bundle)
             //loader.visibility = View.GONE
         }
 
@@ -127,11 +185,36 @@ class home_vendor_fragment : Fragment() {
                     loader.visibility = View.VISIBLE
                     addBtn.isClickable = false
                 }
+                "delete_success" -> {
+                    loader.visibility = View.GONE
+                    addBtn.isClickable = true
+                }
             }
+        })
+
+        serviceViewModel.serviceID.observe(viewLifecycleOwner, Observer { serviceId ->
+            // Update the list UI
+            serviceIDList.clear()
+            serviceIDList.addAll(serviceId)
         })
         return rootView
     }
 
+    private fun showDeleteDialog(position: Int) {
+        context?.let {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.delete_dialog_title_text))
+                .setMessage(getString(R.string.delete_service_message_text))
+                .setNeutralButton(getString(R.string.pro_cat_dialog_cancel_btn)) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(getString(R.string.delete_dialog_delete_btn_text)) { dialog, _ ->
+                    serviceViewModel.deleteService(position, vendorID)
+                    dialog.cancel()
+                }
+                .show()
+        }
+    }
 //    companion object {
 //        /**
 //         * Use this factory method to create a new instance of

@@ -40,7 +40,13 @@
     <string name="cost_service_emty_string">Vui lòng nhập mô tả dịch vụ</string>
     <string name="contact_service_emty_string">SĐT không được trống và đúng định dạng</string>
     <string name="image_service_emty_string">Vui lòng nhập hình ảnh dịch vụ</string>
+    <string name="save_edit_string">Lưu</string>
+    <string name="edit_tittle_string">Chỉnh sửa dịch vụ</string>
 
-    cost_service_emty_string
+    <!-- home_vendor_fragment-->
+    <string name="delete_dialog_title_text">Xoá dịch vụ này?</string>
+    <string name="delete_service_message_text">Bạn không thể khôi phục dịch vụ này nếu xoá</string>
+    <string name="pro_cat_dialog_cancel_btn">Huỷ bỏ</string>
+    <string name="delete_dialog_delete_btn_text">Xoá</string>
 
 </resources>

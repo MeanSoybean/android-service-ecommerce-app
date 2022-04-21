@@ -44,7 +44,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation platform('com.google.firebase:firebase-bom:29.3.1')//BoM for the Firebase platform
+
     implementation 'com.google.firebase:firebase-firestore-ktx' //Cloud Filstrore
+    implementation 'com.google.firebase:firebase-storage-ktx' //Storage
 
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1' // customizable firebase login ui
     implementation 'com.facebook.android:facebook-android-sdk:13.0.0' // facebook authentication
@@ -54,4 +56,6 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+
 }

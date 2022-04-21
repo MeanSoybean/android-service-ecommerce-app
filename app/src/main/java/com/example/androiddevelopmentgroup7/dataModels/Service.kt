@@ -8,6 +8,6 @@ data class Service(
     var serviceContact:String,
     var serviceImage:String,
 ){
-    var serviceRating:Double = 0.0
+    var serviceRating:Float = 0.toFloat()
 }
 
