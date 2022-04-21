@@ -64,7 +64,7 @@ class MyOrderAdapter(private var OrderList:ArrayList<Order>): RecyclerView.Adapt
         holder.nameVendor.text = OrderList.get(position).nameVendor
         holder.timeOrder.text = OrderList.get(position).timeOrder
         holder.timeComing.text = OrderList.get(position).timeComing
-        holder.price.text = OrderList.get(position).price
+        holder.price.text = OrderList.get(position).price.toString()
         holder.orderCurrent.text = OrderList.get(position).orderCurrent
 
 

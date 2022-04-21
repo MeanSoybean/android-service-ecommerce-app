@@ -15,7 +15,7 @@ class OrderListModel :  ViewModel(){
     val selectedOrderList: LiveData<ArrayList<Order>> get() = OrderList
 
     fun setServiceList(serviceListArg: ArrayList<Order>){
-//        serviceList.value = serviceListArg
+        OrderList.value = serviceListArg
 /*        val order = Order(
             "1",
             "1",
