@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Android Development Group7</string>
-
-
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">962521014407744</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
@@ -139,5 +137,4 @@
     <string name="img_item_vendor_service">Service Image</string>
     <string name="vendor_add_service">Add Service Listing</string>
 
-   
 </resources>

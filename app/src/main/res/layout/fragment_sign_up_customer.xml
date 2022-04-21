@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.SignUpCustomerFragment">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:paddingTop="24dp"
+
                 android:paddingBottom="12dp"
                 android:textColorHint="#616161"
                 tools:ignore="TextContrastCheck" />
