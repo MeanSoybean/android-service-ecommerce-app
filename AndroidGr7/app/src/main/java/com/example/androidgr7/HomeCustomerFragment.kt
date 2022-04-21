@@ -2,24 +2,29 @@ package com.example.androidgr7
 
 
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
+import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidgr7.R
 import com.example.androidgr7.dataModels.Service
 import com.example.androidgr7.viewModels.ServiceViewModel
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.example.androidgr7.viewModels.UserViewModel
+import com.example.androidgr7.dataModels.UserCustomer
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,8 +47,14 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         var service_image_view: ImageView = listItemView.findViewById(R.id.service_image_view)
         var service_rating_bar: RatingBar = listItemView.findViewById(R.id.service_rating_bar)
         var service_edit_btn: Button = listItemView.findViewById(R.id.service_edit_btn)
+        init {
+            val messageBtnTemp = listItemView.findViewById<Button>(R.id.service_edit_btn)
+            messageBtnTemp.setOnClickListener {
+                onButtonClick?.invoke(serviceList[adapterPosition])
+            }
+        }
     }
-
+    var onButtonClick: ((Service) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -52,6 +63,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val servicetemp: Service =serviceList.get(position)
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.name_of_vendor.text = serviceList.get(position).Name
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
@@ -60,9 +72,6 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating.toFloat()
 //        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
         //event
-        holder.service_edit_btn.setOnClickListener {
-            Log.i("EDIT", "edit")
-        }
 
     }
 
@@ -74,11 +83,16 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
 
 
 
+
 class home_customer_fragment : Fragment() {
+    val db = Firebase.firestore
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
+    var m_text= ""
+
     private val serviceViewModel : ServiceViewModel by activityViewModels()
+    private val userViewModel:UserViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
@@ -96,12 +110,52 @@ class home_customer_fragment : Fragment() {
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
 
 
-
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
         recyclerView_services.layoutManager = LinearLayoutManager(activity)
 
+        adapter.onButtonClick= {servicetemp ->
+            val userList = userViewModel.selectedServiceList.value!!
+            val user = userList[0]
+            Log.d("CHECK",userViewModel.selectedServiceList.value!!.toString())
+            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+            builder.setTitle("Title")
 
+// Set up the input
+            val dateNow = Calendar.getInstance().time
+            val input = EditText(context)
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setHint("Enter Text")
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+// Set up the buttons
+            builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                // Here you get get input text from the Edittext
+                m_text = input.text.toString()
+
+                val id: String = db.collection("OrderListing").document().getId()
+                val data_ADD = hashMapOf(
+                    "nameVendor" to servicetemp.Name,
+                    "idCustomer" to user.AccountID,
+                    "orderAddress" to user.Address,
+                    "orderCurrent" to "Đang chờ xác nhận",
+                    "price" to "Thương lượng",
+                    "serviceImage" to "",
+                    "serviceName" to servicetemp.serviceName,
+                    "timeOrder" to m_text,
+                    "timeComing" to dateNow.toString()
+                )
+                db.collection("OrderListing").document(id).set(data_ADD)
+
+            })
+            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+
+            builder.show()
+
+
+
+        }
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyItemInserted(list.size - 1)
