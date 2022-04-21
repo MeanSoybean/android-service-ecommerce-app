@@ -50,4 +50,5 @@
     <string name="price_card_shipping_label_string">Chi phí đi lại</string>
     <string name="price_service">Giá dịch vụ</string>
     <string name="price_card_charges_label_text">Chi phí khác</string>
+    <string name="noti_for_user">Thông báo</string>
 </resources>

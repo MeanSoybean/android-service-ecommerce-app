@@ -17,5 +17,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/customer_fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/home_bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/vendor_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

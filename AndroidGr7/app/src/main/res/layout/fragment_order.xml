@@ -41,7 +41,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:tabMode="scrollable"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp">
 
@@ -51,10 +50,6 @@
 
                 android:text="Tất cả" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lịch hẹn" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -64,7 +59,7 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đang đến" />
+                android:text="Tiến hành" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

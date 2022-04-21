@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/ship_date_label_tv" />
 
         <TextView
-            android:id="@+id/ship_add_value_tv"
+            android:id="@+id/ship_address_value_tv"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:textAlignment="textEnd"
@@ -73,7 +73,7 @@
             android:layerType="software"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ship_add_value_tv"
+            app:layout_constraintTop_toBottomOf="@+id/ship_address_value_tv"
             app:srcCompat="@drawable/dotted_line_drawable" />
 
         <TextView
