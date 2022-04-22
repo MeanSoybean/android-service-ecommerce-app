@@ -50,10 +50,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx' //Cloud Filstrore
     implementation 'com.google.firebase:firebase-storage-ktx' //Storage
 
-    implementation 'com.firebaseui:firebase-ui-auth:8.0.1' // Firebase AuthUI
-    implementation 'com.facebook.android:facebook-android-sdk:13.0.0' // Facebook Authentication
-
     implementation 'com.google.firebase:firebase-auth-ktx' // Firebase Authentication
+    implementation 'com.facebook.android:facebook-android-sdk:13.0.0' // Facebook Authentication
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.1' // Firebase AuthUI
+    implementation 'com.google.firebase:firebase-firestore-ktx' // Cloud Firestore
+
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
 

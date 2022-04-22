@@ -45,7 +45,6 @@
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:paddingTop="24dp"
-
                 android:paddingBottom="12dp"
                 android:textColorHint="#616161"
                 tools:ignore="TextContrastCheck" />

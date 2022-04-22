@@ -3,9 +3,6 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">962521014407744</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
-
-    <!--    <string name="app_name">Android Development Group7</string>-->
-
     <string name="app_name">Service Marketplace</string>
     <string name="activity_launch_title">Service Marketplace</string>
     <string name="button_sign_in">Sign In</string>

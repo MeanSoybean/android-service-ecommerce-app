@@ -1,32 +1,35 @@
 package com.example.androiddevelopmentgroup7
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
+import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+interface ICustomerSignUp {
+    fun signUpCustomer(name: String, email: String, password: String)
+}
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SignUpCustomerFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class SignUpCustomerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    //TODO: data validation after each edit text update
+    private lateinit var nameET: TextInputEditText
+    private lateinit var emailET: TextInputEditText
+    private lateinit var passwordET: TextInputEditText
+    private lateinit var confPasswordET: TextInputEditText
+    private lateinit var dataPasser: ICustomerSignUp
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dataPasser = context as ICustomerSignUp
     }
 
     override fun onCreateView(
@@ -37,23 +40,53 @@ class SignUpCustomerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_sign_up_customer, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpCustomerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpCustomerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupEditTexts(view)
+        setupButtons(view)
+    }
+
+    private fun setupEditTexts(view: View) {
+        nameET = view.findViewById(R.id.signup_name_edit_text)
+        emailET = view.findViewById(R.id.signup_email_edit_text)
+        passwordET = view.findViewById(R.id.signup_password_edit_text)
+        confPasswordET = view.findViewById(R.id.signup_conf_password_edit_text)
+    }
+
+    private fun setupButtons(view: View) {
+        view.findViewById<Button>(R.id.signup_cancel_button).setOnClickListener {
+            activity?.finish()
+        }
+        view.findViewById<Button>(R.id.vendor_signup_switch_button).setOnClickListener {
+            findNavController().navigate(R.id.action_signUpCustomerFragment_to_signUpVendorFragment)
+        }
+        view.findViewById<Button>(R.id.signup_confirm_button).setOnClickListener {
+            onSignupConfirm()
+        }
+    }
+
+    private fun onSignupConfirm() {
+        // Perform data validation'
+        if (!isDataValid()) {
+            Toast.makeText(activity, "Bad input data!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        // Send data back to the SignUpActivity
+        val name = nameET.text.toString()
+        val email = emailET.text.toString()
+        val password = passwordET.text.toString()
+        dataPasser.signUpCustomer(name, email, password)
+    }
+
+    private fun isDataValid(): Boolean {
+        val name = nameET.text.toString()
+        val email = emailET.text.toString()
+        val pass1 = passwordET.text.toString()
+        val pass2 = confPasswordET.text.toString()
+        return name.isNotBlank()
+                && email.isNotBlank()
+                && (pass1 == pass2)
+                && pass1.isNotBlank()
     }
 }
