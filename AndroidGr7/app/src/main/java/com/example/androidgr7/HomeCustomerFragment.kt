@@ -4,14 +4,19 @@ package com.example.androidgr7
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -19,12 +24,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidgr7.dataModels.Service
 import com.example.androidgr7.viewModels.ServiceViewModel
+import com.example.androidgr7.viewModels.UserViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.example.androidgr7.viewModels.UserViewModel
-import com.example.androidgr7.dataModels.UserCustomer
 import java.util.*
-import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +49,6 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         var cost_vendor_service: TextView = listItemView.findViewById(R.id.cost_vendor_service)
         var service_image_view: ImageView = listItemView.findViewById(R.id.service_image_view)
         var service_rating_bar: RatingBar = listItemView.findViewById(R.id.service_rating_bar)
-        var service_edit_btn: Button = listItemView.findViewById(R.id.service_edit_btn)
         init {
             val messageBtnTemp = listItemView.findViewById<Button>(R.id.service_edit_btn)
             messageBtnTemp.setOnClickListener {
@@ -54,6 +56,26 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
             }
         }
     }
+
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+        override fun doInBackground(vararg urls: String): Bitmap? {
+            val imageURL = urls[0]
+            var image: Bitmap? = null
+            try {
+                val in1 = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(in1)
+            }
+            catch (e: Exception) {
+                Log.e("Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
+    }
+
     var onButtonClick: ((Service) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -68,7 +90,8 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         holder.name_of_vendor.text = serviceList.get(position).Name
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
-        holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
+       // holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
+        DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating.toFloat()
 //        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
         //event
@@ -90,7 +113,7 @@ class home_customer_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     var m_text= ""
-
+    var autoCompleteTV: AutoCompleteTextView? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
     private val userViewModel:UserViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,13 +142,13 @@ class home_customer_fragment : Fragment() {
             val user = userList[0]
             Log.d("CHECK",userViewModel.selectedServiceList.value!!.toString())
             val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-            builder.setTitle("Title")
+            builder.setTitle("Ngày đặt lịch")
 
 // Set up the input
             val dateNow = Calendar.getInstance().time
             val input = EditText(context)
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setHint("Enter Text")
+            input.setHint("Mời nhập ngày đặt lịch")
             input.inputType = InputType.TYPE_CLASS_TEXT
             builder.setView(input)
 
@@ -133,7 +156,15 @@ class home_customer_fragment : Fragment() {
             builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
                 // Here you get get input text from the Edittext
                 m_text = input.text.toString()
+                val calendar = Calendar.getInstance(TimeZone.getDefault())
 
+                val currentYear = calendar[Calendar.YEAR]
+                val currentMonth = calendar[Calendar.MONTH] + 1
+                val currentDay = calendar[Calendar.DAY_OF_MONTH]
+                val hour1 = calendar[Calendar.HOUR]
+                val minute1 = calendar[Calendar.MINUTE]
+                val time1 = hour1.toString()+':'+minute1.toString() + ' ' + currentDay.toString() + '/' +
+                        currentMonth.toString() + '/' +currentYear.toString()
                 val id: String = db.collection("OrderListing").document().getId()
                 val data_ADD = hashMapOf(
                     "nameVendor" to servicetemp.Name,
@@ -143,10 +174,12 @@ class home_customer_fragment : Fragment() {
                     "price" to "Thương lượng",
                     "serviceImage" to "",
                     "serviceName" to servicetemp.serviceName,
-                    "timeOrder" to m_text,
-                    "timeComing" to dateNow.toString()
+                    "timeOrder" to time1,
+                    "timeComing" to m_text,
                 )
                 db.collection("OrderListing").document(id).set(data_ADD)
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent);
 
             })
             builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
@@ -156,6 +189,24 @@ class home_customer_fragment : Fragment() {
 
 
         }
+        val items = serviceViewModel.selectedServiceList.value!!
+        val name_service = ArrayList<String>()
+        for (item in items){
+            name_service.add(item.serviceName)
+        }
+
+        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
+        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
+        autoCompleteTV!!.setAdapter(adapter1)
+        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+        })
+
+
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyItemInserted(list.size - 1)

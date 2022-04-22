@@ -8,9 +8,11 @@ import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.androidgr7.dataModels.Notification
 import com.example.androidgr7.dataModels.Order
 import com.example.androidgr7.dataModels.Service
 import com.example.androidgr7.dataModels.UserCustomer
+import com.example.androidgr7.viewModels.NotificationViewModel
 import com.example.androidgr7.viewModels.OrderListModel
 import com.example.androidgr7.viewModels.ServiceViewModel
 import com.example.androidgr7.viewModels.UserViewModel
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val serviceViewModel: ServiceViewModel by viewModels()
     private val orderListModel: OrderListModel by viewModels()
     private val userViewModel:UserViewModel by viewModels()
+    private val notificationViewModel: NotificationViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -33,19 +36,54 @@ class MainActivity : AppCompatActivity() {
         val temp1= ArrayList<Service>()
         val temp2= ArrayList<Order>()
         val temp3 = ArrayList<UserCustomer>()
+        val temp4 = ArrayList<Notification>()
         db.collection("Customers")
+            .document("Customer")
             .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("CHECK", "${document.get("accountID")}")
-                        if (document.get("accountID") !=null){
-                            val user = UserCustomer(document.get("accountID")as String,document.get("name")as String,
-                                document.get("phoneNumber")as String,document.get("address")as String,
-                                document.get("rating") as Long ,document.get("paymentDetails")as String)
-                            temp3.add(user)
-                        }
+            .addOnSuccessListener { document ->
+                val user = UserCustomer(document.get("accountID")as String,document.get("name")as String,
+                    document.get("phoneNumber")as String,document.get("address")as String,
+                    document.get("rating") as Long ,document.get("paymentDetails")as String)
+                temp3.add(user)
 
-                }
+                db.collection("OrderListing")
+                    .whereEqualTo("idCustomer",temp3[0].AccountID)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        Log.d("CHECK", temp3[0].AccountID)
+                        for (document in result) {
+                            Log.d("CHECK", document.id)
+                            val k =Order(document.id as String,
+                                document.get("idCustomer")as String,
+                                document.get("serviceName")as String,document.get("nameVendor")as String,
+                                document.get("timeOrder") as String,document.get("timeComing")as String,
+                                document.get("orderAddress")as String,
+                                document.get("orderCurrent")as String,document.get("price")as String,
+                                document.get("serviceImage")as String)
+                            temp2.add(k)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("CHECK", "Error getting documents: ", exception)
+                    }
+
+                db.collection("Notifications")
+                    .whereEqualTo("idCustomer",temp3[0].AccountID)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        Log.d("CHECK", temp3[0].AccountID)
+                        for (document in result) {
+                            Log.d("CHECK", document.id)
+                            val k =Notification(document.get("idCustomer")as String,
+                                document.get("Description")as String)
+                            temp2.add(k)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("CHECK", "Error getting documents: ", exception)
+                    }
+
+
             }
             .addOnFailureListener { exception ->
                 Log.w("CHECK", "Error getting documents: ", exception)
@@ -68,24 +106,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-        db.collection("OrderListing")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("CHECK", document.id)
-                    val k =Order(document.id as String,
-                        document.get("idCustomer")as String,
-                        document.get("serviceName")as String,document.get("nameVendor")as String,
-                        document.get("timeOrder") as String,document.get("timeComing")as String,
-                        document.get("orderAddress")as String,
-                        document.get("orderCurrent")as String,document.get("price")as String,
-                        document.get("serviceImage")as String)
-                    temp2.add(k)
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d("CHECK", "Error getting documents: ", exception)
-            }
+
 
         userViewModel.setServiceList(temp3)
         serviceViewModel.setServiceList(temp1)
