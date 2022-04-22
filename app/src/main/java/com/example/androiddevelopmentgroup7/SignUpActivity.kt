@@ -12,7 +12,6 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
     private val auth = Firebase.auth
     private val db = Firebase.firestore
 
-    //TODO: firebase writing not working right now, need to debug
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -24,7 +23,9 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
+                    Log.d("TAG", "Successful task!")
                     user?.let {
+                        Log.d("TAG", "Non-null user!")
                         // Firebase Account document
                         var data: HashMap<String, Any> = hashMapOf(
                             "Email" to email,
@@ -35,8 +36,8 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
                         )
                         val accountDocRef = db.collection("Accounts").document()
                         accountDocRef.set(data)
-                            .addOnSuccessListener { Log.d("TAG", "Account DocRef written!") }
-                            .addOnFailureListener { e -> Log.d("TAG", "Error writing Account", e) }
+                            .addOnSuccessListener { Log.i("TAG", "Account DocRef written!") }
+                            .addOnFailureListener { e -> Log.i("TAG", "Error writing Account", e) }
                         // Firebase Customer document
                         data = hashMapOf(
                             "AccountID" to accountDocRef.id,
@@ -45,17 +46,20 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
                         )
                         val customerDocRef = db.collection("Customers").document()
                         customerDocRef.set(data)
-                            .addOnSuccessListener { Log.d("TAG", "Customer DocRef written!") }
-                            .addOnFailureListener { e -> Log.d("TAG", "Error writing Customer", e) }
+                            .addOnSuccessListener { Log.i("TAG", "Customer DocRef written!") }
+                            .addOnFailureListener { e -> Log.i("TAG", "Error writing Customer", e) }
                         // Exit this activity and launch the corresponding Customer activity
-                        val intent = Intent()
-                        startActivity(intent)
-                        finish()
-                        //TODO: launch customer activity
+                        //val intent = Intent()
+                        //startActivity(intent)
+                        // finish()
+                        //TODO: launch customer activity AFTER data has been written
+                        //TODO: what to do when data has not yet been written?
+                        //TODO: wait for data to be written, if not written, fail and exit
                     }
                 } else {
                     // If sign in fails, display a message to the user.
                     //TODO: Implement a sign up failed message
+                    Log.d("TAG", "Successful task!")
                 }
             }
     }
@@ -96,12 +100,12 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
                         )
                         val customerDocRef = db.collection("Vendors").document()
                         customerDocRef.set(data)
-                            .addOnSuccessListener { Log.d("TAG", "Vendor DocRef written!") }
-                            .addOnFailureListener { e -> Log.d("TAG", "Error writing Vendor", e) }
+                            .addOnSuccessListener { Log.i("TAG", "Vendor DocRef written!") }
+                            .addOnFailureListener { e -> Log.i("TAG", "Error writing Vendor", e) }
                         // Exit this activity and launch the corresponding Vendor activity
-                        val intent = Intent()
-                        startActivity(intent)
-                        finish()
+                        //val intent = Intent()
+                        //startActivity(intent)
+                        //finish()
                         //TODO: launch vendor activity
                     }
                 } else {
