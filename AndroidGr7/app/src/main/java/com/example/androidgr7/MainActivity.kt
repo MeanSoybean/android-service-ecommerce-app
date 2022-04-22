@@ -74,9 +74,9 @@ class MainActivity : AppCompatActivity() {
                         Log.d("CHECK", temp3[0].AccountID)
                         for (document in result) {
                             Log.d("CHECK", document.id)
-                            val k =Notification(document.get("idCustomer")as String,
+                            val k =Notification(document.get("Name")as String,document.get("idCustomer")as String,
                                 document.get("Description")as String)
-                            temp2.add(k)
+                            temp4.add(k)
                         }
                     }
                     .addOnFailureListener { exception ->
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+        notificationViewModel.setServiceList(temp4)
         userViewModel.setServiceList(temp3)
         serviceViewModel.setServiceList(temp1)
         orderListModel.setServiceList(temp2)
