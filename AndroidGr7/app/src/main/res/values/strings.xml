@@ -52,4 +52,6 @@
     <string name="price_card_charges_label_text">Chi phí khác</string>
     <string name="noti_for_user">Thông báo</string>
     <string name="titleDayEdit">Nhập ngày đặt lịch</string>
+    <string name="pro_details_like_btn_desc">Like Button</string>
+    <string name="product_detail_image_desc">"ImageDescription "</string>
 </resources>

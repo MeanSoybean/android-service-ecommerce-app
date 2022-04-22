@@ -16,21 +16,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/name_of_vendor"
-            android:layout_width="218dp"
-            android:layout_height="23dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="223dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/service_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
+            app:layout_constraintHorizontal_bias="0.779"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cost_vendor_service"
             tools:text="Thợ: Huỳnh Hoàng Giang" />
 
         <ImageView
@@ -44,77 +44,87 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
+
         <RatingBar
             android:id="@+id/service_rating_bar"
             style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="83dp"
+            android:layout_height="19dp"
+            android:layout_marginBottom="78dp"
             android:progressTint="@color/gold"
             android:rating="2"
-            android:secondaryProgressTint="#FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/service_edit_btn"
-            app:layout_constraintEnd_toEndOf="@+id/service_image_view"
-            app:layout_constraintStart_toStartOf="@+id/service_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/service_image_view" />
 
+
+            android:secondaryProgressTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.883" />
 
         <TextView
             android:id="@+id/name_vendor_service"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_width="234dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="0dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/dark_gray"
             android:textSize="18sp"
             android:textStyle="bold"
+
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Giáo sư Kha chuyên sửa ống nước - sửa ống nước"/>
+            tools:text="Giáo sư Kha chuyên sửa ống nước - sửa ống nước" />
 
         <TextView
             android:id="@+id/description_vendor_service"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="5dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="254dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="4dp"
+
             android:minLines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
+
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
             app:layout_constraintTop_toBottomOf="@+id/name_vendor_service"
             tools:text="Chuyên sửa các loại ống nước lớn nhỏ, sửa luôn tivi, máy vi tính" />
 
         <TextView
             android:id="@+id/cost_vendor_service"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="179dp"
+            android:layout_height="23dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/gray"
+            android:textColor="@color/blue_accent_300"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
             app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
-            tools:text="Giá cả: cô chủ nhà đẹp là được" />
+            tools:text="Giá cả: Thương lượng" />
 
         <Button
             android:id="@+id/service_edit_btn"
             android:layout_width="117dp"
             android:layout_height="68dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="36dp"
             android:backgroundTint="@color/blue_accent_300"
             android:padding="16dp"
             android:text="@string/take_schedule"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.449"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cost_vendor_service" />
+            app:layout_constraintTop_toBottomOf="@+id/name_of_vendor"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
