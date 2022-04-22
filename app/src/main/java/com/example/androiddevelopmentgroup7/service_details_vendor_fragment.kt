@@ -205,14 +205,13 @@ class service_details_vendor_fragment : Fragment(){
                         "serviceName" to serviceName.text.toString(),
                         "serviceDescription" to  serviceDescription.text.toString(),
                         "servicePrice" to  serviceCost.text.toString(),
-                        "serviceImage" to "",
+                        "serviceImage" to image!!,
                         "servicePhoneNumber" to serviceContact.text.toString(),
                         "vendorName" to "Tran Tuan Kha",
                         "vendorID" to vendorID,
                         "serviceRating" to "5",
                     )
                     if(!isSetImage){
-                        service.set("serviceImage", image!!)
                         serviceViewModel.updateService(position!!, service)
                     }
                     else serviceViewModel.uploadFileAndUpdateService(imageUri, vendorID, service, position!!)

@@ -9,6 +9,10 @@ import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class ServiceViewModel :  ViewModel() {
@@ -74,9 +78,12 @@ class ServiceViewModel :  ViewModel() {
 
     fun uploadFileAndSaveService(imageUri: Uri, vendorID: String, service: HashMap<String, String>){
         // Create a reference to ""
+
         status.value = "loading"
         val file = imageUri
-        val fileRef = storageRef.child("service_image/${file.lastPathSegment}")
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN)
+        val now = Date()
+        val fileRef = storageRef.child("service_image/${file.lastPathSegment + formatter.format(now)}")
 
         val uploadTask = fileRef.putFile(file)
 
@@ -93,12 +100,27 @@ class ServiceViewModel :  ViewModel() {
         }
     }
 
+    fun deleteImageFromUrl(url: String){
+        val oldImageRef = storage.getReferenceFromUrl(url)
+        oldImageRef.delete().addOnSuccessListener {
+            Log.i("DELETE IMAGE", "SUCCESS")
+        }
+            .addOnFailureListener { it ->
+                Log.i("DELETE IMAGE", it.toString())
+            }
+    }
+
 
     fun uploadFileAndUpdateService(imageUri: Uri, vendorID: String, service: HashMap<String, String>, position: Int){
         // Create a reference to ""
         status.value = "loading"
+        deleteImageFromUrl(service.get("serviceImage")!!)
+
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN)
+        val now = Date()
+
         val file = imageUri
-        val fileRef = storageRef.child("service_image/${file.lastPathSegment}")
+        val fileRef = storageRef.child("service_image/${file.lastPathSegment + formatter.format(now)}")
 
         val uploadTask = fileRef.putFile(file)
 
@@ -145,17 +167,23 @@ class ServiceViewModel :  ViewModel() {
 
     fun deleteService(position: Int, vendorID: String){
         status.value = "loading"
-        db.collection("ServiceListings").document(serviceID.value!!.get(position)).delete()
-            .addOnSuccessListener {
-                status.value = "delete_success"
-                val serviceListTemp = serviceList.value!!
-                serviceListTemp.removeAt(position)
-                serviceList.value = serviceListTemp
+        db.collection("Ser")
+        db.collection("ServiceListings").document(serviceID.value!!.get(position)).get()
+            .addOnSuccessListener { service ->
+                deleteImageFromUrl(service.get("serviceImage").toString())
+                db.collection("ServiceListings").document(serviceID.value!!.get(position)).delete()
+                    .addOnSuccessListener {
+                        status.value = "delete_success"
+                        val serviceListTemp = serviceList.value!!
+                        serviceListTemp.removeAt(position)
+                        serviceList.value = serviceListTemp
 
-                val serviceIDTemp = serviceID.value!!
-                serviceIDTemp.removeAt(position)
-                serviceID.value = serviceIDTemp
+                        val serviceIDTemp = serviceID.value!!
+                        serviceIDTemp.removeAt(position)
+                        serviceID.value = serviceIDTemp
+                    }
             }
+
     }
 }
 
