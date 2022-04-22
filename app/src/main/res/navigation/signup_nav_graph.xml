@@ -9,7 +9,11 @@
         android:id="@+id/signUpVendorFragment"
         android:name="com.example.androiddevelopmentgroup7.SignUpVendorFragment"
         android:label="@string/fragment_sign_up_vendor_label"
-        tools:layout="@layout/fragment_sign_up_vendor" />
+        tools:layout="@layout/fragment_sign_up_vendor" >
+        <action
+            android:id="@+id/action_signUpVendorFragment_to_signUpCustomerFragment"
+            app:destination="@id/signUpCustomerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpCustomerFragment"
         android:name="com.example.androiddevelopmentgroup7.SignUpCustomerFragment"

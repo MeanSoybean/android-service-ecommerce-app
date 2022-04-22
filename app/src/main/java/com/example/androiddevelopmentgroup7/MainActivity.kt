@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
+            //TODO: On Signed In
             // ...
 
         } else {
