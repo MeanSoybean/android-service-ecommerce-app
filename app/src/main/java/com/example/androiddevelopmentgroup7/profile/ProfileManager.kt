@@ -29,7 +29,7 @@ class ProfileManager: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_profile)
+        setContentView(R.layout.activity_profile)
 
         initComponent()
         getProfile("fminhtu@gmail.com")
@@ -39,11 +39,11 @@ class ProfileManager: AppCompatActivity() {
     private fun initComponent() {
         database = Firebase.firestore
         this.profile_email_tv = this.findViewById<TextView>(R.id.profile_email_tv)
-        this.profile_mobile_tv = this.findViewById<TextView>(R.id.profile_mobile_tv)
+        this.profile_mobile_tv = this.findViewById<TextView>(R.id.profile_phone_tv)
         this.profile_name_tv = this.findViewById<TextView>(R.id.profile_name_tv)
         this.profile_address_tv = this.findViewById<TextView>(R.id.profile_address_tv)
         this.profile_rating_tv = this.findViewById<TextView>(R.id.profile_rating_tv)
-        this.profile_payment_details_tv = this.findViewById<TextView>(R.id.profile_payment_details_tv)
+        this.profile_payment_details_tv = this.findViewById<TextView>(R.id.profile_payment_detail_tv)
         this.changePasswordText = this.findViewById<TextView>(R.id.profile_password_tv)
         this.update_btn = this.findViewById<Button>(R.id.update_btn)
 
@@ -105,4 +105,6 @@ class ProfileManager: AppCompatActivity() {
             .set(new_profile)
 
     }
+
+
 }

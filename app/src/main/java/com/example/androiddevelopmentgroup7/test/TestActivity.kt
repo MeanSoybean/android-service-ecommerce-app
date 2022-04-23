@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.test
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.map.MapActivity
 import com.example.androiddevelopmentgroup7.profile.ProfileManager
 import com.google.android.gms.maps.model.LatLng
@@ -24,7 +25,7 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
-class MainActivity : AppCompatActivity(), LocationListener {
+class TestActivity : AppCompatActivity(), LocationListener {
     private lateinit var locationManager: LocationManager
     private lateinit var latlng: LatLng
     private val locationPermissionCode = 2
@@ -142,4 +143,3 @@ class MainActivity : AppCompatActivity(), LocationListener {
         }
     }
 }
-

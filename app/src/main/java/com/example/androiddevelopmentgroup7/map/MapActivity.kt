@@ -9,12 +9,13 @@ import com.example.androiddevelopmentgroup7.R
 import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
+
 class MapActivity : AppCompatActivity() {
     private var myMapFragment: MapFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            setContentView(R.layout.map_activity)
+            setContentView(R.layout.activity_map)
 
             val fragmentManager: FragmentManager = this.supportFragmentManager
             myMapFragment = fragmentManager.findFragmentById(R.id.fragment_map) as MapFragment?
@@ -25,6 +26,7 @@ class MapActivity : AppCompatActivity() {
 //        routeBtn.setOnClickListener() {
 //
 //        }
+
     }
 
     private fun getAddress(latLng: LatLng): String {

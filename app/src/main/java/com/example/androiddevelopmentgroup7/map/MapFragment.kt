@@ -1,11 +1,13 @@
 package com.example.androiddevelopmentgroup7.map
 
+import android.R.attr.radius
 import android.annotation.SuppressLint
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.SphericalUtil
@@ -14,11 +16,13 @@ import java.text.DecimalFormat
 
 class MapFragment : SupportMapFragment(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
+    private var circleOptions: MapFragment? = null
     lateinit var fromLatLng: LatLng
 
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(gmap: GoogleMap) {
         googleMap = gmap
+
         // Set default position // hcmus => latlng() // ten
         val hadilao = LatLng(10.907290, 106.643590)
         val hcmus = LatLng(10.76253285, 106.68228373754832)
@@ -31,6 +35,7 @@ class MapFragment : SupportMapFragment(), OnMapReadyCallback {
         markerTo(uel, "UEL")
 
         googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 11.0f))
+        drawCircle(hcmus, 20000.0)
 
         googleMap!!.setOnMapClickListener { latLng ->
             val randomLatLng = LatLng(latLng.latitude, latLng.longitude)
@@ -58,7 +63,6 @@ class MapFragment : SupportMapFragment(), OnMapReadyCallback {
             }
             true
         }
-
     }
 
     fun markerFrom(location: LatLng, address: String) {
@@ -89,6 +93,16 @@ class MapFragment : SupportMapFragment(), OnMapReadyCallback {
 
     fun distance(from: LatLng, to: LatLng): Double { //meter
         return SphericalUtil.computeDistanceBetween(from, to)
+    }
+
+    fun drawCircle(location: LatLng, radius: Double) { // radius unit: meter
+        googleMap!!.addCircle(
+            CircleOptions()
+                .center(location)
+                .radius(radius)
+                .strokeWidth(0f)
+                .fillColor(0x550000FF)
+        )
     }
 
     fun roundTwoDecimals(d: Double): Double {

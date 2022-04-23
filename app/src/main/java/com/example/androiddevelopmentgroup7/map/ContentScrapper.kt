@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7.profile
+package com.example.androiddevelopmentgroup7.map
 
 import androidx.appcompat.app.AppCompatActivity
 import java.io.BufferedReader
@@ -36,7 +36,6 @@ object ContentScrapper {
         }).start()
 
     }
-
 
     interface ScrapListener {
         fun onResponse(html: String?)
