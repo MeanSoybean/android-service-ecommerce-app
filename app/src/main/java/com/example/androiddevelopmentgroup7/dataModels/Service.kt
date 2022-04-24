@@ -11,7 +11,7 @@ data class Service(
     var serviceRating: Float,
     var vendorID: String,
     var vendorName: String,
-){
+) {
     var serviceID: String = ""
 }
 

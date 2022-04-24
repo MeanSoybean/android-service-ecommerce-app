@@ -4,8 +4,7 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
 
 
-<!--    <string name="app_name">Android Development Group7</string>-->
-
+    <!--    <string name="app_name">Android Development Group7</string>-->
 
     <string name="app_name">Service Marketplace</string>
     <string name="activity_launch_title">Service Marketplace</string>
@@ -46,6 +45,8 @@
 
 
     <!--   Bottom navigation bar-->
+    <string name="bottom_nav_home_label">Trang chủ</string>
+    <string name="bottom_nav_chat_label">Dịch vụ</string>
     <string name="bottom_nav_my_services_label">Dịch vụ</string>
     <string name="bottom_nav_my_order_label">Đơn đặt</string>
     <string name="bottom_nav_my_account">Tài khoản</string>
@@ -67,5 +68,44 @@
     <string name="delete_service_message_text">Bạn không thể khôi phục dịch vụ này nếu xoá</string>
     <string name="pro_cat_dialog_cancel_btn">Huỷ bỏ</string>
     <string name="delete_dialog_delete_btn_text">Xoá</string>
+
+
+    <!-- layout_order_vendor_service  -->
+    <string name="mange_order_app_tittle_text">QUẢN LÝ ĐƠN DỊCH VỤ</string>
+    <string name="order_on_text">Thời gian đặt: January 1, 2021</string>
+    <string name="price_card_divider_desc">Mô tả dịch vụ</string>
+    <string name="name_customer_text">Tên khách hàng</string>
+    <string name="status_order_text">Trạng thái</string>
+    <string name="complete_order_text">Hoàn thành</string>
+    <string name="time_order_text">Thời gian đặt hàng</string>
+    <string name="price_order_text">Giá tiền</string>
+    <string name="all_tab_text">Tất cả</string>
+    <string name="accept_tab_text">Xác nhận</string>
+    <string name="on_board_tab_text">Tiến Hành</string>
+    <string name="complete_tab_text">Hoàn thành</string>
+    <string name="cancel_tab_text">Đã huỷ</string>
+
+    <!--fragment_order_details-->
+    <string name="order_detail_top_app_bar_text">CHI TIẾT ĐƠN DỊCH VỤ</string>
+    <string name="products_label_text">Dịch vụ</string>
+    <string name="add_img_item_desc">Ảnh dịch vụ</string>
+    <string name="shipping_details_label_text">Chi tiết dịch vụ</string>
+    <string name="change_status_label_text">Change Order Status Button</string>
+    <string name="ship_date_text">Thời gian đến</string>
+    <string name="shipping_address_label_string">Địa chỉ</string>
+    <string name="ship_curr_status_label_text">Trạng thái hiện tại</string>
+    <string name="payment_details_label_text">Tổng giá phải trả</string>
+    <string name="price_card_shipping_label_string">Chi phí đi lại</string>
+    <string name="price_service">Giá dịch vụ</string>
+    <string name="price_card_charges_label_text">Chi phí khác</string>
+    <string name="noti_for_user">Thông báo</string>
+    <string name="titleDayEdit">Nhập ngày đặt lịch</string>
+    <string name="pro_details_like_btn_desc">Like Button</string>
+    <string name="product_detail_image_desc">"ImageDescription "</string>
+    <string name="NOTIFICATION">Thông báo</string>
+
+    <!--   layout_home -->
+    <string name="home_top_app_bar_text">TRANG CHỦ</string>
+    <string name="take_schedule">ĐẶT LỊCH</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.androiddevelopmentgroup7.Utils
 import com.example.androiddevelopmentgroup7.dataModels.Service
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -30,20 +31,51 @@ class ServiceViewModel :  ViewModel() {
     private val storage = Firebase.storage
     private val storageRef = storage.reference
 
-    private lateinit var vendorID: String
-
-    fun setupVendorID(id: String){
-        vendorID = id
-    }
 
     fun setServiceList() {
         status.value = "loading"
 //        serviceList.value = serviceListArg
         val temp = ArrayList<Service>()
         serviceList.value = temp
-        Log.i("VENDORID", vendorID)
+//        Log.i("VENDORID", Utils.vendor.id)
         db.collection("ServiceListings")
-            .whereEqualTo("vendorID", vendorID)
+            .whereEqualTo("vendorID", Utils.vendor.id)
+            .get()
+            .addOnSuccessListener { services ->
+                Log.i("success", services.size().toString())
+                for (service in services) {
+                    val serviceTemp = Service(
+                        service.data.get("serviceType").toString(),
+                        service.data.get("serviceName").toString(),
+                        service.data.get("serviceDescription").toString(),
+                        service.data.get("servicePrice").toString(),
+                        service.data.get("servicePhoneNumber").toString(),
+                        service.data.get("serviceImage").toString(),
+                        service.data.get("serviceRating").toString().toFloat(),
+                        service.data.get("vendorID").toString(),
+                        service.data.get("vendorName").toString(),
+                    )
+                    serviceTemp.serviceID = service.id
+                    Log.i("ServiceRating", serviceTemp.serviceRating.toString())
+                    temp.add(serviceTemp)
+                }
+                serviceList.value = temp
+                status.value = "hide_loader"
+            }
+            .addOnFailureListener { exception ->
+                Log.i("ERROR", "Error getting documents.", exception)
+            }
+
+    }
+
+
+    fun setServiceListForUser() {
+        status.value = "loading"
+//        serviceList.value = serviceListArg
+        val temp = ArrayList<Service>()
+        serviceList.value = temp
+//        Log.i("VENDORID", Utils.vendor.id)
+        db.collection("ServiceListings")
             .get()
             .addOnSuccessListener { services ->
                 Log.i("success", services.size().toString())

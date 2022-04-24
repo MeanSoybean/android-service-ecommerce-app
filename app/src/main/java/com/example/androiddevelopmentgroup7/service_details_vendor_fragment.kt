@@ -163,17 +163,22 @@ class service_details_vendor_fragment : Fragment(){
         })
 
 
-        serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { type ->
+        serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypes ->
             // Update the list UI
-            serviceType.setText(type.get(0), false)
-            val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, type)
+
+            if(typeActivity.equals("edit")){
+                serviceType.setText(type, false)
+            } else serviceType.setText(serviceTypes.get(0), false)
+            Log.i("ViewModelChange", "CHange")
+            val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, serviceTypes)
             serviceType.setAdapter(adapter)
         })
 
 
         if(typeActivity.equals("edit")){
             toolbar.setTitle(R.string.edit_tittle_string)
-            serviceType.setText(type, false)
+            Log.i("setType", "set")
+            //serviceType.setText(type)
             serviceName.setText(name)
             serviceDescription.setText(description)
             serviceCost.setText(price)
@@ -254,6 +259,7 @@ class service_details_vendor_fragment : Fragment(){
             serviceDescriptionLayout.error = getString(R.string.description_service_emty_string)
             isSuccess = false
         }
+
         if(serviceCost.text.toString().isBlank() || serviceCost.text.toString().isEmpty()){
             serviceCostLayout.error = getString(R.string.cost_service_emty_string)
             isSuccess = false

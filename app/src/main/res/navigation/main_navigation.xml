@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vendor_navigation"
+    app:startDestination="@id/home_customer_fragment">
+    <fragment
+        android:id="@+id/home_customer_fragment"
+        android:name="com.example.androiddevelopmentgroup7.home_customer_fragment"
+        android:label="home_customer_fragment"
+        tools:layout="@layout/home_customer_fragment" >
+        <action
+            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
+            app:destination="@id/orderServiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/home_vendor_fragment"
+        android:name="com.example.androiddevelopmentgroup7.home_vendor_fragment"
+        android:label="home_vendor_fragment" >
+        <action
+            android:id="@+id/action_home_vendor_fragment_to_service_details_vendor_fragment"
+            app:destination="@id/service_details_vendor_fragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/orderServiceFragment"
+        android:name="com.example.androiddevelopmentgroup7.orderServiceFragment"
+        android:label="fragment_test1"
+        tools:layout="@layout/order_service_fragment" >
+        <action
+            android:id="@+id/action_orderServiceVendorFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+
+        <action
+            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
+            app:destination="@id/home_customer_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.example.androiddevelopmentgroup7.ProfileFragment"
+        android:label="fragment_test2"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/service_details_vendor_fragment"
+        android:name="com.example.androiddevelopmentgroup7.service_details_vendor_fragment"
+        android:label="service_details_vendor_fragment"
+        tools:layout="@layout/service_details_vendor_fragment" >
+        <action
+            android:id="@+id/action_service_details_vendor_fragment_to_home_vendor_fragment"
+            app:destination="@id/home_vendor_fragment"
+            app:popUpTo="@id/home_vendor_fragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.androiddevelopmentgroup7.OrderDetailsFragment"
+        android:label="OrderDetailsFragment" />
+
+</navigation>
