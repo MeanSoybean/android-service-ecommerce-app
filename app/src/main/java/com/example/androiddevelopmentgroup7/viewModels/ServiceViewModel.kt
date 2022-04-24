@@ -16,7 +16,7 @@ import kotlin.collections.HashMap
 
 
 class ServiceViewModel :  ViewModel() {
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
     private val serviceList: MutableLiveData<ArrayList<Service>> =
         MutableLiveData<ArrayList<Service>>()
 
@@ -27,17 +27,21 @@ class ServiceViewModel :  ViewModel() {
     val serviceTypeLivaData: MutableLiveData<ArrayList<String>> =
         MutableLiveData<ArrayList<String>>()
 
-    val serviceID: MutableLiveData<ArrayList<String>> =
-        MutableLiveData<ArrayList<String>>()
+    private val storage = Firebase.storage
+    private val storageRef = storage.reference
 
-    val storage = Firebase.storage
-    val storageRef = storage.reference
-    fun setServiceList(vendorID: String) {
+    private lateinit var vendorID: String
+
+    fun setupVendorID(id: String){
+        vendorID = id
+    }
+
+    fun setServiceList() {
         status.value = "loading"
 //        serviceList.value = serviceListArg
         val temp = ArrayList<Service>()
-        val tempID = ArrayList<String>()
         serviceList.value = temp
+        Log.i("VENDORID", vendorID)
         db.collection("ServiceListings")
             .whereEqualTo("vendorID", vendorID)
             .get()
@@ -51,13 +55,15 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("servicePrice").toString(),
                         service.data.get("servicePhoneNumber").toString(),
                         service.data.get("serviceImage").toString(),
+                        service.data.get("serviceRating").toString().toFloat(),
+                        service.data.get("vendorID").toString(),
+                        service.data.get("vendorName").toString(),
                     )
-                    serviceTemp.serviceRating = service.data.get("serviceRating").toString().toFloat()
-                    tempID.add(service.id)
+                    serviceTemp.serviceID = service.id
+                    Log.i("ServiceRating", serviceTemp.serviceRating.toString())
                     temp.add(serviceTemp)
                 }
                 serviceList.value = temp
-                serviceID.value = tempID
                 status.value = "hide_loader"
             }
             .addOnFailureListener { exception ->
@@ -66,7 +72,7 @@ class ServiceViewModel :  ViewModel() {
 
     }
 
-    fun addServiceToList(vendorID: String, service: HashMap<String, String>) {
+    fun addServiceToList(service: HashMap<String, String>) {
 
         db.collection("ServiceListings")
             .add(service)
@@ -76,7 +82,7 @@ class ServiceViewModel :  ViewModel() {
 
     }
 
-    fun uploadFileAndSaveService(imageUri: Uri, vendorID: String, service: HashMap<String, String>){
+    fun uploadFileAndSaveService(imageUri: Uri, service: HashMap<String, String>){
         // Create a reference to ""
 
         status.value = "loading"
@@ -93,9 +99,9 @@ class ServiceViewModel :  ViewModel() {
         }.addOnSuccessListener { taskSnapshot ->
             //uploadTask.getResult().
             fileRef.downloadUrl.addOnSuccessListener { url ->
-                Log.i("URL", url.toString())
+                //Log.i("URL", url.toString())
                 service.set("serviceImage", url.toString())
-                addServiceToList(vendorID, service)
+                addServiceToList(service)
             }
         }
     }
@@ -111,7 +117,7 @@ class ServiceViewModel :  ViewModel() {
     }
 
 
-    fun uploadFileAndUpdateService(imageUri: Uri, vendorID: String, service: HashMap<String, String>, position: Int){
+    fun uploadFileAndUpdateService(imageUri: Uri, service: HashMap<String, String>, position: Int){
         // Create a reference to ""
         status.value = "loading"
         deleteImageFromUrl(service.get("serviceImage")!!)
@@ -140,12 +146,13 @@ class ServiceViewModel :  ViewModel() {
     fun updateService(position: Int, service: HashMap<String, String>) {
 
         db.collection("ServiceListings")
-            .document(serviceID.value!!.get(position))
+            .document(serviceList.value!!.get(position).serviceID)
             .set(service)
             .addOnSuccessListener { documentRefer ->
                 status.value = "add_service_sucess"
-                val temp = serviceList.value
-                serviceList.value = temp!!
+                serviceList.value = serviceList.value
+//                val temp = serviceList.value
+//                serviceList.value = temp!!
             }
 
     }
@@ -165,25 +172,23 @@ class ServiceViewModel :  ViewModel() {
             }
     }
 
-    fun deleteService(position: Int, vendorID: String){
+    fun deleteService(position: Int){
         status.value = "loading"
         db.collection("Ser")
-        db.collection("ServiceListings").document(serviceID.value!!.get(position)).get()
+        db.collection("ServiceListings").document(serviceList.value!!.get(position).serviceID).get()
             .addOnSuccessListener { service ->
                 deleteImageFromUrl(service.get("serviceImage").toString())
-                db.collection("ServiceListings").document(serviceID.value!!.get(position)).delete()
+                db.collection("ServiceListings").document(serviceList.value!!.get(position).serviceID).delete()
                     .addOnSuccessListener {
                         status.value = "delete_success"
+
+                        //notify observer that data changed
                         val serviceListTemp = serviceList.value!!
                         serviceListTemp.removeAt(position)
                         serviceList.value = serviceListTemp
 
-                        val serviceIDTemp = serviceID.value!!
-                        serviceIDTemp.removeAt(position)
-                        serviceID.value = serviceIDTemp
                     }
             }
-
     }
 }
 

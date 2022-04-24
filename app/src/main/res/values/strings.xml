@@ -4,7 +4,28 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
 
 
-    <string name="app_name">Android Development Group7</string>
+<!--    <string name="app_name">Android Development Group7</string>-->
+
+
+    <string name="app_name">Service Marketplace</string>
+    <string name="activity_launch_title">Service Marketplace</string>
+    <string name="button_sign_in">Sign In</string>
+    <string name="button_sign_up">Sign Up</string>
+    <string name="activity_sign_up_title">Sign Up</string>
+    <string name="fragment_sign_up_vendor_label">Vendor Sign Up</string>
+    <string name="fragment_sign_up_customer_label">Customer Sign Up</string>
+    <string name="signup_name_hint">Full Name</string>
+    <string name="signup_email_hint">E-Mail</string>
+    <string name="signup_password_hint">Password</string>
+    <string name="signup_conf_password_hint">Confirm Password</string>
+    <string name="cancel_btn_text">Cancel</string>
+    <string name="signup_btn_text">Sign Up</string>
+    <string name="vendor_signup_switch_text">Sign up as Vendor</string>
+    <string name="customer_signup_switch_text">Sign up as Customer</string>
+    <string name="signup_phone_number_hint">Phone Number</string>
+    <string name="signup_vendor_name_hint">Full Name / Company Name</string>
+    <string name="signup_address_hint">Address</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="vendor_my_services">DỊCH VỤ CỦA TÔI</string>
     <string name="edit_btn_text">CHỈNH SỬA</string>
@@ -30,8 +51,6 @@
     <string name="bottom_nav_my_account">Tài khoản</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 
 
     <!--    service_details_vendor_fragment-->

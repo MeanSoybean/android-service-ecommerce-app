@@ -38,24 +38,6 @@ import com.google.firebase.ktx.Firebase
 
 class service_details_vendor_fragment : Fragment(){
 
-    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
-        override fun doInBackground(vararg urls: String): Bitmap? {
-            val imageURL = urls[0]
-            var image: Bitmap? = null
-            try {
-                val `in` = java.net.URL(imageURL).openStream()
-                image = BitmapFactory.decodeStream(`in`)
-            }
-            catch (e: Exception) {
-                Log.e("Error Message", e.message.toString())
-                e.printStackTrace()
-            }
-            return image
-        }
-        override fun onPostExecute(result: Bitmap?) {
-            imageView.setImageBitmap(result)
-        }
-    }
 
 //    // TODO: Rename and change types of parameters
     private var typeActivity: String? = null
@@ -153,11 +135,12 @@ class service_details_vendor_fragment : Fragment(){
                 "vendorName" to "Tran Tuan Kha",
                 "vendorID" to vendorID,
                 "serviceRating" to "5",)
-                serviceViewModel.uploadFileAndSaveService(imageUri, vendorID, service)
+                serviceViewModel.uploadFileAndSaveService(imageUri, service)
             }
         }
         serviceImage.setOnClickListener { selectFileFromIntent() } //start intent filechooser
         toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+
         setFocusChangeListener()
 
 
@@ -214,7 +197,7 @@ class service_details_vendor_fragment : Fragment(){
                     if(!isSetImage){
                         serviceViewModel.updateService(position!!, service)
                     }
-                    else serviceViewModel.uploadFileAndUpdateService(imageUri, vendorID, service, position!!)
+                    else serviceViewModel.uploadFileAndUpdateService(imageUri, service, position!!)
                 }
             }
 

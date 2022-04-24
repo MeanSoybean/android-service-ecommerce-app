@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.183" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_auth.xml" value="0.17447916666666666" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_sign_up.xml" value="0.17447916666666666" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_sign_up_customer.xml" value="0.17447916666666666" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_sign_up_vendor.xml" value="0.16041666666666668" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_test1.xml" value="0.17447916666666666" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_test2.xml" value="0.1" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/home_vendor_fragment.xml" value="0.17447916666666666" />

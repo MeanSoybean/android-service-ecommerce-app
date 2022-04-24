@@ -32,30 +32,30 @@ import com.google.firebase.ktx.Firebase
  * create an instance of this fragment.
  */
 
-
+class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+    override fun doInBackground(vararg urls: String): Bitmap? {
+        val imageURL = urls[0]
+        var image: Bitmap? = null
+        try {
+            val `in` = java.net.URL(imageURL).openStream()
+            image = BitmapFactory.decodeStream(`in`)
+        }
+        catch (e: Exception) {
+            Log.e("Error Message", e.message.toString())
+            e.printStackTrace()
+        }
+        return image
+    }
+    override fun onPostExecute(result: Bitmap?) {
+        imageView.setImageBitmap(result)
+    }
+}
 
 
 class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
     lateinit var onClickListener: OnClickListener
 
-    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
-        override fun doInBackground(vararg urls: String): Bitmap? {
-            val imageURL = urls[0]
-            var image: Bitmap? = null
-            try {
-                val `in` = java.net.URL(imageURL).openStream()
-                image = BitmapFactory.decodeStream(`in`)
-            }
-            catch (e: Exception) {
-                Log.e("Error Message", e.message.toString())
-                e.printStackTrace()
-            }
-            return image
-        }
-        override fun onPostExecute(result: Bitmap?) {
-            imageView.setImageBitmap(result)
-        }
-    }
+
 
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
         var name_vendor_service: TextView = listItemView.findViewById(R.id.name_vendor_service)
@@ -117,8 +117,7 @@ class home_vendor_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
-    private var serviceIDList = ArrayList<String>()
-    val vendorID = "CbcUnjIZh9tqHrxeuxEP"
+    //val vendorID = "CbcUnjIZh9tqHrxeuxEP"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,7 +135,7 @@ class home_vendor_fragment : Fragment() {
         val rootView = inflater.inflate(R.layout.home_vendor_fragment, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
 
-        serviceViewModel.setServiceList(vendorID)
+        serviceViewModel.setServiceList()
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
         adapter.onClickListener = object : MyServiceAdapter.OnClickListener{
             override fun onEditClick(position: Int) {
@@ -148,7 +147,7 @@ class home_vendor_fragment : Fragment() {
                 bundle.putString("name", service.serviceName)
                 bundle.putString("description", service.serviceDescription)
                 bundle.putString("price", service.servicePrice)
-                bundle.putString("contact", service.serviceContact)
+                bundle.putString("contact", service.servicePhoneNumber)
                 bundle.putString("image", service.serviceImage)
                 findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment, bundle)
             }
@@ -172,6 +171,7 @@ class home_vendor_fragment : Fragment() {
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyDataSetChanged()
+            Log.i("DATASET CHANGE", "data set change")
         })
 
         serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
@@ -192,11 +192,7 @@ class home_vendor_fragment : Fragment() {
             }
         })
 
-        serviceViewModel.serviceID.observe(viewLifecycleOwner, Observer { serviceId ->
-            // Update the list UI
-            serviceIDList.clear()
-            serviceIDList.addAll(serviceId)
-        })
+
         return rootView
     }
 
@@ -209,7 +205,7 @@ class home_vendor_fragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(getString(R.string.delete_dialog_delete_btn_text)) { dialog, _ ->
-                    serviceViewModel.deleteService(position, vendorID)
+                    serviceViewModel.deleteService(position)
                     dialog.cancel()
                 }
                 .show()
