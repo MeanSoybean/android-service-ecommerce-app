@@ -7,7 +7,12 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".ProfileFragment">
-
+    <include
+        android:id="@+id/my_profile_app_bar"
+        layout="@layout/layout_top_bar_not_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
     <RelativeLayout
         android:id="@+id/profile_relative_layout"
         android:layout_width="match_parent"
@@ -35,7 +40,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="0dp"
                 android:text="Wiliam Snoe"
-                android:textColor="#fff"
+                android:textColor="@color/black"
                 android:textSize="21sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -66,7 +71,7 @@
                         android:id="@+id/profile_role_titte"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Role"
+                        android:text="@string/role_label_text"
                         android:textSize="20sp" />
 
                     <TextView
@@ -74,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:text="Customer"
-                        android:textColor="@color/blue_200"
+                        android:textColor="@color/blue_accent_300"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -92,7 +97,7 @@
                         android:id="@+id/profile_rating_label_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ratings"
+                        android:text="@string/rating_label_text"
                         android:textSize="20sp" />
 
                     <TextView
@@ -101,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:text="999"
-                        android:textColor="@color/blue_200"
+                        android:textColor="@color/blue_accent_300"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -119,7 +124,7 @@
                         android:id="@+id/profile_following_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Following"
+                        android:text="@string/following_label_text"
                         android:textSize="20sp" />
 
                     <TextView
@@ -127,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:text="0"
-                        android:textColor="@color/blue_200"
+                        android:textColor="@color/blue_accent_300"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -158,7 +163,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/email_account_drawable"
-                app:tint="#039BE5" />
+                app:tint="@color/blue_accent_300" />
 
             <TextView
                 android:id="@+id/profile_email_tv"
@@ -186,7 +191,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/phone_account_drawable"
-                app:tint="#039BE5" />
+                app:tint="@color/blue_accent_300" />
 
             <EditText
                 android:id="@+id/profile_phone_tv"
@@ -218,7 +223,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/location_account_drawable"
-                app:tint="#039BE5" />
+                app:tint="@color/blue_accent_300" />
 
             <EditText
                 android:id="@+id/profile_address_tv"
@@ -250,7 +255,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/credit_account_drawable"
-                app:tint="#1E88E5" />
+                app:tint="@color/blue_accent_300" />
 
             <EditText
                 android:id="@+id/profile_payment_detail_tv"
@@ -281,7 +286,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 app:srcCompat="@drawable/password_account_drawable"
-                app:tint="#039BE5" />
+                app:tint="@color/blue_accent_300" />
 
             <TextView
                 android:id="@+id/profile_password_tv"
@@ -303,7 +308,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:backgroundTint="#039BE5"
+        android:backgroundTint="@color/blue_accent_300"
         android:hapticFeedbackEnabled="false"
         android:text="Update"
         android:textColor="#fff" />

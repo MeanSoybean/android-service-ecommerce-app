@@ -39,7 +39,11 @@
         android:id="@+id/profile_fragment"
         android:name="com.example.androiddevelopmentgroup7.ProfileFragment"
         android:label="fragment_test2"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_profile_fragment_to_fragment_change_password"
+            app:destination="@id/fragment_change_password" />
+    </fragment>
     <fragment
         android:id="@+id/service_details_vendor_fragment"
         android:name="com.example.androiddevelopmentgroup7.service_details_vendor_fragment"
@@ -56,5 +60,10 @@
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.androiddevelopmentgroup7.OrderDetailsFragment"
         android:label="OrderDetailsFragment" />
+    <fragment
+        android:id="@+id/fragment_change_password"
+        android:name="com.example.androiddevelopmentgroup7.fragment_change_password"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
 
 </navigation>

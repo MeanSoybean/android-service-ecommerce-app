@@ -77,13 +77,16 @@ class AuthActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { acc ->
                     pDialog.dismiss()
-                    if(acc.documents[0].data!!.get("Role").toString().equals("Vendor")){
-                        val homeIntent = Intent(this, MainActivity::class.java)
+                    val homeIntent = Intent(this, MainActivity::class.java)
                         startActivity(homeIntent)
-                    }
-                    else {
-                        Toast.makeText(this, "You are customer", Toast.LENGTH_LONG).show();
-                    }
+                        finish()
+//                    if(acc.documents[0].data!!.get("Role").toString().equals("Vendor")){
+//                        val homeIntent = Intent(this, MainActivity::class.java)
+//                        startActivity(homeIntent)
+//                    }
+//                    else {
+//                        Toast.makeText(this, "You are customer", Toast.LENGTH_LONG).show();
+//                    }
                 }
             //TODO: On Signed In
             // ...

@@ -26,12 +26,13 @@
     <string name="signup_address_hint">Address</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+
     <string name="vendor_my_services">DỊCH VỤ CỦA TÔI</string>
     <string name="edit_btn_text">CHỈNH SỬA</string>
     <string name="pro_details_delete_btn_desc">Xoá dịch vụ này</string>
     <string name="img_item_vendor_service">Hình ảnh dịch vụ</string>
     <string name="vendor_add_service">Thêm dịch vụ mới</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
 
     <string name="add_new_service">Thêm dịch vụ mới</string>
     <string name="type_service_text">Loại dịch vụ</string>
@@ -50,8 +51,6 @@
     <string name="bottom_nav_my_services_label">Dịch vụ</string>
     <string name="bottom_nav_my_order_label">Đơn đặt</string>
     <string name="bottom_nav_my_account">Tài khoản</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!--    service_details_vendor_fragment-->
@@ -107,5 +106,25 @@
     <!--   layout_home -->
     <string name="home_top_app_bar_text">TRANG CHỦ</string>
     <string name="take_schedule">ĐẶT LỊCH</string>
+
+    <!--fragment_user_profile -->
+    <string name="user_profile_top_app_bar_text">Người dùng</string>
+    <string name="role_label_text">Người dùng</string>
+    <string name="rating_label_text">Đánh giá</string>
+    <string name="following_label_text">Đang theo dõi</string>
+
+
+    <!-- fragment_change_password    -->
+    <string name="change_pasword_top_app_bar_text">ĐỔI MẬT KHẨU</string>
+    <string name="change_password_label_text">THAY ĐỔI MẬT KHẨU</string>
+    <string name="cancel_change_password_text">Huỷ bỏ</string>
+    <string name="new_password_hint_label">Nhập mật khẩu mới</string>
+    <string name="current_password_hint_label">Nhập mật khẩu hiện tại</string>
+    <string name="confirm_password_hint_label">Nhập lại mật khẩu mới</string>
+    <string name="current_password_label_text">Mật khẩu hện tại</string>
+    <string name="new_password_label_text">Mật khẩu mới</string>
+    <string name="confirm_password_label_text">Xác nhận mật khẩu</string>
+    <string name="change_password_btn_text">Thay đổi</string>
+
 
 </resources>
