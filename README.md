@@ -1,1 +1,0 @@
-# android-service-ecommerce-app
