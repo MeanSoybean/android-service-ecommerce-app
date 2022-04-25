@@ -1,18 +1,18 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.activities
 
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
-import androidx.activity.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.androiddevelopmentgroup7.dataModels.UserCustomer
-import com.example.androiddevelopmentgroup7.dataModels.UserVendor
-import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.utils.Utils
+import com.example.androiddevelopmentgroup7.models.UserCustomer
+import com.example.androiddevelopmentgroup7.models.UserVendor
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -26,15 +26,12 @@ class MainActivity : AppCompatActivity() {
 
     val db = Firebase.firestore
     private lateinit var navController : NavController
-    private val serviceViewModel: ServiceViewModel by viewModels()
     val auth = Firebase.auth
-    companion object{
-        lateinit var vendorID: String
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123")
-        //auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123")
+        //auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
+        //auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123") //customer
             //.addOnCompleteListener(this) { task ->
                 //if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -99,13 +96,13 @@ class MainActivity : AppCompatActivity() {
             //}
 
 
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     private fun setupNav(role: String){
+
         val bottomNav = findViewById<BottomNavigationView>(R.id.home_bottom_navigation)
 
 
@@ -130,6 +127,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home_customer_fragment -> {bottomNav.visibility = View.VISIBLE}
                 R.id.home_vendor_fragment -> {bottomNav.visibility = View.VISIBLE}
                 R.id.orderServiceFragment -> {bottomNav.visibility = View.VISIBLE}
+                R.id.fragment_communication -> {bottomNav.visibility = View.VISIBLE}
                 R.id.profile_fragment -> {bottomNav.visibility = View.VISIBLE}
                 else -> {bottomNav.visibility = View.GONE}
             }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.example.androiddevelopmentgroup7.service_details_vendor_fragment">
+    tools:context="com.example.androiddevelopmentgroup7.views.fragments.service_details_vendor_fragment">
 
     <include
         android:id="@+id/vendor_top_app_bar"

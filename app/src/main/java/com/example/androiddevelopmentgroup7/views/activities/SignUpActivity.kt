@@ -1,14 +1,16 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.activities
 
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.androiddevelopmentgroup7.views.fragments.ICustomerSignUp
+import com.example.androiddevelopmentgroup7.views.fragments.IVendorSignUp
+import com.example.androiddevelopmentgroup7.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
 
 class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
     private val auth = Firebase.auth

@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.androiddevelopmentgroup7.R
 import com.google.android.material.textfield.TextInputEditText
 
 interface IVendorSignUp {

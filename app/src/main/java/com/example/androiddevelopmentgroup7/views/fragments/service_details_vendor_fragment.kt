@@ -1,11 +1,8 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -17,12 +14,12 @@ import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 // TODO: Rename parameter arguments, choose names that match

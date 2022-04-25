@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signUpVendorFragment"
-        android:name="com.example.androiddevelopmentgroup7.SignUpVendorFragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.SignUpVendorFragment"
         android:label="@string/fragment_sign_up_vendor_label"
         tools:layout="@layout/fragment_sign_up_vendor" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpCustomerFragment"
-        android:name="com.example.androiddevelopmentgroup7.SignUpCustomerFragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.SignUpCustomerFragment"
         android:label="@string/fragment_sign_up_customer_label"
         tools:layout="@layout/fragment_sign_up_customer" >
         <action

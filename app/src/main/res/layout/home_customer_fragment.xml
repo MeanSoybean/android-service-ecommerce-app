@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".home_customer_fragment">
+    tools:context=".views.fragments.home_customer_fragment">
 
     <include
         android:id="@+id/services_app_bar"

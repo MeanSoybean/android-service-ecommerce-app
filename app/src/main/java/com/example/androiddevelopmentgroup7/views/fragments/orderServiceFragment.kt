@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androiddevelopmentgroup7.dataModels.Order
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.utils.Utils
+import com.example.androiddevelopmentgroup7.models.Order
 import com.example.androiddevelopmentgroup7.viewModels.OrderListModel
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -47,7 +49,7 @@ class MyOrderAdapter(private var OrderList:ArrayList<Order>): RecyclerView.Adapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val serviceView = inflater.inflate(R.layout.layout_order_vendor_service, parent, false)
+        val serviceView = inflater.inflate(R.layout.layout_order_service, parent, false)
         return ViewHolder(serviceView)
     }
 

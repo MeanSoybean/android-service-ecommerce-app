@@ -6,7 +6,7 @@
     app:startDestination="@id/home_customer_fragment">
     <fragment
         android:id="@+id/home_customer_fragment"
-        android:name="com.example.androiddevelopmentgroup7.home_customer_fragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.home_customer_fragment"
         android:label="home_customer_fragment"
         tools:layout="@layout/home_customer_fragment" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/home_vendor_fragment"
-        android:name="com.example.androiddevelopmentgroup7.home_vendor_fragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.home_vendor_fragment"
         android:label="home_vendor_fragment" >
         <action
             android:id="@+id/action_home_vendor_fragment_to_service_details_vendor_fragment"
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderServiceFragment"
-        android:name="com.example.androiddevelopmentgroup7.orderServiceFragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.orderServiceFragment"
         android:label="fragment_test1"
         tools:layout="@layout/order_service_fragment" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="com.example.androiddevelopmentgroup7.ProfileFragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.ProfileFragment"
         android:label="fragment_test2"
         tools:layout="@layout/fragment_user_profile" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/service_details_vendor_fragment"
-        android:name="com.example.androiddevelopmentgroup7.service_details_vendor_fragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.service_details_vendor_fragment"
         android:label="service_details_vendor_fragment"
         tools:layout="@layout/service_details_vendor_fragment" >
         <action
@@ -58,12 +58,22 @@
     </fragment>
     <fragment
         android:id="@+id/orderDetailsFragment"
-        android:name="com.example.androiddevelopmentgroup7.OrderDetailsFragment"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.OrderDetailsFragment"
         android:label="OrderDetailsFragment" />
     <fragment
         android:id="@+id/fragment_change_password"
-        android:name="com.example.androiddevelopmentgroup7.fragment_change_password"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_change_password"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/fragment_credit"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_credit"
+        android:label="fragment_credit"
+        tools:layout="@layout/fragment_credit" />
+    <fragment
+        android:id="@+id/fragment_communication"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_communication"
+        android:label="fragment_communication"
+        tools:layout="@layout/fragment_communication" />
 
 </navigation>

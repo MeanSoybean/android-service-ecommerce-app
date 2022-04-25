@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,7 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androiddevelopmentgroup7.dataModels.Service
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.models.Service
+import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.firestore.ktx.firestore
@@ -32,24 +34,7 @@ import com.google.firebase.ktx.Firebase
  * create an instance of this fragment.
  */
 
-class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
-    override fun doInBackground(vararg urls: String): Bitmap? {
-        val imageURL = urls[0]
-        var image: Bitmap? = null
-        try {
-            val `in` = java.net.URL(imageURL).openStream()
-            image = BitmapFactory.decodeStream(`in`)
-        }
-        catch (e: Exception) {
-            Log.e("Error Message", e.message.toString())
-            e.printStackTrace()
-        }
-        return image
-    }
-    override fun onPostExecute(result: Bitmap?) {
-        imageView.setImageBitmap(result)
-    }
-}
+
 
 
 class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
@@ -137,7 +122,7 @@ class home_vendor_fragment : Fragment() {
 
         serviceViewModel.setServiceList()
         val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
-        adapter.onClickListener = object : MyServiceAdapter.OnClickListener{
+        adapter.onClickListener = object : MyServiceAdapter.OnClickListener {
             override fun onEditClick(position: Int) {
                 val service = serviceViewModel.selectedServiceList.value!!.get(position)
                 val bundle = Bundle()

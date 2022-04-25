@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.androiddevelopmentgroup7.views.fragments.orderServiceFragment"
-    >
+    tools:context="com.example.androiddevelopmentgroup7.views.fragments.orderServiceFragment">
 
     <include
         android:id="@+id/orders_app_bar"
@@ -14,12 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <include
-        android:id="@+id/loader_layout"
-        layout="@layout/layout_circular_loader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/orders_app_bar" />
+<!--    <include-->
+<!--        android:id="@+id/loader_layout"-->
+<!--        layout="@layout/layout_circular_loader"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/orders_app_bar" />-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +40,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_service_layout"
-            android:layout_width="match_parent"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -61,20 +60,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/accept_tab_text" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/on_board_tab_text" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/complete_tab_text" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel_tab_text" />
 
 
         </com.google.android.material.tabs.TabLayout>

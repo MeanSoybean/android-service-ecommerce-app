@@ -27,9 +27,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.779"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
             app:layout_constraintTop_toBottomOf="@+id/cost_vendor_service"
             tools:text="Thợ: Huỳnh Hoàng Giang" />
 
@@ -57,25 +55,20 @@
 
             android:secondaryProgressTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/service_image_view"
+            app:layout_constraintStart_toStartOf="@+id/service_image_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.883" />
 
         <TextView
             android:id="@+id/name_vendor_service"
             android:layout_width="234dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="0dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/dark_gray"
             android:textSize="18sp"
             android:textStyle="bold"
-
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Giáo sư Kha chuyên sửa ống nước - sửa ống nước" />
@@ -90,10 +83,8 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
             app:layout_constraintTop_toBottomOf="@+id/name_vendor_service"
             tools:text="Chuyên sửa các loại ống nước lớn nhỏ, sửa luôn tivi, máy vi tính" />
 
@@ -103,9 +94,8 @@
             android:layout_height="23dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/blue_accent_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
             app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
             tools:text="Giá cả: Thương lượng" />
 
@@ -121,10 +111,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.449"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_of_vendor"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/name_of_vendor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

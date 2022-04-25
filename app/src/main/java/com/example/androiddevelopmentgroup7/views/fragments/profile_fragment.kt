@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -11,8 +11,9 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.example.androiddevelopmentgroup7.dataModels.Profile
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.models.Profile
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -60,6 +61,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
         initComponent(view)
+        Log.i("UID", Firebase.auth.currentUser!!.uid.toString())
 
         return view
     }

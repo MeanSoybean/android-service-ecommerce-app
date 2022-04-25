@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androiddevelopmentgroup7.Utils
-import com.example.androiddevelopmentgroup7.dataModels.Service
+import com.example.androiddevelopmentgroup7.utils.Utils
+import com.example.androiddevelopmentgroup7.models.Service
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage

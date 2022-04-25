@@ -1,8 +1,7 @@
-package com.example.androiddevelopmentgroup7
+package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -17,7 +16,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androiddevelopmentgroup7.dataModels.Service
+import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.utils.Utils
+import com.example.androiddevelopmentgroup7.models.Service
+import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.example.androiddevelopmentgroup7.viewModels.UserViewModel
 import com.google.firebase.firestore.ktx.firestore

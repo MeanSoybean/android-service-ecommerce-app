@@ -3,7 +3,7 @@ package com.example.androiddevelopmentgroup7.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.androiddevelopmentgroup7.dataModels.UserCustomer
+import com.example.androiddevelopmentgroup7.models.UserCustomer
 
 
 class UserViewModel  : ViewModel(){

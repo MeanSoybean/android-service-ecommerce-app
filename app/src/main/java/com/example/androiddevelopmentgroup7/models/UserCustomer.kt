@@ -1,4 +1,4 @@
-package com.example.androiddevelopmentgroup7.dataModels
+package com.example.androiddevelopmentgroup7.models
 
 data class UserCustomer(
     var AccountID: String,

@@ -51,6 +51,8 @@
     <string name="bottom_nav_my_services_label">Dịch vụ</string>
     <string name="bottom_nav_my_order_label">Đơn đặt</string>
     <string name="bottom_nav_my_account">Tài khoản</string>
+    <string name="bottom_nav_activity_text">Hoạt động</string>
+    <string name="bottom_nav_credit">Thanh toán</string>
 
 
     <!--    service_details_vendor_fragment-->
@@ -125,6 +127,8 @@
     <string name="new_password_label_text">Mật khẩu mới</string>
     <string name="confirm_password_label_text">Xác nhận mật khẩu</string>
     <string name="change_password_btn_text">Thay đổi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
