@@ -1,10 +1,12 @@
 package com.example.androiddevelopmentgroup7.models
 
 data class Profile(
-    var AccountID: String,
-    var Name: String,
-    var PhoneNumber: String,
-    var Address: String,
-    var Rating: Long,
-    var PaymentDetails: String
+    var email: String,
+    var name: String,
+    var phoneNumber: String,
+    var address: String,
+    var rating: String,
+    var paymentDetails: String,
+    var accountID: String
+
 )

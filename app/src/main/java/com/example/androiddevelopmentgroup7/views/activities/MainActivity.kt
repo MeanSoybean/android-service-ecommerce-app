@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
+        auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
         //auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123") //customer
-            //.addOnCompleteListener(this) { task ->
-                //if (task.isSuccessful) {
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     user = auth.currentUser!!
                     db.collection("Accounts")
@@ -89,11 +89,11 @@ class MainActivity : AppCompatActivity() {
 
 
                         }
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.i("Login Fail", "createUserWithEmail:failure", task.exception)
-//                }
-            //}
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.i("Login Fail", "createUserWithEmail:failure", task.exception)
+                }
+            }
 
 
     }

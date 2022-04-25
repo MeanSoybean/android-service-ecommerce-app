@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -28,12 +27,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProfileFragment : Fragment() {
-
     val database = Firebase.firestore
+    val auth = Firebase.auth
     var profile: Profile?= null
 
     lateinit var changePasswordText: TextView
-    lateinit var update_btn: Button
+    lateinit var profile_update_tv: TextView
 
     var profile_email_tv: TextView?= null
     var profile_mobile_tv: TextView?= null
@@ -61,7 +60,9 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
         initComponent(view)
-        Log.i("UID", Firebase.auth.currentUser!!.uid.toString())
+        getProfile(auth.currentUser!!.uid)
+
+        Log.i("UID", auth.currentUser!!.uid)
 
         return view
     }
@@ -73,27 +74,26 @@ class ProfileFragment : Fragment() {
         this.profile_rating_tv = view.findViewById(R.id.profile_rating_tv)
         this.profile_payment_details_tv = view.findViewById(R.id.profile_payment_detail_tv)
         this.changePasswordText = view.findViewById(R.id.profile_password_tv)
-        this.update_btn = view.findViewById(R.id.update_btn)
+        this.profile_update_tv = view.findViewById(R.id.profile_update_tv)
 
         this.changePasswordText.setOnClickListener() {
             findNavController().navigate(R.id.action_profile_fragment_to_fragment_change_password)
         }
 
-        this.update_btn.setOnClickListener() {
+        this.profile_update_tv.setOnClickListener() {
             updateProfile()
             Toast.makeText(activity, "The information were updated successfully.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun displayDataInFragment(profile: Profile) {
-        profile_email_tv!!.setText(profile.AccountID)
-        profile_mobile_tv!!.setText(profile.PhoneNumber)
-        profile_name_tv!!.setText(profile.Name)
-        profile_address_tv!!.setText(profile.Address)
-        profile_rating_tv!!.setText(profile.Rating.toString())
-        profile_payment_details_tv!!.setText(profile.PaymentDetails)
+        profile_email_tv!!.setText(profile.email)
+        profile_mobile_tv!!.setText(profile.phoneNumber)
+        profile_name_tv!!.setText(profile.name)
+        profile_address_tv!!.setText(profile.address)
+        profile_rating_tv!!.setText(profile.rating)
+        profile_payment_details_tv!!.setText(profile.paymentDetails)
     }
-
 
     private fun getProfile(accountID: String) {
         database.collection("Customers")
@@ -101,15 +101,15 @@ class ProfileFragment : Fragment() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    this.profile = Profile(
-                        document.data.get("AccountID") as String,
-                        document.data.get("Name") as String,
-                        document.data.get("PhoneNumber") as String,
-                        document.data.get("Address") as String,
-                        document.data.get("Rating") as Long,
-                        document.data.get("PaymentDetails") as String
+                    profile = Profile(
+                        document.data.get("email") as String,
+                        document.data.get("name") as String,
+                        document.data.get("phoneNumber") as String,
+                        document.data.get("address") as String,
+                        document.data.get("rating") as String,
+                        document.data.get("paymentDetails") as String,
+                        document.data.get("accountID") as String
                     )
-                    //profile!!.showAccountID()
                     displayDataInFragment(profile!!)
                 }
             }
@@ -120,15 +120,16 @@ class ProfileFragment : Fragment() {
 
     private fun updateProfile() {
         val new_profile = Profile(
-            this.profile_email_tv!!.getText().toString(),
+            profile_email_tv!!.getText().toString(),
             profile_name_tv!!.getText().toString(),
             profile_mobile_tv!!.getText().toString(),
             profile_address_tv!!.getText().toString(),
-            profile_rating_tv!!.getText().toString().toLong(),
-            profile_payment_details_tv!!.getText().toString())
+            profile_rating_tv!!.getText().toString(),
+            profile_payment_details_tv!!.getText().toString(),
+            auth.currentUser!!.uid)
 
         database.collection("Customers")
-            .document("Customer")
+            .document(auth.currentUser!!.uid)
             .set(new_profile)
 
     }
