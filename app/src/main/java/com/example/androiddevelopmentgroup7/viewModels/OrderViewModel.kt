@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.Order
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -87,9 +88,47 @@ class OrderListModel :  ViewModel(){
                 orderStatus.value = Utils.LOADER_HIDE
             }
     }
+
     fun addOrderToList(service: Order){
         OrderList.value?.add(service)
         Log.i("AAA", OrderList.value?.size.toString())
     }
+
+    private fun setOrderFromSnapshotDoc(snapshot: DocumentSnapshot): Order{
+        val order = Order(
+            snapshot.data!!.get("idOrder").toString(),
+            snapshot.data!!.get("idVendor").toString(),
+            snapshot.data!!.get("idCustomer").toString(),
+            snapshot.data!!.get("serviceName").toString(),
+            snapshot.data!!.get("nameVendor").toString(),
+            snapshot.data!!.get("timeOrder").toString(),
+            snapshot.data!!.get("timeComing").toString(),
+            snapshot.data!!.get("orderAddress").toString(),
+            snapshot.data!!.get("orderCurrent").toString(),
+            snapshot.data!!.get("price").toString(),
+            snapshot.data!!.get("timeOrder").toString(),
+            snapshot.data!!.get("serviceImage").toString(),
+        )
+        return order
+    }
+//    fun setOrderListVendorWaiting(){
+//        val orderListTemp = ArrayList<Order>()
+//        OrderList.value = orderListTemp
+//        orderStatus.value = Utils.LOADER_LOADING
+//        //Log.i("VENDROID", Utils.vendor.id)
+//        db.collection("OrderListing")
+//            .whereEqualTo("idVendor", Utils.vendor.id)
+//            .whereEqualTo("orderCurrent", )
+//            .get()
+//            .addOnSuccessListener { orders ->
+//                Log.i("NUMBER ORDER", orders.documents.size.toString())
+//                for(order in orders){
+//                    orderListTemp.add()
+//
+//                }
+//                OrderList.value = orderListTemp
+//                orderStatus.value = Utils.LOADER_HIDE
+//            }
+//    }
 }
 

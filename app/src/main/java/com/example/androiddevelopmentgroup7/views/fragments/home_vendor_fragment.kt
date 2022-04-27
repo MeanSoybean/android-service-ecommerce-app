@@ -63,13 +63,9 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
-
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
-//        holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
 
-                //
-//        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
 
         //event
         holder.service_edit_btn.setOnClickListener {
@@ -102,7 +98,6 @@ class home_vendor_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
-    //val vendorID = "CbcUnjIZh9tqHrxeuxEP"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +129,10 @@ class home_vendor_fragment : Fragment() {
                 bundle.putString("price", service.servicePrice)
                 bundle.putString("contact", service.servicePhoneNumber)
                 bundle.putString("image", service.serviceImage)
+                bundle.putBoolean("negotiate", service.negotiate)
+                bundle.putString("vendorID", service.vendorID)
+                bundle.putString("vendorName", service.vendorName)
+                bundle.putFloat("rating", service.serviceRating)
                 findNavController().navigate(R.id.action_home_vendor_fragment_to_service_details_vendor_fragment, bundle)
             }
             override fun onDeleteClick(position: Int) {

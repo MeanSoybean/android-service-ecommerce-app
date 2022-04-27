@@ -5,7 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context="com.example.androiddevelopmentgroup7.views.activities.MainActivity">
-
     <include
         android:id="@+id/services_app_bar"
         layout="@layout/layout_top_bar_not_icon"
@@ -73,6 +72,6 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:translationY="-8dp"/>
+        android:translationY="-8dp" />
 
 </RelativeLayout>

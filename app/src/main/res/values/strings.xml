@@ -43,8 +43,16 @@
     <string name="vendor_imge_label_text">Hình ảnh minh hoạ</string>
     <string name="add_service_btn_text">Thêm dịch vụ</string>
     <string name="add_images_label_text">Thêm hình ảnh cho dịch vụ</string>
-
-
+    <!--fragment_service_detail    -->
+    <string name="detail_service_app_tittle_text">CHI TIẾT DỊCH VỤ</string>
+    <string name="vendor_text">Thợ</string>
+    <string name="customer_name">Tên khách hàng</string>
+    <string name="customer_address">Địa chỉ</string>
+    <string name="customer_phone">Số điện thoại</string>
+    <string name="order_service_text">ĐẶT LỊCH</string>
+    <string name="order_dialog_title_text">Đặt lịch hẹn?</string>
+    <string name="order_service_message_text">Bạn chắn chắn muốn đặt lịch dịch vụ này?</string>
+    <string name="order_dialog_btn_text">Đặt lịch</string>
     <!--   Bottom navigation bar-->
     <string name="bottom_nav_home_label">Trang chủ</string>
     <string name="bottom_nav_chat_label">Dịch vụ</string>
@@ -58,12 +66,13 @@
     <!--    service_details_vendor_fragment-->
     <string name="name_service_emty_string">Vui lòng nhập tên dịch vụ</string>
     <string name="description_service_emty_string">Vui lòng nhập mô tả dịch vụ</string>
-    <string name="cost_service_emty_string">Vui lòng nhập mô tả dịch vụ</string>
+    <string name="cost_service_emty_string">Vui lòng nhập giá dịch vụ</string>
     <string name="contact_service_emty_string">SĐT không được trống và đúng định dạng</string>
     <string name="image_service_emty_string">Vui lòng nhập hình ảnh dịch vụ</string>
     <string name="save_edit_string">Lưu</string>
     <string name="edit_tittle_string">Chỉnh sửa dịch vụ</string>
-
+    <string name="negotiate_text">Thương lượng</string>
+    <string name="cost_text">Nhập giá</string>
     <!-- home_vendor_fragment-->
     <string name="delete_dialog_title_text">Xoá dịch vụ này?</string>
     <string name="delete_service_message_text">Bạn không thể khôi phục dịch vụ này nếu xoá</string>
@@ -81,7 +90,7 @@
     <string name="time_order_text">Thời gian đặt hàng</string>
     <string name="price_order_text">Giá tiền</string>
     <string name="all_tab_text">Tất cả</string>
-    <string name="accept_tab_text">Xác nhận</string>
+    <string name="accept_tab_text">Đang chờ</string>
     <string name="on_board_tab_text">Tiến Hành</string>
     <string name="complete_tab_text">Hoàn thành</string>
     <string name="cancel_tab_text">Đã huỷ</string>
@@ -104,6 +113,8 @@
     <string name="pro_details_like_btn_desc">Like Button</string>
     <string name="product_detail_image_desc">"ImageDescription "</string>
     <string name="NOTIFICATION">Thông báo</string>
+    <string name="accept_order_text">Xác nhận</string>
+    <string name="cancle_order_text">Từ chối</string>
 
     <!--   layout_home -->
     <string name="home_top_app_bar_text">TRANG CHỦ</string>

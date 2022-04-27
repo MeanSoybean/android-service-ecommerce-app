@@ -9,8 +9,8 @@ data class Order(
     var timeOrder:String,
     var timeComing:String,
     var orderAddress:String,
-    var IdCurrent:String,
     var orderCurrent:String,
     var price:String,
     var serviceImage:String,
+    var phoneNumber: String,
 )

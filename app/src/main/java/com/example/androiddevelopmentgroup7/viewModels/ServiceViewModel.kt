@@ -54,9 +54,10 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceRating").toString().toFloat(),
                         service.data.get("vendorID").toString(),
                         service.data.get("vendorName").toString(),
+                        service.data.get("negotiate").toString().toBoolean()
                     )
                     serviceTemp.serviceID = service.id
-                    Log.i("ServiceRating", serviceTemp.serviceRating.toString())
+                    //Log.i("ServiceRating", serviceTemp.serviceRating.toString())
                     temp.add(serviceTemp)
                 }
                 serviceList.value = temp
@@ -71,10 +72,8 @@ class ServiceViewModel :  ViewModel() {
 
     fun setServiceListForUser() {
         status.value = "loading"
-//        serviceList.value = serviceListArg
         val temp = ArrayList<Service>()
         serviceList.value = temp
-//        Log.i("VENDORID", Utils.vendor.id)
         db.collection("ServiceListings")
             .get()
             .addOnSuccessListener { services ->
@@ -90,9 +89,9 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceRating").toString().toFloat(),
                         service.data.get("vendorID").toString(),
                         service.data.get("vendorName").toString(),
+                        service.data.get("negotiate").toString().toBoolean(),
                     )
                     serviceTemp.serviceID = service.id
-                    Log.i("ServiceRating", serviceTemp.serviceRating.toString())
                     temp.add(serviceTemp)
                 }
                 serviceList.value = temp
@@ -104,7 +103,7 @@ class ServiceViewModel :  ViewModel() {
 
     }
 
-    fun addServiceToList(service: HashMap<String, String>) {
+    fun addServiceToList(service:Service) {
 
         db.collection("ServiceListings")
             .add(service)
@@ -114,7 +113,7 @@ class ServiceViewModel :  ViewModel() {
 
     }
 
-    fun uploadFileAndSaveService(imageUri: Uri, service: HashMap<String, String>){
+    fun uploadFileAndSaveService(imageUri: Uri, service:Service){
         // Create a reference to ""
 
         status.value = "loading"
@@ -132,7 +131,8 @@ class ServiceViewModel :  ViewModel() {
             //uploadTask.getResult().
             fileRef.downloadUrl.addOnSuccessListener { url ->
                 //Log.i("URL", url.toString())
-                service.set("serviceImage", url.toString())
+//                service.set("serviceImage", url.toString())
+                service.serviceImage = url.toString()
                 addServiceToList(service)
             }
         }
@@ -149,11 +149,11 @@ class ServiceViewModel :  ViewModel() {
     }
 
 
-    fun uploadFileAndUpdateService(imageUri: Uri, service: HashMap<String, String>, position: Int){
+    fun uploadFileAndUpdateService(imageUri: Uri, service: Service, position: Int){
         // Create a reference to ""
         status.value = "loading"
-        deleteImageFromUrl(service.get("serviceImage")!!)
-
+//        deleteImageFromUrl(service.get("serviceImage")!!)
+        deleteImageFromUrl(service.serviceImage)
         val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN)
         val now = Date()
 
@@ -168,15 +168,16 @@ class ServiceViewModel :  ViewModel() {
         }.addOnSuccessListener { taskSnapshot ->
             //uploadTask.getResult().
             fileRef.downloadUrl.addOnSuccessListener { url ->
+
                 Log.i("URL", url.toString())
-                service.set("serviceImage", url.toString())
+                service.serviceImage = url.toString()
+                //service.set("serviceImage", url.toString())
                 updateService(position, service)
             }
         }
     }
 
-    fun updateService(position: Int, service: HashMap<String, String>) {
-
+    fun updateService(position: Int, service: Service) {
         db.collection("ServiceListings")
             .document(serviceList.value!!.get(position).serviceID)
             .set(service)

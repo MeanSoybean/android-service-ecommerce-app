@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
             app:destination="@id/orderServiceFragment" />
+        <action
+            android:id="@+id/action_home_customer_fragment_to_fragment_service_detail"
+            app:destination="@id/fragment_service_detail" />
     </fragment>
     <fragment
         android:id="@+id/home_vendor_fragment"
@@ -75,5 +78,9 @@
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_communication"
         android:label="fragment_communication"
         tools:layout="@layout/fragment_communication" />
+    <fragment
+        android:id="@+id/fragment_service_detail"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_service_detail"
+        android:label="fragment_service_detail" />
 
 </navigation>

@@ -28,10 +28,6 @@
             android:layout_below="@id/order_detail_app_bar"
             android:paddingBottom="72dp">
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/order_details_constraint_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/order_details_pro_label_tv"
@@ -212,6 +208,33 @@
                 app:layout_constraintTop_toTopOf="@+id/price_total_label_tv"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="300.000VND" />
+
+            <Button
+                android:id="@+id/accept_service_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue_accent_300"
+                android:padding="16dp"
+                android:text="@string/accept_order_text"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/price_total_amount_tv"
+                app:layout_constraintTop_toBottomOf="@+id/price_total_amount_tv" />
+
+            <Button
+                android:id="@+id/cancle_service_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/blue_shadow_color"
+                android:padding="16dp"
+                android:text="@string/cancle_order_text"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/accept_service_btn"
+                app:layout_constraintTop_toBottomOf="@+id/price_total_amount_tv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
