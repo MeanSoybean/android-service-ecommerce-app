@@ -51,6 +51,7 @@ class fragment_service_detail : Fragment() {
     private var serviceContact:TextView? = null
     private var servicePrice:TextView? = null
     private var orderBtn: Button? = null
+    private var serviceInformationVendorBtn:Button? = null
     private var toolbar:MaterialToolbar? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,13 +84,11 @@ class fragment_service_detail : Fragment() {
         return view
     }
 
-
     private fun setEventBtnClick(){
         orderBtn?.setOnClickListener {
             showAcceptDialog()
         }
     }
-
 
     private fun showAcceptDialog() {
         context?.let {
@@ -120,8 +119,8 @@ class fragment_service_detail : Fragment() {
         serviceType = view.findViewById(R.id.service_type_text)
         toolbar = view.findViewById(R.id.topAppBar)
         orderBtn = view.findViewById(R.id.accept_service_btn)
+        serviceInformationVendorBtn = view.findViewById(R.id.information_vendor_btn)
     }
-
     private fun setValue(){
         DownloadImageFromInternet(serviceImageView!!).execute(image)
         serviceName?.setText(name)
@@ -133,6 +132,11 @@ class fragment_service_detail : Fragment() {
         servicePrice?.setText(price + " VNĐ")
         toolbar?.setTitle(getString(R.string.detail_service_app_tittle_text))
         toolbar?.setNavigationOnClickListener { findNavController().popBackStack() }
+        serviceInformationVendorBtn?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("vendorID", vendorID)
+            findNavController().navigate(R.id.action_fragment_service_detail_to_fragment_vendor_information, bundle)
+        }
     }
     companion object {
         /**

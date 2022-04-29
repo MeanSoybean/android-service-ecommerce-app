@@ -92,6 +92,7 @@ class home_customer_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     var m_text= ""
+    var mapBtn:Button? = null
     var autoCompleteTV: AutoCompleteTextView? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,8 +109,9 @@ class home_customer_fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_customer_fragment, container, false)
+        initComponent(rootView)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
-
+        mapBtn?.setOnClickListener { findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_near_service_location) }
         serviceViewModel.setServiceListForUser()
         val adapter = MyServiceAdapterCustomerPage(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
@@ -181,28 +183,32 @@ class home_customer_fragment : Fragment() {
 
 
         }
-        val items = serviceViewModel.selectedServiceList.value!!
-        val name_service = ArrayList<String>()
-        for (item in items){
-            name_service.add(item.serviceName)
-        }
+//        val items = serviceViewModel.selectedServiceList.value!!
+//        val name_service = ArrayList<String>()
+//        for (item in items){
+//            name_service.add(item.serviceName)
+//        }
 
-        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
-        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
-        autoCompleteTV!!.setAdapter(adapter1)
-        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-        })
+//        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
+//        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
+//        autoCompleteTV!!.setAdapter(adapter1)
+//        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(p0: Editable?) {}
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//
+//            }
+//        })
 
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyDataSetChanged()
         })
         return rootView
+    }
+
+    private fun initComponent(view:View){
+        mapBtn = view.findViewById(R.id.view_on_map_btn)
     }
 
 //    companion object {

@@ -53,6 +53,16 @@
     <string name="order_dialog_title_text">Đặt lịch hẹn?</string>
     <string name="order_service_message_text">Bạn chắn chắn muốn đặt lịch dịch vụ này?</string>
     <string name="order_dialog_btn_text">Đặt lịch</string>
+    <!--  layout_home_bar  -->
+    <string name="search_placeholder_text">Tìm kiếm dịch vụ</string>
+
+    <!-- home_customer_fragment   -->
+    <string name="view_on_map_text">Bản đồ</string>
+    <string name="home_sort_text">Sắp xếp</string>
+    <string name="home_filter_text">Lọc:</string>
+    <string name="home_type_service_text">Loại</string>
+    <string name="home_price_service_text">Giá</string>
+
     <!--   Bottom navigation bar-->
     <string name="bottom_nav_home_label">Trang chủ</string>
     <string name="bottom_nav_chat_label">Dịch vụ</string>
@@ -62,6 +72,8 @@
     <string name="bottom_nav_activity_text">Hoạt động</string>
     <string name="bottom_nav_credit">Thanh toán</string>
 
+    <!-- fragment_near_service_detail  -->
+    <string name="map_app_tittle_text">DỊCH VỤ GẦN ĐÂY</string>
 
     <!--    service_details_vendor_fragment-->
     <string name="name_service_emty_string">Vui lòng nhập tên dịch vụ</string>
@@ -99,6 +111,7 @@
     <string name="order_detail_top_app_bar_text">CHI TIẾT ĐƠN DỊCH VỤ</string>
     <string name="products_label_text">Dịch vụ</string>
     <string name="add_img_item_desc">Ảnh dịch vụ</string>
+    <string name="information_vendor_text">Thông tin thợ</string>
     <string name="shipping_details_label_text">Chi tiết dịch vụ</string>
     <string name="change_status_label_text">Change Order Status Button</string>
     <string name="ship_date_text">Thời gian đến</string>

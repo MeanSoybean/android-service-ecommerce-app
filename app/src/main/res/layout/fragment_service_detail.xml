@@ -58,6 +58,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/order_details_pro_label_tv"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+            <Button
+                android:id="@+id/information_vendor_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue_accent_300"
+                android:padding="16dp"
+                android:text="@string/information_vendor_text"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/service_price"
+                app:layout_constraintEnd_toEndOf="@+id/order_details_pro_label_tv"
+                app:layout_constraintTop_toTopOf="@+id/service_name" />
+
             <TextView
                 android:id="@+id/service_name"
                 android:layout_width="0dp"
@@ -101,6 +115,7 @@
                 android:text="@string/type_service_text"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/dark_gray"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/service_image_view" />
 
@@ -125,6 +140,7 @@
                 android:text="@string/vendor_description_service_text"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/dark_gray"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/service_type_text" />
 
