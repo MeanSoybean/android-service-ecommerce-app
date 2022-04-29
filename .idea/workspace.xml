@@ -15,17 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b79053a9-c6a2-4035-bcf5-95ba0da485d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/profile_border.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/account_circle_drawable.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_chat.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/image_message_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/text_message_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/models/Profile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/models/Profile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/activities/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/fragments/profile_fragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/fragments/profile_fragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_vendor_my_service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_vendor_my_service.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +105,7 @@
     <property name="android-custom-viewC:/Users/khatu/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.5.0/8d3b87c7463f55053836b805e014cb238f64757a/material-1.5.0-sources.jar!/com/google/android/material/button/MaterialButton.java_MaterialButton_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/khatu/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.5.0/8d3b87c7463f55053836b805e014cb238f64757a/material-1.5.0-sources.jar!/com/google/android/material/button/MaterialButton.java_SELECTED" value="MaterialButton" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../shopping-android-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -116,11 +113,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\drawable" />
+      <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\layout" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\res\drawable" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\viewModels" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\dataModels" />
-      <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app" />
-      <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\res\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\views\fragments" />
