@@ -20,6 +20,7 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_service_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_service_detail.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,6 +105,7 @@
     <property name="android-custom-viewC:/Users/khatu/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.5.0/8d3b87c7463f55053836b805e014cb238f64757a/material-1.5.0-sources.jar!/com/google/android/material/navigation/NavigationBarView.java_SELECTED" value="NavigationBarView" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -111,11 +113,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\drawable" />
+      <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\layout" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\res\drawable" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\viewModels" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\dataModels" />
-      <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app" />
-      <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\res\layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\views\fragments" />
