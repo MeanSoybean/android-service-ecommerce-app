@@ -51,9 +51,10 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/person_account_drawable" />
+                        android:src="@drawable/person_account_drawable"
+                        tools:src="@tools:sample/avatars[2]" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/profile_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -193,7 +194,7 @@
 
                     <TextView
                         android:id="@+id/profile_email_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:focusableInTouchMode="false"
@@ -223,7 +224,7 @@
                     <EditText
                         android:id="@+id/profile_phone_tv"
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
@@ -256,7 +257,7 @@
                     <EditText
                         android:id="@+id/profile_address_tv"
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
@@ -289,7 +290,7 @@
                     <EditText
                         android:id="@+id/profile_payment_detail_tv"
 
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
@@ -320,7 +321,7 @@
 
                     <TextView
                         android:id="@+id/profile_password_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="25dp"
