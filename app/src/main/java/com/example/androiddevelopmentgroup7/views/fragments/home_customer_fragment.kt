@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androiddevelopmentgroup7.R
@@ -49,19 +50,21 @@ class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>):
         init {
             val messageBtnTemp = listItemView.findViewById<Button>(R.id.service_edit_btn)
             messageBtnTemp.setOnClickListener {
-                Log.i("AAA", "ONCLIC")
                 onButtonClick?.invoke(serviceList[adapterPosition])
             }
+            listItemView.setOnClickListener { onClick?.invoke(serviceList[adapterPosition], adapterPosition) }
         }
     }
 
 
     var onButtonClick: ((Service) -> Unit)? = null
-
+    var onClick:((Service, Int) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val serviceView = inflater.inflate(R.layout.layout_home, parent, false)
+
+
         return ViewHolder(serviceView)
     }
 
@@ -71,11 +74,8 @@ class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>):
         holder.name_of_vendor.text = serviceList.get(position).serviceName
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice
-        // holder.service_image_view.setBackgroundResource(R.drawable.ic_add_48)
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
-//        holder.contact_vendor_service.text = serviceList.get(position).serviceContact
-        //event
 
     }
 
@@ -92,9 +92,9 @@ class home_customer_fragment : Fragment() {
 //    private var param1: String? = null
 //    private var param2: String? = null
     var m_text= ""
+    var mapBtn:Button? = null
     var autoCompleteTV: AutoCompleteTextView? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
-    private val userViewModel: UserViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
@@ -109,13 +109,29 @@ class home_customer_fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_customer_fragment, container, false)
+        initComponent(rootView)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
-
+        mapBtn?.setOnClickListener { findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_near_service_location) }
         serviceViewModel.setServiceListForUser()
         val adapter = MyServiceAdapterCustomerPage(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
         recyclerView_services.layoutManager = LinearLayoutManager(activity)
-
+        adapter.onClick = { service, position ->
+            val bundle = Bundle()
+            bundle.putInt("position", position)
+            bundle.putString("type", service.serviceType)
+            bundle.putString("name", service.serviceName)
+            bundle.putString("description", service.serviceDescription)
+            bundle.putString("price", service.servicePrice)
+            bundle.putString("contact", service.servicePhoneNumber)
+            bundle.putString("image", service.serviceImage)
+            bundle.putBoolean("negotiate", service.negotiate)
+            bundle.putString("vendorID", service.vendorID)
+            bundle.putFloat("rating", service.serviceRating)
+            bundle.putString("vendorName", service.vendorName)
+            bundle.putString("serviceID", service.serviceID)
+            findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_service_detail, bundle)
+        }
         adapter.onButtonClick = { servicetemp ->
 //            val userList = userViewModel.selectedServiceList.value!!
 //            val user = userList[0]
@@ -166,31 +182,33 @@ class home_customer_fragment : Fragment() {
             builder.show()
 
 
-
         }
-        val items = serviceViewModel.selectedServiceList.value!!
-        val name_service = ArrayList<String>()
-        for (item in items){
-            name_service.add(item.serviceName)
-        }
+//        val items = serviceViewModel.selectedServiceList.value!!
+//        val name_service = ArrayList<String>()
+//        for (item in items){
+//            name_service.add(item.serviceName)
+//        }
 
-        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
-        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
-        autoCompleteTV!!.setAdapter(adapter1)
-        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-        })
-
+//        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
+//        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
+//        autoCompleteTV!!.setAdapter(adapter1)
+//        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
+//            override fun afterTextChanged(p0: Editable?) {}
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//
+//            }
+//        })
 
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
-            adapter.notifyItemInserted(list.size - 1)
+            adapter.notifyDataSetChanged()
         })
         return rootView
+    }
+
+    private fun initComponent(view:View){
+        mapBtn = view.findViewById(R.id.view_on_map_btn)
     }
 
 //    companion object {

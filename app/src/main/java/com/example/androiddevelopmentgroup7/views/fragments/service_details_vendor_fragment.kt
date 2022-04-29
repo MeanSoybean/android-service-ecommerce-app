@@ -5,6 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +18,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.models.Service
 import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
+import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputEditText
@@ -36,7 +41,7 @@ import com.google.android.material.textfield.TextInputLayout
 class service_details_vendor_fragment : Fragment(){
 
 
-//    // TODO: Rename and change types of parameters
+    //    // TODO: Rename and change types of parameters
     private var typeActivity: String? = null
     private var type:String? = null
     private var name:String? = null
@@ -45,9 +50,7 @@ class service_details_vendor_fragment : Fragment(){
     private var contact:String? = null
     private var image:String? = null
     private var position:Int? = null
-
-
-    private val vendorID = "CbcUnjIZh9tqHrxeuxEP"
+    private var negotiate:Boolean? = null
 
     //val db = Firebase.firestore
     private val serviceViewModel : ServiceViewModel by activityViewModels()
@@ -62,7 +65,7 @@ class service_details_vendor_fragment : Fragment(){
     private lateinit var serviceCost: TextInputEditText
     private lateinit var serviceContact: TextInputEditText
     private lateinit var serviceImage: ImageView
-
+    private lateinit var serviceNegotiate: AutoCompleteTextView
 
     private lateinit var serviceTypeLayout: TextInputLayout
     private lateinit var serviceNameLayout: TextInputLayout
@@ -71,7 +74,6 @@ class service_details_vendor_fragment : Fragment(){
     private lateinit var serviceContactLayout: TextInputLayout
     private lateinit var serviceImageLayout: TextInputLayout
     private lateinit var imageUri:Uri
-
     private var isSetImage: Boolean = false
     companion object{
         val INTENT_SELECT_IMAGE: Int = 10000
@@ -87,6 +89,7 @@ class service_details_vendor_fragment : Fragment(){
             contact = it.getString("contact")
             image = it.getString("image")
             position = it.getInt("position")
+            negotiate = it.getBoolean("negotiate")
         }
     }
 
@@ -106,6 +109,7 @@ class service_details_vendor_fragment : Fragment(){
         serviceName = viewBinding.findViewById(R.id.vendor_name_service_edit_text)
         serviceDescription = viewBinding.findViewById(R.id.vendor_description_service_edit_text)
         serviceCost = viewBinding.findViewById(R.id.vendor_cost_service_edit_text)
+        serviceNegotiate = viewBinding.findViewById(R.id.vendor_negotiate_service_edit_text)
         serviceContact = viewBinding.findViewById(R.id.vendor_contact_edit_text)
         serviceImage = viewBinding.findViewById(R.id.descriptionImage)
 
@@ -115,23 +119,51 @@ class service_details_vendor_fragment : Fragment(){
         serviceContactLayout = viewBinding.findViewById(R.id.contactServiceTextField)
         serviceImageLayout = viewBinding.findViewById(R.id.imageServiceTextField)
 
-
         serviceViewModel.setServicesTypeFromDatabase() // custom adapter for select services
 
+        val costValue = arrayOf(getString(R.string.negotiate_text), getString(R.string.cost_text))
+        val negotiateAdapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, costValue)
+        serviceNegotiate.setAdapter(negotiateAdapter)
+        serviceNegotiate.setText(getString(R.string.negotiate_text), false)
+        serviceCost.setText(getString(R.string.negotiate_text))
+        serviceCost.isEnabled = false
+
+        serviceNegotiate.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+                    serviceCost.isEnabled = false
+                    serviceCost.setText(getString(R.string.negotiate_text))
+                } else{
+                    serviceCost.isEnabled = true
+                    serviceCost.inputType = InputType.TYPE_CLASS_NUMBER
+                    serviceCost.setText("")
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
         //Event listener
         addBtn.setOnClickListener{
             if(processingData())
             {
-                val service = hashMapOf(
-                "serviceType" to serviceType.text.toString(),
-                "serviceName" to serviceName.text.toString(),
-                "serviceDescription" to  serviceDescription.text.toString(),
-                "servicePrice" to  serviceCost.text.toString(),
-                "serviceImage" to "",
-                "servicePhoneNumber" to serviceContact.text.toString(),
-                "vendorName" to "Tran Tuan Kha",
-                "vendorID" to vendorID,
-                "serviceRating" to "5",)
+                var isNegotiate = false
+                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+                    isNegotiate = true
+                }
+                val service = Service(
+                    serviceType.text.toString(),
+                    serviceName.text.toString(),
+                    serviceDescription.text.toString(),
+                    serviceCost.text.toString(),
+                    serviceContact.text.toString(),
+                    "",
+                    5.0.toFloat(),
+                    Utils.vendor.id,
+                    Utils.vendor.Name,
+                    isNegotiate,
+                )
                 serviceViewModel.uploadFileAndSaveService(imageUri, service)
             }
         }
@@ -159,14 +191,12 @@ class service_details_vendor_fragment : Fragment(){
             }
         })
 
-
         serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypes ->
             // Update the list UI
 
             if(typeActivity.equals("edit")){
                 serviceType.setText(type, false)
             } else serviceType.setText(serviceTypes.get(0), false)
-            Log.i("ViewModelChange", "CHange")
             val adapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, serviceTypes)
             serviceType.setAdapter(adapter)
         })
@@ -174,27 +204,33 @@ class service_details_vendor_fragment : Fragment(){
 
         if(typeActivity.equals("edit")){
             toolbar.setTitle(R.string.edit_tittle_string)
-            Log.i("setType", "set")
+            if(!negotiate!!){
+                serviceNegotiate.setText(getString(R.string.cost_text),false)
+                serviceCost.setText(price)
+            }
             //serviceType.setText(type)
             serviceName.setText(name)
             serviceDescription.setText(description)
-            serviceCost.setText(price)
             serviceContact.setText(contact)
             DownloadImageFromInternet(serviceImage).execute(image)
-
             addBtn.setText(R.string.save_edit_string)
             addBtn.setOnClickListener {
                 if(processingDataForUpdate()) {
-                    val service = hashMapOf(
-                        "serviceType" to serviceType.text.toString(),
-                        "serviceName" to serviceName.text.toString(),
-                        "serviceDescription" to  serviceDescription.text.toString(),
-                        "servicePrice" to  serviceCost.text.toString(),
-                        "serviceImage" to image!!,
-                        "servicePhoneNumber" to serviceContact.text.toString(),
-                        "vendorName" to "Tran Tuan Kha",
-                        "vendorID" to vendorID,
-                        "serviceRating" to "5",
+                    var isNegotiate = false
+                    if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+                        isNegotiate = true
+                    }
+                    val service = Service(
+                        serviceType.text.toString(),
+                        serviceName.text.toString(),
+                        serviceDescription.text.toString(),
+                        serviceCost.text.toString(),
+                        serviceContact.text.toString(),
+                        image!!,
+                        5.toFloat(),
+                        Utils.vendor.id,
+                        Utils.vendor.Name,
+                        isNegotiate,
                     )
                     if(!isSetImage){
                         serviceViewModel.updateService(position!!, service)
@@ -208,7 +244,6 @@ class service_details_vendor_fragment : Fragment(){
 
         return viewBinding
     }
-
 
 
     private fun processingData():Boolean{
@@ -239,9 +274,6 @@ class service_details_vendor_fragment : Fragment(){
         }
         return isSuccess
     }
-
-
-
     private fun processingDataForUpdate():Boolean{
         var isSuccess: Boolean = true
         serviceName.clearFocus()

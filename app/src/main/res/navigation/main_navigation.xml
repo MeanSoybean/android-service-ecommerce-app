@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
             app:destination="@id/orderServiceFragment" />
+        <action
+            android:id="@+id/action_home_customer_fragment_to_fragment_service_detail"
+            app:destination="@id/fragment_service_detail" />
+        <action
+            android:id="@+id/action_home_customer_fragment_to_fragment_near_service_location"
+            app:destination="@id/fragment_near_service_location" />
     </fragment>
     <fragment
         android:id="@+id/home_vendor_fragment"
@@ -75,5 +81,22 @@
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_communication"
         android:label="fragment_communication"
         tools:layout="@layout/fragment_communication" />
+    <fragment
+        android:id="@+id/fragment_service_detail"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_service_detail"
+        android:label="fragment_service_detail" >
+        <action
+            android:id="@+id/action_fragment_service_detail_to_fragment_vendor_information"
+            app:destination="@id/fragment_vendor_information" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_near_service_location"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_near_service_location"
+        android:label="fragment_near_service_location"
+        tools:layout="@layout/fragment_near_service_location" />
+    <fragment
+        android:id="@+id/fragment_vendor_information"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_vendor_information"
+        android:label="fragment_vendor_information" />
 
 </navigation>

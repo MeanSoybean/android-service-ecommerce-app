@@ -3,57 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.183" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/credit_account_drawable.xml" value="0.2465" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/dotted_line_drawable.xml" value="0.173" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/email_account_drawable.xml" value="0.2465" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/gradient_background.xml" value="0.174" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_add_48.xml" value="0.2465" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_key_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_baseline_phone_android_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_comment_solid.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_outlined_chat_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_outlined_home_24.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/ic_search_24.xml" value="0.1615" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/location_account_drawable.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/password_account_drawable.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/drawable/person_account_drawable.xml" value="0.1435" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_auth.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/activity_sign_up.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/alert_dialog_with_edittext.xml" value="0.14739583333333334" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_change_password.xml" value="0.16510416666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_communication.xml" value="0.16197916666666667" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_credit.xml" value="0.14010416666666667" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_order_details.xml" value="0.14739583333333334" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_sign_up_customer.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_sign_up_vendor.xml" value="0.16041666666666668" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_test1.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_test2.xml" value="0.1" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/fragment_user_profile.xml" value="0.14739583333333334" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/home_customer_fragment.xml" value="0.176" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/home_vendor_fragment.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_circular_loader.xml" value="0.11302083333333333" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_home.xml" value="0.264" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_list_item.xml" value="0.11302083333333333" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_order_vendor_service.xml" value="0.25416666666666665" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_top_bar.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_top_bar_not_icon.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/layout_vendor_my_service.xml" value="0.17447916666666666" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/list_noti.xml" value="0.264" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/notification_app_bar.xml" value="0.14739583333333334" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/order_service_fragment.xml" value="0.14739583333333334" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/order_service_vendor_fragment.xml" value="0.25416666666666665" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/service_details_vendor_fragment.xml" value="0.20152091254752852" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/layout/service_list_item.xml" value="0.17346014492753623" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.109375" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/menu/bottom_navigation_menu_customer.xml" value="0.19947916666666668" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/AndroidDevelopmentGroup7/app/src/main/res/menu/bottom_navigation_menu_vendor.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/account_circle_drawable.xml" value="0.231" />
+
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/credit_account_drawable.xml" value="0.2595" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/dotted_line_drawable.xml" value="0.11" />

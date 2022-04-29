@@ -13,47 +13,45 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <include
-        android:id="@+id/loader_layout"
-        layout="@layout/layout_circular_loader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/orders_app_bar" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/orders_app_bar">
 
-
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/order_all_orders_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="8dp"
-            app:flow_horizontalAlign="center"
-            app:flow_verticalAlign="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_service_layout"
-            tools:listitem="@layout/layout_order_service" />
+            app:layout_constraintTop_toBottomOf="@+id/tab_service_layout">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/order_view_pager_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_service_layout"
+            />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_service_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp">
+            app:tabIndicatorColor="@color/blue_accent_300"
+            app:tabSelectedTextColor="@color/blue_accent_300">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="@string/all_tab_text" />
-
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -63,17 +61,17 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/on_board_tab_text" />
+                android:text="@string/on_board_tab_text"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/complete_tab_text" />
+                android:text="@string/complete_tab_text"/>
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel_tab_text" />
+                android:text="@string/cancel_tab_text"/>
 
 
         </com.google.android.material.tabs.TabLayout>

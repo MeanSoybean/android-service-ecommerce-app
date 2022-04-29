@@ -8,56 +8,87 @@
 
     <include
         android:id="@+id/services_app_bar"
-        layout="@layout/layout_top_bar_not_icon"
+        layout="@layout/layout_home_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <!--    <include-->
-    <!--        android:id="@+id/loader_layout"-->
-    <!--        layout="@layout/layout_circular_loader"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_below="@id/services_app_bar" />-->
+<!--    <include-->
+<!--        android:id="@+id/loader_layout"-->
+<!--        layout="@layout/layout_circular_loader"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/services_app_bar" />-->
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/services_app_bar"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="42dp"
-        android:completionThreshold="3" />
-
-    <ImageButton
-        android:id="@+id/pro_details_like_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="37dp"
-        android:layout_toEndOf="@+id/autoCompleteTextView"
-
-        android:background="@null"
-        android:backgroundTint="#FFFFFF"
-        android:contentDescription="@string/pro_details_like_btn_desc"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_search_24" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="537dp"
-        android:layout_below="@id/autoCompleteTextView"
+        android:layout_height="match_parent"
+        android:layout_below="@id/services_app_bar">
 
-        android:layout_marginBottom="0dp">
-
+        <HorizontalScrollView
+            android:id="@+id/ultility_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <Button
+                    android:id="@+id/view_on_map_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/blue_accent_300"
+                    android:padding="10dp"
+                    android:text="@string/view_on_map_text"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+                <View
+                    android:layout_marginStart="15dp"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+                <Button
+                    android:id="@+id/sort_service_btn"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/home_sort_text"
+                    android:backgroundTint="@color/blue_accent_300"
+                    android:drawableRight="@drawable/ic_chevron_down_solid"
+                    android:drawableTint="@color/white"/>
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_filter_text"/>
+                <Button
+                    android:id="@+id/filter_type_service_btn"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/home_type_service_text"
+                    android:backgroundTint="@color/blue_accent_300"
+                    android:drawableRight="@drawable/ic_chevron_down_solid"
+                    android:drawableTint="@color/white"/>
+                <Button
+                    android:id="@+id/filte_rprice_service_btn"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/home_price_service_text"
+                    android:backgroundTint="@color/blue_accent_300"
+                    android:drawableRight="@drawable/ic_chevron_down_solid"
+                    android:drawableTint="@color/white" />
+            </LinearLayout>
+        </HorizontalScrollView>
         <!--        <TextView-->
         <!--            android:id="@+id/address_empty_text_view"-->
         <!--            android:layout_width="0dp"-->
@@ -87,7 +118,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ultility_bar"
             app:layout_constraintVertical_bias="0.0"
             tools:itemCount="2"
             tools:listitem="@layout/layout_home" />

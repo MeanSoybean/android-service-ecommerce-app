@@ -39,3 +39,13 @@ class Utils{
     }
 }
 
+class OrderTabValue{
+    companion object{
+        val ALL:Int = 0
+        val WAITING_ACCEPT:Int = 1
+        val ON_GOING:Int = 2
+        val COMPLETE:Int = 3
+        val CANCEL:Int = 4
+    }
+}
+
