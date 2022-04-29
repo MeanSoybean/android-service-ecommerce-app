@@ -56,6 +56,8 @@
     <string name="phone_customer_emty_string">Vui lòng nhập SĐT</string>
     <string name="address_customer_emty_string">Vui lòng nhập địa chỉ</string>
     <string name="order_dialog_btn_text">Đặt lịch</string>
+    <string name="full_order_schedule">Thợ đã hết lịch trống</string>
+
     <!--  layout_home_bar  -->
     <string name="search_placeholder_text">Tìm kiếm dịch vụ</string>
 

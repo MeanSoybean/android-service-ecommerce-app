@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.Service
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -48,7 +49,7 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceType").toString(),
                         service.data.get("serviceName").toString(),
                         service.data.get("serviceDescription").toString(),
-                        service.data.get("servicePrice").toString(),
+                        service.data.get("servicePrice").toString().toLong(),
                         service.data.get("servicePhoneNumber").toString(),
                         service.data.get("serviceImage").toString(),
                         service.data.get("serviceRating").toString().toFloat(),
@@ -83,7 +84,7 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceType").toString(),
                         service.data.get("serviceName").toString(),
                         service.data.get("serviceDescription").toString(),
-                        service.data.get("servicePrice").toString(),
+                        service.data.get("servicePrice").toString().toLong(),
                         service.data.get("servicePhoneNumber").toString(),
                         service.data.get("serviceImage").toString(),
                         service.data.get("serviceRating").toString().toFloat(),
@@ -104,7 +105,6 @@ class ServiceViewModel :  ViewModel() {
     }
 
     fun addServiceToList(service:Service) {
-
         db.collection("ServiceListings")
             .add(service)
             .addOnSuccessListener { documentRefer ->
@@ -112,6 +112,8 @@ class ServiceViewModel :  ViewModel() {
             }
 
     }
+
+
 
     fun uploadFileAndSaveService(imageUri: Uri, service:Service){
         // Create a reference to ""
@@ -148,6 +150,35 @@ class ServiceViewModel :  ViewModel() {
             }
     }
 
+    fun selectServiceListUsingIdService(serviceListID:List<String>){
+        val temp = ArrayList<Service>()
+        db.collection("ServiceListings")
+            .whereIn(FieldPath.documentId(), serviceListID)
+            .get()
+            .addOnSuccessListener { services ->
+                Log.i("success", services.size().toString())
+                for (service in services) {
+                    val serviceTemp = Service(
+                        service.data.get("serviceType").toString(),
+                        service.data.get("serviceName").toString(),
+                        service.data.get("serviceDescription").toString(),
+                        service.data.get("servicePrice").toString().toLong(),
+                        service.data.get("servicePhoneNumber").toString(),
+                        service.data.get("serviceImage").toString(),
+                        service.data.get("serviceRating").toString().toFloat(),
+                        service.data.get("vendorID").toString(),
+                        service.data.get("vendorName").toString(),
+                        service.data.get("negotiate").toString().toBoolean()
+                    )
+                    serviceTemp.serviceID = service.id
+                    temp.add(serviceTemp)
+                }
+                serviceList.value = temp
+            }
+            .addOnFailureListener { exception ->
+                Log.i("ERROR", "Error getting documents.", exception)
+            }
+    }
 
     fun uploadFileAndUpdateService(imageUri: Uri, service: Service, position: Int){
         // Create a reference to ""

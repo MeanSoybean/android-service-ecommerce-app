@@ -1,5 +1,7 @@
 package com.example.androiddevelopmentgroup7.views.fragments
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.Order
+import com.example.androiddevelopmentgroup7.models.Service
 import com.example.androiddevelopmentgroup7.utils.OrderTabValue
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.viewModels.OrderListModel
+import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.withContext
 
-class MyOrderAdapter(private var OrderList:ArrayList<Order>): RecyclerView.Adapter<MyOrderAdapter.ViewHolder>(){
+class MyOrderAdapter(var context: Context, private var OrderList:ArrayList<Order>, private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyOrderAdapter.ViewHolder>(){
     var onItemClick: ((Order) -> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         var serviceName: TextView = listItemView.findViewById(R.id.order_summary_id_tv)
@@ -40,13 +48,17 @@ class MyOrderAdapter(private var OrderList:ArrayList<Order>): RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contact: Order = OrderList.get(position)
-        holder.serviceName.text = OrderList.get(position).serviceName
-        holder.nameVendor.text = OrderList.get(position).nameVendor
+        holder.serviceName.text = serviceList.get(position).serviceName
+        holder.nameVendor.text = serviceList.get(position).vendorName
         holder.timeOrder.text = OrderList.get(position).timeOrder
         holder.timeComing.text = OrderList.get(position).timeComing
-        holder.price.text = OrderList.get(position).price
-        holder.orderCurrent.text = OrderList.get(position).orderCurrent
+        holder.price.text = OrderList.get(position).price.toString()
+        when(OrderList.get(position).orderCurrent){
+            OrderTabValue.WAITING_ACCEPT -> holder.orderCurrent.setText(context.getString(R.string.accept_tab_text))
+            OrderTabValue.ON_GOING -> holder.orderCurrent.setText(context.getString(R.string.on_board_tab_text))
+            OrderTabValue.COMPLETE -> holder.orderCurrent.setText(context.getString(R.string.complete_tab_text))
+            OrderTabValue.CANCEL -> holder.orderCurrent.setText(context.getString(R.string.cancel_tab_text))
+        }
     }
 
     override fun getItemCount(): Int {
@@ -59,12 +71,17 @@ class MyOrderAdapter(private var OrderList:ArrayList<Order>): RecyclerView.Adapt
 
 
 class TabFragmentOrderService() : Fragment() {
-    private val orderListModel : OrderListModel by activityViewModels()
+    val db = Firebase.firestore
+//    private val orderListModel : OrderListModel by activityViewModels()
+//    private val serviceListModel : ServiceViewModel by activityViewModels()
+    private var orderList = ArrayList<Order>()
+    private var serviceList = ArrayList<Service>()
     private var tabIndex: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             tabIndex = it.getInt("tabIndex")
+            Log.i("TABINDEX", tabIndex.toString())
         }
     }
 
@@ -77,52 +94,122 @@ class TabFragmentOrderService() : Fragment() {
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.orders_list_recycler_view)
         val loader = rootView.findViewById<FrameLayout>(R.id.loader_layout)
 
+
         //0:Customer 1: Vendor
         if(Utils.typeUser == 1){
             when(tabIndex){
-                OrderTabValue.ALL -> orderListModel.setOrderList()
-//                OrderTabValue.WAITING_ACCEPT -> orderListModel.setOrderListVendorWaiting()
-//                OrderTabValue.ON_GOING -> orderListModel.setOrderListVendorOnGoing()
-//                OrderTabValue.COMPLETE -> orderListModel.setOrderListVendorComplete()
-//                OrderTabValue.CANCEL -> orderListModel.setOrderListVendorCancel()
+                OrderTabValue.ALL -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.ALL,recyclerView_services, loader)
+                OrderTabValue.WAITING_ACCEPT -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.WAITING_ACCEPT,recyclerView_services, loader)
+                OrderTabValue.ON_GOING -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.ON_GOING,recyclerView_services, loader)
+                OrderTabValue.COMPLETE -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.COMPLETE,recyclerView_services, loader)
+                OrderTabValue.CANCEL -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.CANCEL,recyclerView_services, loader)
             }
         } else {
-            orderListModel.setOrderListForCustomer()
-        }
-
-
-        val adapter = MyOrderAdapter(orderListModel.selectedOrderList.value!!)
-        recyclerView_services.adapter = adapter
-        recyclerView_services.layoutManager = LinearLayoutManager(activity)
-
-        orderListModel.selectedOrderList.observe(viewLifecycleOwner, Observer { list ->
-            // Update the list UI
-            //Log.i("SIZE", list.size.toString())
-            adapter.notifyDataSetChanged()
-            //Log.i("DATASET CHANGE", "data set change")
-        })
-        orderListModel.orderStatus.observe(viewLifecycleOwner, Observer { status ->
-            // Update the list UI
-            when(status){
-                Utils.LOADER_LOADING -> {
-                    loader.visibility = View.VISIBLE
-                }
-                Utils.LOADER_HIDE -> {
-                    loader.visibility = View.GONE
-                }
+            when(tabIndex){
+                OrderTabValue.ALL -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.ALL,recyclerView_services, loader)
+                OrderTabValue.WAITING_ACCEPT -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.WAITING_ACCEPT,recyclerView_services, loader)
+                OrderTabValue.ON_GOING -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.ON_GOING,recyclerView_services, loader)
+                OrderTabValue.COMPLETE -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.COMPLETE,recyclerView_services, loader)
+                OrderTabValue.CANCEL -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.CANCEL,recyclerView_services, loader)
             }
-        })
-        adapter.onItemClick = { contact ->
-
-            val temp = contact.serviceName +'%' + contact.timeComing+'%'+contact.orderAddress +'%' +contact.orderCurrent +'%'+ contact.price
-            findNavController().navigate(
-                R.id.action_orderServiceVendorFragment_to_orderDetailsFragment,
-                bundleOf("OrderDetails" to temp)
-            )
         }
+
+
+
+
+//        val adapter = MyOrderAdapter(requireContext(),orderListModel.selectedOrderList.value!!, )
+//        recyclerView_services.adapter = adapter
+//        recyclerView_services.layoutManager = LinearLayoutManager(activity)
+
+//        orderListModel.selectedOrderList.observe(viewLifecycleOwner, Observer { list ->
+//            // Update the list UI
+//            //Log.i("SIZE", list.size.toString())
+//            adapter.notifyDataSetChanged()
+//            //Log.i("DATASET CHANGE", "data set change")
+//        })
+//        orderListModel.orderStatus.observe(viewLifecycleOwner, Observer { status ->
+//            // Update the list UI
+//            when(status){
+//                Utils.LOADER_LOADING -> {
+//                    loader.visibility = View.VISIBLE
+//                }
+//                Utils.LOADER_HIDE -> {
+//                    loader.visibility = View.GONE
+//                }
+//            }
+//        })
+//        adapter.onItemClick = { contact ->
+//
+//            val temp = contact.serviceName +'%' + contact.timeComing+'%'+contact.orderAddress +'%' +contact.orderCurrent +'%'+ contact.price
+//            findNavController().navigate(
+//                R.id.action_orderServiceVendorFragment_to_orderDetailsFragment,
+//                bundleOf("OrderDetails" to temp)
+//            )
+//        }
         return rootView
     }
 
+    private fun createListItem(typeUserID:String, userID:String, filter:Int, recyclerView: RecyclerView, loader:FrameLayout){
+
+        var query = db.collection("OrderListing").whereEqualTo(typeUserID, userID)
+        if(filter != OrderTabValue.ALL){
+            query = query.whereEqualTo("orderCurrent", filter)
+        }
+        query.get()
+            .addOnSuccessListener {  snapshot ->
+                Log.i("ASD",snapshot.documents.size.toString())
+                val idServiceList = ArrayList<String>()
+                for(order in snapshot){
+                    Log.i("ASD", "Nhan Order")
+                    val tempOrder = Order(
+                        order.data.get("idVendor").toString(),
+                        order.data.get("idCustomer").toString(),
+                        order.data.get("idService").toString(),
+                        order.data.get("timeOrder").toString(),
+                        order.data.get("timeComing").toString(),
+                        order.data.get("orderAddress").toString(),
+                        order.data.get("orderCurrent").toString().toInt(),
+                        order.data.get("price").toString().toLong(),
+                        order.data.get("phoneNumber").toString(),
+                    )
+                    tempOrder.idOrder = order.id
+                    idServiceList.add(order.data.get("idService").toString())
+                    orderList.add(tempOrder)
+                }
+                Log.i("ASD", "NHAN ID" + idServiceList.size.toString())
+                db.collection("ServiceListings")
+                    .whereIn(FieldPath.documentId(), idServiceList)
+                    .get()
+                    .addOnSuccessListener { services ->
+
+                        Log.i("ASD", "NHAN SERVICE: " + services.size().toString())
+                        for (service in services) {
+                            val serviceTemp = Service(
+                                service.data.get("serviceType").toString(),
+                                service.data.get("serviceName").toString(),
+                                service.data.get("serviceDescription").toString(),
+                                service.data.get("servicePrice").toString().toLong(),
+                                service.data.get("servicePhoneNumber").toString(),
+                                service.data.get("serviceImage").toString(),
+                                service.data.get("serviceRating").toString().toFloat(),
+                                service.data.get("vendorID").toString(),
+                                service.data.get("vendorName").toString(),
+                                service.data.get("negotiate").toString().toBoolean()
+                            )
+                            serviceTemp.serviceID = service.id
+                            serviceList.add(serviceTemp)
+                        }
+                        Log.i("ASD", "TAO RECYCELVOEW")
+                        val adapter = MyOrderAdapter(requireContext(), orderList, serviceList)
+                        recyclerView.adapter = adapter
+                        recyclerView.layoutManager = LinearLayoutManager(activity)
+                        loader.visibility = View.GONE
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.i("ERROR", "Error getting documents.", exception)
+                    }
+            }
+    }
     companion object {
         @JvmStatic
         fun newInstance(tabIndex: Int) =

@@ -62,7 +62,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
-        holder.cost_vendor_service.text = serviceList.get(position).servicePrice
+        holder.cost_vendor_service.text = serviceList.get(position).servicePrice.toString()
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
 
@@ -126,7 +126,7 @@ class home_vendor_fragment : Fragment() {
                 bundle.putString("type", service.serviceType)
                 bundle.putString("name", service.serviceName)
                 bundle.putString("description", service.serviceDescription)
-                bundle.putString("price", service.servicePrice)
+                bundle.putLong("price", service.servicePrice)
                 bundle.putString("contact", service.servicePhoneNumber)
                 bundle.putString("image", service.serviceImage)
                 bundle.putBoolean("negotiate", service.negotiate)

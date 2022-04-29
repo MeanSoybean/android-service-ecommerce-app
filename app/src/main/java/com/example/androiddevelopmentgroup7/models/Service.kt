@@ -1,11 +1,10 @@
 package com.example.androiddevelopmentgroup7.models
 
 data class Service(
-
     var serviceType:String,
     var serviceName:String,
     var serviceDescription:String,
-    var servicePrice: String,
+    var servicePrice: Long,
     var servicePhoneNumber:String,
     var serviceImage:String,
     var serviceRating: Float,

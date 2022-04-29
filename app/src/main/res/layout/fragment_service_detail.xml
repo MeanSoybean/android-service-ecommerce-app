@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
-<!--    <include-->
-<!--        android:id="@+id/loader_layout"-->
-<!--        layout="@layout/layout_circular_loader"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@id/order_detail_app_bar" />-->
+    <include
+        android:id="@+id/loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/order_detail_app_bar" />
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_dotted_divider" />
+                app:layout_constraintTop_toBottomOf="@+id/card_dotted_divider"/>
 
             <ImageView
                 android:id="@+id/card_dotted_divider"
@@ -364,11 +364,12 @@
                     android:id="@+id/customer_phone_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:textColor="@color/gray"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -395,8 +396,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

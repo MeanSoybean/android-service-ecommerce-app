@@ -1,16 +1,15 @@
 package com.example.androiddevelopmentgroup7.models
 
 data class Order(
-    var idOrder:String,
     var idVendor:String,
     var idCustomer:String,
-    var serviceName:String,
-    var nameVendor:String,
+    var idService:String,
     var timeOrder:String,
     var timeComing:String,
     var orderAddress:String,
-    var orderCurrent:String,
-    var price:String,
-    var serviceImage:String,
+    var orderCurrent:Int,
+    var price:Long,
     var phoneNumber: String,
-)
+){
+    var idOrder: String = ""
+}
