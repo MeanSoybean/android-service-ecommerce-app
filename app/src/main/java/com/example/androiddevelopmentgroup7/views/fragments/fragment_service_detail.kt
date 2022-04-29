@@ -11,6 +11,8 @@ import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -53,6 +55,17 @@ class fragment_service_detail : Fragment() {
     private var orderBtn: Button? = null
     private var serviceInformationVendorBtn:Button? = null
     private var toolbar:MaterialToolbar? = null
+
+    private var customerName:TextInputEditText? = null
+    private var customerAddress:TextInputEditText? = null
+    private var customerPhone:TextInputEditText? = null
+    private var dateOrder:AutoCompleteTextView? = null
+
+    private var customerNameLayout:TextInputLayout? = null
+    private var customerAddressLayout:TextInputLayout? = null
+    private var customerPhoneLayout:TextInputLayout? = null
+    private var dateOrderLayout:TextInputLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -79,15 +92,43 @@ class fragment_service_detail : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_service_detail, container, false)
         initComponent(view)
+        setFocusChangeListener()
         setValue()
         setEventBtnClick()
+
         return view
     }
 
     private fun setEventBtnClick(){
         orderBtn?.setOnClickListener {
-            showAcceptDialog()
+            if(processingData()){
+                showAcceptDialog()
+            }
         }
+    }
+
+    private fun processingData():Boolean{
+        var isSuccess: Boolean = true
+        customerName?.clearFocus()
+        customerPhone?.clearFocus()
+        customerAddress?.clearFocus()
+        if(customerName?.text.toString().isBlank() || customerName?.text.toString().isEmpty()){
+            customerNameLayout?.error = getString(R.string.name_customer_emty_string)
+            isSuccess = false
+        }
+        if(customerPhone?.text.toString().isBlank() || customerPhone?.text.toString().isEmpty()){
+            customerPhoneLayout?.error = getString(R.string.phone_customer_emty_string)
+            isSuccess = false
+        }
+        if(customerAddress?.text.toString().isBlank() || customerAddress?.text.toString().isEmpty()){
+            customerAddressLayout?.error = getString(R.string.address_customer_emty_string)
+            isSuccess = false
+        }
+//        if(dateOrder?.text.toString().isBlank() || customerAddress?.text.toString().isEmpty()){
+//            customerAddressLayout?.error = getString(R.string.cost_service_emty_string)
+//            isSuccess = false
+//        }
+        return isSuccess
     }
 
     private fun showAcceptDialog() {
@@ -120,6 +161,17 @@ class fragment_service_detail : Fragment() {
         toolbar = view.findViewById(R.id.topAppBar)
         orderBtn = view.findViewById(R.id.accept_service_btn)
         serviceInformationVendorBtn = view.findViewById(R.id.information_vendor_btn)
+
+        customerName = view.findViewById(R.id.customer_name_edit_text)
+        customerAddress = view.findViewById(R.id.customer_address_edit_text)
+        customerPhone = view.findViewById(R.id.customer_phone_edit_text)
+        dateOrder = view.findViewById(R.id.date_order_service_edit_text)
+
+        customerNameLayout = view.findViewById(R.id.nameServiceTextField)
+        customerAddressLayout = view.findViewById(R.id.addressCustomerTextField)
+        customerPhoneLayout = view.findViewById(R.id.phoneCustomerTextField)
+        dateOrderLayout = view.findViewById(R.id.dateServiceTextField)
+
     }
     private fun setValue(){
         DownloadImageFromInternet(serviceImageView!!).execute(image)
@@ -137,6 +189,29 @@ class fragment_service_detail : Fragment() {
             bundle.putString("vendorID", vendorID)
             findNavController().navigate(R.id.action_fragment_service_detail_to_fragment_vendor_information, bundle)
         }
+    }
+
+    private fun setFocusChangeListener(){
+        customerName?.setOnFocusChangeListener{v, b ->
+            if(b){
+                customerNameLayout?.error = null
+            }
+        }
+        customerAddress?.setOnFocusChangeListener{v, b ->
+            if(b){
+                customerAddressLayout?.error = null
+            }
+        }
+        customerPhone?.setOnFocusChangeListener{v, b ->
+            if(b){
+                customerPhoneLayout?.error = null
+            }
+        }
+//        serviceContact.setOnFocusChangeListener{v, b ->
+//            if(b){
+//                serviceContactLayout.error = null
+//            }
+//        }
     }
     companion object {
         /**

@@ -11,8 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
-
-
+<!--    <include-->
+<!--        android:id="@+id/loader_layout"-->
+<!--        layout="@layout/layout_circular_loader"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/order_detail_app_bar" />-->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,17 +64,18 @@
 
             <Button
                 android:id="@+id/information_vendor_btn"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue_accent_300"
                 android:padding="16dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/information_vendor_text"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/service_price"
-                app:layout_constraintEnd_toEndOf="@+id/order_details_pro_label_tv"
-                app:layout_constraintTop_toTopOf="@+id/service_name" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vendor_phone_number_content" />
 
             <TextView
                 android:id="@+id/service_name"
@@ -235,7 +240,7 @@
                 android:layerType="software"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vendor_phone_number_content"
+                app:layout_constraintTop_toBottomOf="@+id/information_vendor_btn"
                 app:srcCompat="@drawable/dotted_line_drawable" />
 
             <TextView
@@ -297,7 +302,7 @@
                 app:layout_constraintTop_toBottomOf="@id/nameServiceTextField" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/descriptionServiceTextField"
+                android:id="@+id/addressCustomerTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -312,7 +317,7 @@
                 app:layout_constraintTop_toBottomOf="@id/customer_a">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_a_edit_text"
+                    android:id="@+id/customer_address_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -338,10 +343,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/descriptionServiceTextField" />
+                app:layout_constraintTop_toBottomOf="@id/addressCustomerTextField" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/costServiceTextField"
+                android:id="@+id/phoneCustomerTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -356,7 +361,7 @@
                 app:layout_constraintTop_toBottomOf="@id/vendor_cost_service">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/vendor_cost_service_edit_text"
+                    android:id="@+id/customer_phone_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -366,7 +371,49 @@
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/date_order_service"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/date_order"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phoneCustomerTextField" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dateServiceTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:boxStrokeColor="@color/blue_accent_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_order_service">
+
+                <AutoCompleteTextView
+                    android:id="@+id/date_order_service_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:labelFor="@id/serviceIsNegotiate"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/gray"
+                    android:textStyle="bold"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
                 android:id="@+id/accept_service_btn"
                 android:layout_width="0dp"
@@ -378,9 +425,9 @@
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/costServiceTextField"
-                app:layout_constraintStart_toStartOf="@+id/costServiceTextField"
-                app:layout_constraintTop_toBottomOf="@+id/costServiceTextField" />
+                app:layout_constraintEnd_toEndOf="@+id/phoneCustomerTextField"
+                app:layout_constraintStart_toStartOf="@+id/phoneCustomerTextField"
+                app:layout_constraintTop_toBottomOf="@+id/dateServiceTextField" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
