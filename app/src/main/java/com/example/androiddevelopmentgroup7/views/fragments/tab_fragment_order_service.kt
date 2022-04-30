@@ -9,8 +9,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,15 +17,16 @@ import com.example.androiddevelopmentgroup7.models.Order
 import com.example.androiddevelopmentgroup7.models.Service
 import com.example.androiddevelopmentgroup7.utils.OrderTabValue
 import com.example.androiddevelopmentgroup7.utils.Utils
-import com.example.androiddevelopmentgroup7.viewModels.OrderListModel
-import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
-class MyOrderAdapter(var context: Context, private var OrderList:ArrayList<Order>, private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyOrderAdapter.ViewHolder>(){
-    var onItemClick: ((Order) -> Unit)? = null
+class MyOrderAdapter(var context: Context, private var inforList:ArrayList<HashMap<String, Any>>): RecyclerView.Adapter<MyOrderAdapter.ViewHolder>(){
+    var onItemClick: ((HashMap<String, Any>) -> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         var serviceName: TextView = listItemView.findViewById(R.id.order_summary_id_tv)
         var nameVendor: TextView = listItemView.findViewById(R.id.name_fix_value_tv)
@@ -35,8 +34,9 @@ class MyOrderAdapter(var context: Context, private var OrderList:ArrayList<Order
         var timeComing: TextView = listItemView.findViewById(R.id.order_time_coming_tv)
         var price: TextView = listItemView.findViewById(R.id.order_summary_total_amount_tv)
         var orderCurrent: TextView = listItemView.findViewById(R.id.order_summary_status_value_tv)
+        var userLabe: TextView = listItemView.findViewById(R.id.name_fix_tv)
         init {
-            listItemView.setOnClickListener {onItemClick?.invoke(OrderList[adapterPosition]) }
+                listItemView.setOnClickListener {onItemClick?.invoke(inforList.get(adapterPosition))}
         }
     }
 
@@ -48,12 +48,23 @@ class MyOrderAdapter(var context: Context, private var OrderList:ArrayList<Order
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.serviceName.text = serviceList.get(position).serviceName
-        holder.nameVendor.text = serviceList.get(position).vendorName
-        holder.timeOrder.text = OrderList.get(position).timeOrder
-        holder.timeComing.text = OrderList.get(position).timeComing
-        holder.price.text = OrderList.get(position).price.toString()
-        when(OrderList.get(position).orderCurrent){
+        val formatter = SimpleDateFormat("HH:mm:ss - dd/MM/yyyy")
+        val date = (inforList.get(position).get("timeOrder") as Timestamp).toDate()
+        val convertDay = formatter.format(date)
+
+        holder.serviceName.text = inforList.get(position).get("serviceName").toString()
+        //0: customer 1:vendor
+        if(Utils.typeUser == 1){
+            holder.userLabe.text = context.getString(R.string.name_customer_text)
+            holder.nameVendor.text = inforList.get(position).get("customerName").toString()
+        } else {
+            holder.userLabe.text = context.getString(R.string.name_vendor_text)
+            holder.nameVendor.text = inforList.get(position).get("vendorName").toString()
+        }
+        holder.timeOrder.text = convertDay
+        holder.timeComing.text = inforList.get(position).get("timeComing").toString()
+        holder.price.setText(inforList.get(position).get("price").toString() + " VNĐ")
+        when(inforList.get(position).get("orderCurrent")){
             OrderTabValue.WAITING_ACCEPT -> holder.orderCurrent.setText(context.getString(R.string.accept_tab_text))
             OrderTabValue.ON_GOING -> holder.orderCurrent.setText(context.getString(R.string.on_board_tab_text))
             OrderTabValue.COMPLETE -> holder.orderCurrent.setText(context.getString(R.string.complete_tab_text))
@@ -62,7 +73,7 @@ class MyOrderAdapter(var context: Context, private var OrderList:ArrayList<Order
     }
 
     override fun getItemCount(): Int {
-        return OrderList.size
+        return inforList.size
     }
     interface OnClickListener {
         fun onCardClick(orderId: String)
@@ -74,8 +85,7 @@ class TabFragmentOrderService() : Fragment() {
     val db = Firebase.firestore
 //    private val orderListModel : OrderListModel by activityViewModels()
 //    private val serviceListModel : ServiceViewModel by activityViewModels()
-    private var orderList = ArrayList<Order>()
-    private var serviceList = ArrayList<Service>()
+
     private var tabIndex: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,8 +103,6 @@ class TabFragmentOrderService() : Fragment() {
         val rootView = inflater.inflate(R.layout.tab_fragment_order_service, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.orders_list_recycler_view)
         val loader = rootView.findViewById<FrameLayout>(R.id.loader_layout)
-
-
         //0:Customer 1: Vendor
         if(Utils.typeUser == 1){
             when(tabIndex){
@@ -115,42 +123,26 @@ class TabFragmentOrderService() : Fragment() {
         }
 
 
-
-
-//        val adapter = MyOrderAdapter(requireContext(),orderListModel.selectedOrderList.value!!, )
-//        recyclerView_services.adapter = adapter
-//        recyclerView_services.layoutManager = LinearLayoutManager(activity)
-
-//        orderListModel.selectedOrderList.observe(viewLifecycleOwner, Observer { list ->
-//            // Update the list UI
-//            //Log.i("SIZE", list.size.toString())
-//            adapter.notifyDataSetChanged()
-//            //Log.i("DATASET CHANGE", "data set change")
-//        })
-//        orderListModel.orderStatus.observe(viewLifecycleOwner, Observer { status ->
-//            // Update the list UI
-//            when(status){
-//                Utils.LOADER_LOADING -> {
-//                    loader.visibility = View.VISIBLE
-//                }
-//                Utils.LOADER_HIDE -> {
-//                    loader.visibility = View.GONE
-//                }
-//            }
-//        })
-//        adapter.onItemClick = { contact ->
-//
-//            val temp = contact.serviceName +'%' + contact.timeComing+'%'+contact.orderAddress +'%' +contact.orderCurrent +'%'+ contact.price
-//            findNavController().navigate(
-//                R.id.action_orderServiceVendorFragment_to_orderDetailsFragment,
-//                bundleOf("OrderDetails" to temp)
-//            )
-//        }
         return rootView
     }
 
-    private fun createListItem(typeUserID:String, userID:String, filter:Int, recyclerView: RecyclerView, loader:FrameLayout){
+    private fun itemClickApdater(adapter: MyOrderAdapter){
+        adapter.onItemClick = { hasmap ->
+            val bundle = Bundle()
+            Log.i("ASD", hasmap.get("idOrder").toString())
+            bundle.putString("idOrder", hasmap.get("idOrder").toString())
+            findNavController().navigate(R.id.action_orderServiceVendorFragment_to_orderDetailsFragment, bundle)
+        }
+    }
 
+    private fun createListItem(typeUserID:String, userID:String, filter:Int, recyclerView: RecyclerView, loader:FrameLayout){
+        val orderList = ArrayList<Order>()
+        val serviceList = ArrayList<Service>()
+        val inforList = ArrayList<HashMap<String, Any>>()
+        val adapter = MyOrderAdapter(requireContext(), inforList)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        itemClickApdater(adapter)
         var query = db.collection("OrderListing").whereEqualTo(typeUserID, userID)
         if(filter != OrderTabValue.ALL){
             query = query.whereEqualTo("orderCurrent", filter)
@@ -158,56 +150,69 @@ class TabFragmentOrderService() : Fragment() {
         query.get()
             .addOnSuccessListener {  snapshot ->
                 Log.i("ASD",snapshot.documents.size.toString())
-                val idServiceList = ArrayList<String>()
-                for(order in snapshot){
-                    Log.i("ASD", "Nhan Order")
-                    val tempOrder = Order(
-                        order.data.get("idVendor").toString(),
-                        order.data.get("idCustomer").toString(),
-                        order.data.get("idService").toString(),
-                        order.data.get("timeOrder").toString(),
-                        order.data.get("timeComing").toString(),
-                        order.data.get("orderAddress").toString(),
-                        order.data.get("orderCurrent").toString().toInt(),
-                        order.data.get("price").toString().toLong(),
-                        order.data.get("phoneNumber").toString(),
-                    )
-                    tempOrder.idOrder = order.id
-                    idServiceList.add(order.data.get("idService").toString())
-                    orderList.add(tempOrder)
+                var count = 0
+                if(snapshot.size() == count){
+                    loader.visibility = View.GONE
                 }
-                Log.i("ASD", "NHAN ID" + idServiceList.size.toString())
-                db.collection("ServiceListings")
-                    .whereIn(FieldPath.documentId(), idServiceList)
-                    .get()
-                    .addOnSuccessListener { services ->
-
-                        Log.i("ASD", "NHAN SERVICE: " + services.size().toString())
-                        for (service in services) {
+                for(i in 0..(snapshot.size() - 1)){
+                    Log.i("ASD", snapshot.documents[i].get("idVendor").toString(),)
+                    val tempOrder = Order(
+                        snapshot.documents[i].get("idVendor").toString(),
+                        snapshot.documents[i].get("idCustomer").toString(),
+                        snapshot.documents[i].get("idService").toString(),
+                        snapshot.documents[i].get("timeOrder") as Timestamp,
+                        snapshot.documents[i].get("timeComing").toString(),
+                        snapshot.documents[i].get("orderAddress").toString(),
+                        snapshot.documents[i].get("orderCurrent").toString().toInt(),
+                        snapshot.documents[i].get("price").toString().toLong(),
+                        snapshot.documents[i].get("phoneNumber").toString(),
+                        snapshot.documents[i].get("customerName").toString(),
+                    )
+                    tempOrder.idOrder = snapshot.documents[i].id
+                    orderList.add(tempOrder)
+                    db.collection("ServiceListings").document(tempOrder.idService).get()
+                        .addOnSuccessListener { doc ->
                             val serviceTemp = Service(
-                                service.data.get("serviceType").toString(),
-                                service.data.get("serviceName").toString(),
-                                service.data.get("serviceDescription").toString(),
-                                service.data.get("servicePrice").toString().toLong(),
-                                service.data.get("servicePhoneNumber").toString(),
-                                service.data.get("serviceImage").toString(),
-                                service.data.get("serviceRating").toString().toFloat(),
-                                service.data.get("vendorID").toString(),
-                                service.data.get("vendorName").toString(),
-                                service.data.get("negotiate").toString().toBoolean()
+                                doc.get("serviceType").toString(),
+                                doc.get("serviceName").toString(),
+                                doc.get("serviceDescription").toString(),
+                                doc.get("servicePrice").toString().toLong(),
+                                doc.get("servicePhoneNumber").toString(),
+                                doc.get("serviceImage").toString(),
+                                doc.get("serviceRating").toString().toFloat(),
+                                doc.get("vendorID").toString(),
+                                doc.get("vendorName").toString(),
+                                //service.data.get("negotiate").toString().toBoolean()
                             )
-                            serviceTemp.serviceID = service.id
+                            serviceTemp.serviceID = doc.id
                             serviceList.add(serviceTemp)
+                            val hashMap = HashMap<String, Any>()
+                            hashMap.put("idOrder", tempOrder.idOrder)
+                            hashMap.put("idVendor", tempOrder.idVendor)
+                            hashMap.put("idCustomer", tempOrder.idCustomer)
+                            hashMap.put("idService", tempOrder.idService)
+                            hashMap.put("timeOrder", tempOrder.timeOrder)
+                            hashMap.put("timeComing", tempOrder.timeComing)
+                            hashMap.put("orderAddress", tempOrder.orderAddress)
+                            hashMap.put("orderCurrent", tempOrder.orderCurrent)
+                            hashMap.put("price", tempOrder.price)
+                            hashMap.put("phoneNumber", tempOrder.phoneNumber)
+                            hashMap.put("serviceImage", serviceTemp.serviceImage)
+                            hashMap.put("serviceName", serviceTemp.serviceName)
+                            hashMap.put("vendorName", serviceTemp.vendorName)
+                            hashMap.put("serviceType", serviceTemp.serviceType)
+                            hashMap.put("serviceDescription", serviceTemp.serviceDescription)
+                            hashMap.put("customerName", tempOrder.customerName)
+                            inforList.add(hashMap)
+                            adapter.notifyItemInserted(i)
+                            count += 1
+                            if(count == snapshot.size()){
+                                loader.visibility = View.GONE
+                            }
                         }
-                        Log.i("ASD", "TAO RECYCELVOEW")
-                        val adapter = MyOrderAdapter(requireContext(), orderList, serviceList)
-                        recyclerView.adapter = adapter
-                        recyclerView.layoutManager = LinearLayoutManager(activity)
-                        loader.visibility = View.GONE
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.i("ERROR", "Error getting documents.", exception)
-                    }
+                }
+
+
             }
     }
     companion object {

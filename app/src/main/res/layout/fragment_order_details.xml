@@ -11,7 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
-
+    <include
+        android:id="@+id/loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/order_detail_app_bar" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -51,14 +56,12 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-
                 android:contentDescription="@string/add_img_item_desc"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_details_pro_label_tv"
                 app:layout_constraintVertical_bias="0.135"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -67,56 +70,101 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="68dp"
                 android:lines="2"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/product_image_view"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/product_image_view"
                 tools:text="Sửa điện" />
 
             <TextView
-                android:id="@+id/cart_product_price_tv"
+                android:id="@+id/cart_product_type_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
+                android:text="Sửa đồ gia dụng"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/blue_accent_300"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/product_image_view"
-                app:layout_constraintTop_toBottomOf="@+id/cart_product_title_tv"
-                app:layout_constraintVertical_bias="0.069"
-                tools:text="300.000VND" />
+                app:layout_constraintBottom_toBottomOf="@+id/product_image_view"
+                app:layout_constraintStart_toEndOf="@+id/product_image_view" />
 
             <TextView
-                android:id="@+id/ship_date_label_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="188dp"
-                android:text="@string/ship_date_text"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@color/dark_gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/ship_date_value_tv"
-                android:layout_width="wrap_content"
+                android:id="@+id/time_coming_text"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/ship_date_label_tv"
+                android:textAlignment="textEnd"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ship_date_label_tv"
+                app:layout_constraintTop_toTopOf="@+id/time_comming_label"
                 app:layout_constraintVertical_bias="1.0"
-                tools:text="December 01, 2022" />
+                android:text="December 01, 2022" />
 
             <TextView
-                android:id="@+id/ship_add_label_tv"
+                android:id="@+id/time_comming_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/ship_date_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/product_image_view" />
+
+            <TextView
+                android:id="@+id/name_customer_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/name_customer_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_coming_text" />
+
+            <TextView
+                android:id="@+id/name_customer_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Trần Tuấn Kha"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/time_coming_text"
+                app:layout_constraintTop_toBottomOf="@+id/time_coming_text" />
+
+            <TextView
+                android:id="@+id/phone_numer_customer_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/customer_phone"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_customer_text" />
+
+            <TextView
+                android:id="@+id/phone_number_customer_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="0123123456"
+                android:textAlignment="textEnd"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/name_customer_text"
+                app:layout_constraintTop_toBottomOf="@+id/name_customer_text" />
+
+
+            <TextView
+                android:id="@+id/customer_address_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -125,22 +173,68 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/dark_gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ship_date_label_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_customer_text" />
 
             <TextView
-                android:id="@+id/ship_address_value_tv"
+                android:id="@+id/customer_address_text"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="@+id/name_customer_text"
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_customer_text"
+                android:text="43/23 Da Nam, P2, Q8, TP.HCM" />
+
+
+            <TextView
+                android:id="@+id/name_vendor_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/vendor_text"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customer_address_text" />
+
+            <TextView
+                android:id="@+id/name_vendor_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                app:layout_constraintEnd_toEndOf="@+id/customer_address_text"
+                app:layout_constraintTop_toBottomOf="@+id/customer_address_text"
+                android:text="Nguyễn Thị Ngọc" />
+
+            <TextView
+                android:id="@+id/phone_number_vendor_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/customer_phone"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_vendor_text" />
+
+            <TextView
+                android:id="@+id/phone_number_vendor_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="102351865"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/ship_add_label_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.912"
-                app:layout_constraintStart_toEndOf="@+id/ship_add_label_tv"
-                app:layout_constraintTop_toTopOf="@+id/ship_add_label_tv"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="123, Sonmwe Soijr, Ouiwy qwei, Uytwuf, India, 208242" />
+                app:layout_constraintEnd_toEndOf="@+id/name_vendor_text"
+                app:layout_constraintTop_toBottomOf="@+id/name_vendor_text" />
 
             <ImageView
                 android:id="@+id/card_dotted_divider"
@@ -151,7 +245,7 @@
                 android:layerType="software"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ship_address_value_tv"
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_vendor_text"
                 app:srcCompat="@drawable/dotted_line_drawable" />
 
             <TextView
@@ -172,14 +266,14 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:text="DELIVERED 3"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/blue_accent_300"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/ship_curr_status_label_tv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ship_curr_status_label_tv"
-                tools:text="DELIVERED ON January 01, 2023" />
+                app:layout_constraintTop_toTopOf="@+id/ship_curr_status_label_tv" />
 
             <TextView
                 android:id="@+id/price_total_label_tv"
@@ -200,19 +294,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:text="300.000VND"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textColor="@color/blue_accent_300"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/price_total_label_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/price_total_label_tv"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="300.000VND" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/accept_service_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:backgroundTint="@color/blue_accent_300"
                 android:padding="16dp"
                 android:text="@string/accept_order_text"
@@ -226,6 +321,7 @@
                 android:id="@+id/cancle_service_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="10dp"
                 android:backgroundTint="@color/blue_shadow_color"
                 android:padding="16dp"

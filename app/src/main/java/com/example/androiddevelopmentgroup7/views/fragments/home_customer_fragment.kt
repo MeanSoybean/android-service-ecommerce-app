@@ -125,7 +125,7 @@ class home_customer_fragment : Fragment() {
             bundle.putLong("price", service.servicePrice)
             bundle.putString("contact", service.servicePhoneNumber)
             bundle.putString("image", service.serviceImage)
-            bundle.putBoolean("negotiate", service.negotiate)
+            //bundle.putBoolean("negotiate", service.negotiate)
             bundle.putString("vendorID", service.vendorID)
             bundle.putFloat("rating", service.serviceRating)
             bundle.putString("vendorName", service.vendorName)

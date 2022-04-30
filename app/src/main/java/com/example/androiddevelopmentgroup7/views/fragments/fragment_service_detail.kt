@@ -137,7 +137,7 @@ class fragment_service_detail : Fragment() {
         }
         db.collection("OrderListing")
             .whereEqualTo("idVendor", vendorID)
-            .whereEqualTo("orderCurrent", "onGoing")
+            .whereEqualTo("orderCurrent", OrderTabValue.ON_GOING)
             .get()
             .addOnSuccessListener { snapshot ->
                 Log.i("size", snapshot.documents.size.toString())
@@ -210,10 +210,13 @@ class fragment_service_detail : Fragment() {
                         "price" to price,
                         "timeComing" to dateOrder?.text.toString(),
                         "timeOrder" to Timestamp(Date()),
-                        "phoneNumber" to customerPhone?.text.toString()
+                        "phoneNumber" to customerPhone?.text.toString(),
+                        "customerName" to customerName?.text.toString()
                     )).addOnSuccessListener {
                         loader?.visibility = View.GONE
-                        Log.i("ORDER SUCCESS", "success")
+                        findNavController().popBackStack()
+                        //findNavController().navigate(R.id.action_fragment_service_detail_to_orderServiceFragment)
+                        Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
                     }
                     dialog.cancel()
                 }
@@ -255,7 +258,7 @@ class fragment_service_detail : Fragment() {
         serviceContact?.setText(contact)
         serviceDescription?.setText(description)
         serviceVendorName?.setText(vendorName)
-        servicePrice?.setText(price.toString() + " VNĐ")
+        servicePrice?.setText(price.toString() + getString(R.string.vietnamdong))
         toolbar?.setTitle(getString(R.string.detail_service_app_tittle_text))
         toolbar?.setNavigationOnClickListener { findNavController().popBackStack() }
         serviceInformationVendorBtn?.setOnClickListener {

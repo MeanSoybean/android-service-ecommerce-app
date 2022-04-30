@@ -1,5 +1,6 @@
 package com.example.androiddevelopmentgroup7.views.fragments
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
@@ -37,7 +38,7 @@ import com.google.firebase.ktx.Firebase
 
 
 
-class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
+class MyServiceAdapter(var context: Context, private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
     lateinit var onClickListener: OnClickListener
 
 
@@ -48,6 +49,7 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
         var cost_vendor_service: TextView = listItemView.findViewById(R.id.cost_vendor_service)
         var service_image_view: ImageView = listItemView.findViewById(R.id.service_image_view)
         var service_rating_bar: RatingBar = listItemView.findViewById(R.id.service_rating_bar)
+        var phone_vendor_service: TextView = listItemView.findViewById(R.id.phone_vendor_service)
         var service_edit_btn: Button = listItemView.findViewById(R.id.service_edit_btn)
         var service_delete_btn: ImageView = listItemView.findViewById(R.id.service_delete_btn)
     }
@@ -60,10 +62,11 @@ class MyServiceAdapter(private var serviceList:ArrayList<Service>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
-        holder.cost_vendor_service.text = serviceList.get(position).servicePrice.toString()
-        DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
+        (serviceList.get(position).servicePrice.toString() + context.getString(R.string.vietnamdong)).also { holder.cost_vendor_service.text = it }
+        holder.phone_vendor_service.text = serviceList.get(position).servicePhoneNumber
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
 
 
@@ -116,7 +119,7 @@ class home_vendor_fragment : Fragment() {
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
 
         serviceViewModel.setServiceList()
-        val adapter = MyServiceAdapter(serviceViewModel.selectedServiceList.value!!)
+        val adapter = MyServiceAdapter(requireContext(),serviceViewModel.selectedServiceList.value!!)
         adapter.onClickListener = object : MyServiceAdapter.OnClickListener {
             override fun onEditClick(position: Int) {
                 val service = serviceViewModel.selectedServiceList.value!!.get(position)
@@ -129,7 +132,7 @@ class home_vendor_fragment : Fragment() {
                 bundle.putLong("price", service.servicePrice)
                 bundle.putString("contact", service.servicePhoneNumber)
                 bundle.putString("image", service.serviceImage)
-                bundle.putBoolean("negotiate", service.negotiate)
+                //bundle.putBoolean("negotiate", service.negotiate)
                 bundle.putString("vendorID", service.vendorID)
                 bundle.putString("vendorName", service.vendorName)
                 bundle.putFloat("rating", service.serviceRating)
@@ -172,6 +175,7 @@ class home_vendor_fragment : Fragment() {
                 "delete_success" -> {
                     loader.visibility = View.GONE
                     addBtn.isClickable = true
+                    Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
                 }
             }
         })

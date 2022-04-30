@@ -20,67 +20,67 @@ class OrderListModel :  ViewModel(){
     val selectedOrderList: LiveData<ArrayList<Order>> get() = OrderList
 
 
-    fun setOrderList(){
-        val orderListTemp = ArrayList<Order>()
-        OrderList.value = orderListTemp
-        orderStatus.value = Utils.LOADER_LOADING
-        //Log.i("VENDROID", Utils.vendor.id)
-        db.collection("OrderListing")
-            .whereEqualTo("idVendor", Utils.vendor.id)
-            .get()
-            .addOnSuccessListener { orders ->
-                Log.i("NUMBER ORDER", orders.documents.size.toString())
-                for(order in orders){
-                    val tempOrder = Order(
-                        order.data.get("idVendor").toString(),
-                        order.data.get("idCustomer").toString(),
-                        order.data.get("idService").toString(),
-                        order.data.get("timeOrder").toString(),
-                        order.data.get("timeComing").toString(),
-                        order.data.get("orderAddress").toString(),
-                        order.data.get("orderCurrent").toString().toInt(),
-                        order.data.get("price").toString().toLong(),
-                        order.data.get("phoneNumber").toString(),
-                    )
-                    tempOrder.idOrder = order.id
-                    orderListTemp.add(tempOrder)
-
-                }
-                OrderList.value = orderListTemp
-                orderStatus.value = Utils.LOADER_HIDE
-            }
-    }
-
-
-    fun setOrderListForCustomer(){
-        val orderListTemp = ArrayList<Order>()
-        OrderList.value = orderListTemp
-        orderStatus.value = Utils.LOADER_LOADING
-        //Log.i("VENDROID", Utils.vendor.id)
-        db.collection("OrderListing")
-            .whereEqualTo("idCustomer", Utils.customer.id)
-            .get()
-            .addOnSuccessListener { orders ->
-                Log.i("NUMBER ORDER", orders.documents.size.toString())
-                for(order in orders){
-                    val tempOrder = Order(
-                        order.data.get("idVendor").toString(),
-                        order.data.get("idCustomer").toString(),
-                        order.data.get("idService").toString(),
-                        order.data.get("timeOrder").toString(),
-                        order.data.get("timeComing").toString(),
-                        order.data.get("orderAddress").toString(),
-                        order.data.get("orderCurrent").toString().toInt(),
-                        order.data.get("price").toString().toLong(),
-                        order.data.get("phoneNumber").toString(),
-                    )
-                    tempOrder.idOrder = order.id
-                    orderListTemp.add(tempOrder)
-                }
-                OrderList.value = orderListTemp
-                orderStatus.value = Utils.LOADER_HIDE
-            }
-    }
+//    fun setOrderList(){
+//        val orderListTemp = ArrayList<Order>()
+//        OrderList.value = orderListTemp
+//        orderStatus.value = Utils.LOADER_LOADING
+//        //Log.i("VENDROID", Utils.vendor.id)
+//        db.collection("OrderListing")
+//            .whereEqualTo("idVendor", Utils.vendor.id)
+//            .get()
+//            .addOnSuccessListener { orders ->
+//                Log.i("NUMBER ORDER", orders.documents.size.toString())
+//                for(order in orders){
+//                    val tempOrder = Order(
+//                        order.data.get("idVendor").toString(),
+//                        order.data.get("idCustomer").toString(),
+//                        order.data.get("idService").toString(),
+//                        order.data.get("timeOrder").toString(),
+//                        order.data.get("timeComing").toString(),
+//                        order.data.get("orderAddress").toString(),
+//                        order.data.get("orderCurrent").toString().toInt(),
+//                        order.data.get("price").toString().toLong(),
+//                        order.data.get("phoneNumber").toString(),
+//                    )
+//                    tempOrder.idOrder = order.id
+//                    orderListTemp.add(tempOrder)
+//
+//                }
+//                OrderList.value = orderListTemp
+//                orderStatus.value = Utils.LOADER_HIDE
+//            }
+//    }
+//
+//
+//    fun setOrderListForCustomer(){
+//        val orderListTemp = ArrayList<Order>()
+//        OrderList.value = orderListTemp
+//        orderStatus.value = Utils.LOADER_LOADING
+//        //Log.i("VENDROID", Utils.vendor.id)
+//        db.collection("OrderListing")
+//            .whereEqualTo("idCustomer", Utils.customer.id)
+//            .get()
+//            .addOnSuccessListener { orders ->
+//                Log.i("NUMBER ORDER", orders.documents.size.toString())
+//                for(order in orders){
+//                    val tempOrder = Order(
+//                        order.data.get("idVendor").toString(),
+//                        order.data.get("idCustomer").toString(),
+//                        order.data.get("idService").toString(),
+//                        order.data.get("timeOrder").toString(),
+//                        order.data.get("timeComing").toString(),
+//                        order.data.get("orderAddress").toString(),
+//                        order.data.get("orderCurrent").toString().toInt(),
+//                        order.data.get("price").toString().toLong(),
+//                        order.data.get("phoneNumber").toString(),
+//                    )
+//                    tempOrder.idOrder = order.id
+//                    orderListTemp.add(tempOrder)
+//                }
+//                OrderList.value = orderListTemp
+//                orderStatus.value = Utils.LOADER_HIDE
+//            }
+//    }
 
 //    fun setOrderListVendorWaiting(){
 //        val orderListTemp = ArrayList<Order>()
