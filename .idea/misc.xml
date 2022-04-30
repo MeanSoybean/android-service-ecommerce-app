@@ -8,11 +8,13 @@
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/bottom_nav_selector.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/credit_account_drawable.xml" value="0.2595" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/dotted_line_drawable.xml" value="0.11" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/edit_text_shadow.xml" value="0.116" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/email_account_drawable.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/gradient_background.xml" value="0.2595" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_add_48.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.2595" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_baseline_key_24.xml" value="0.11" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.116" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_baseline_phone_android_24.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/ic_outlined_home_24.xml" value="0.11" />
@@ -31,7 +33,7 @@
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_sign_up_vendor.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_user_profile.xml" value="0.25" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_vendor_information.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/home_customer_fragment.xml" value="0.2259963768115942" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/home_customer_fragment.xml" value="0.1" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/image_message_layout.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_home.xml" value="0.264" />

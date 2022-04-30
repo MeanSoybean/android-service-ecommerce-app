@@ -41,30 +41,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-
-            <Button
-                android:id="@+id/view_on_map_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue_accent_300"
-                android:padding="10dp"
-                android:text="@string/view_on_map_text"
-                android:textAllCaps="false"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@android:color/darker_gray" />
-
-            <Button
-                android:id="@+id/sort_service_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
                 <Button
                     android:id="@+id/view_on_map_btn"
                     android:layout_width="wrap_content"
