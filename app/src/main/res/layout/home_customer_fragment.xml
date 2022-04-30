@@ -27,68 +27,75 @@
         android:layout_below="@id/services_app_bar">
 
         <HorizontalScrollView
-            android:id="@+id/ultility_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <LinearLayout
+        android:id="@+id/ultility_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/view_on_map_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue_accent_300"
+                android:padding="10dp"
+                android:text="@string/view_on_map_text"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:background="@android:color/darker_gray" />
+
+            <Button
+                android:id="@+id/sort_service_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <Button
-                    android:id="@+id/view_on_map_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:padding="10dp"
-                    android:text="@string/view_on_map_text"
-                    android:textAllCaps="false"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
-                <View
-                    android:layout_marginStart="15dp"
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"/>
-                <Button
-                    android:id="@+id/sort_service_btn"
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/home_sort_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white"/>
-                <TextView
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/home_filter_text"/>
-                <Button
-                    android:id="@+id/filter_type_service_btn"
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/home_type_service_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white"/>
-                <Button
-                    android:id="@+id/filte_rprice_service_btn"
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/home_price_service_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white" />
-            </LinearLayout>
-        </HorizontalScrollView>
+                android:layout_marginStart="15dp"
+                android:backgroundTint="@color/blue_accent_300"
+                android:drawableRight="@drawable/ic_chevron_down_solid"
+                android:drawableTint="@color/white"
+                android:text="@string/home_sort_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/home_filter_text" />
+
+            <Button
+                android:id="@+id/filter_type_service_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:backgroundTint="@color/blue_accent_300"
+                android:drawableRight="@drawable/ic_chevron_down_solid"
+                android:drawableTint="@color/white"
+                android:text="@string/home_type_service_text" />
+
+            <Button
+                android:id="@+id/filte_rprice_service_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:backgroundTint="@color/blue_accent_300"
+                android:drawableRight="@drawable/ic_chevron_down_solid"
+                android:drawableTint="@color/white"
+                android:text="@string/home_price_service_text" />
+        </LinearLayout>
+    </HorizontalScrollView>
         <!--        <TextView-->
         <!--            android:id="@+id/address_empty_text_view"-->
         <!--            android:layout_width="0dp"-->

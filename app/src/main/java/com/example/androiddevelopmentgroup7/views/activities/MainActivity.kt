@@ -1,18 +1,19 @@
 package com.example.androiddevelopmentgroup7.views.activities
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.androiddevelopmentgroup7.R
-import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.UserCustomer
 import com.example.androiddevelopmentgroup7.models.UserVendor
+import com.example.androiddevelopmentgroup7.utils.Utils
+import com.google.android.gms.maps.MapFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
         auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123") //customer
             .addOnCompleteListener(this) { task ->
@@ -102,9 +104,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     private fun setupNav(role: String){
-
         val bottomNav = findViewById<BottomNavigationView>(R.id.home_bottom_navigation)
-
 
 
         val navFragment = supportFragmentManager.findFragmentById(R.id.vendor_fragment_container_view) as NavHostFragment
