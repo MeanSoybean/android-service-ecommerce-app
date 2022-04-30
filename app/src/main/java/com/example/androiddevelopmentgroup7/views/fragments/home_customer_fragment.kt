@@ -73,7 +73,7 @@ class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>):
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.name_of_vendor.text = serviceList.get(position).serviceName
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
-        holder.cost_vendor_service.text = serviceList.get(position).servicePrice
+        holder.cost_vendor_service.text = serviceList.get(position).servicePrice.toString()
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
 
@@ -122,10 +122,10 @@ class home_customer_fragment : Fragment() {
             bundle.putString("type", service.serviceType)
             bundle.putString("name", service.serviceName)
             bundle.putString("description", service.serviceDescription)
-            bundle.putString("price", service.servicePrice)
+            bundle.putLong("price", service.servicePrice)
             bundle.putString("contact", service.servicePhoneNumber)
             bundle.putString("image", service.serviceImage)
-            bundle.putBoolean("negotiate", service.negotiate)
+            //bundle.putBoolean("negotiate", service.negotiate)
             bundle.putString("vendorID", service.vendorID)
             bundle.putFloat("rating", service.serviceRating)
             bundle.putString("vendorName", service.vendorName)

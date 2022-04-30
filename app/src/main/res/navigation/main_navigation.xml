@@ -9,9 +9,9 @@
         android:name="com.example.androiddevelopmentgroup7.views.fragments.home_customer_fragment"
         android:label="home_customer_fragment"
         tools:layout="@layout/home_customer_fragment" >
-        <action
-            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
-            app:destination="@id/orderServiceFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"-->
+<!--            app:destination="@id/orderServiceFragment" />-->
         <action
             android:id="@+id/action_home_customer_fragment_to_fragment_service_detail"
             app:destination="@id/fragment_service_detail" />
@@ -22,7 +22,8 @@
     <fragment
         android:id="@+id/home_vendor_fragment"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.home_vendor_fragment"
-        android:label="home_vendor_fragment" >
+        android:label="home_vendor_fragment"
+        tools:layout="@layout/home_vendor_fragment">
         <action
             android:id="@+id/action_home_vendor_fragment_to_service_details_vendor_fragment"
             app:destination="@id/service_details_vendor_fragment"
@@ -37,9 +38,9 @@
             android:id="@+id/action_orderServiceVendorFragment_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment" />
 
-        <action
-            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"
-            app:destination="@id/home_customer_fragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_home_customer_fragment_to_orderServiceVendorFragment"-->
+<!--            app:destination="@id/home_customer_fragment" />-->
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
@@ -65,7 +66,15 @@
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.OrderDetailsFragment"
-        android:label="OrderDetailsFragment" />
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_details">
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_fragment_vendor_information"
+            app:destination="@id/fragment_vendor_information" />
+<!--        <action-->
+<!--            android:id="@+id/action_orderDetailsFragment_to_orderServiceFragment"-->
+<!--            app:destination="@id/orderServiceFragment"/>-->
+    </fragment>
     <fragment
         android:id="@+id/fragment_change_password"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_change_password"
@@ -84,7 +93,8 @@
     <fragment
         android:id="@+id/fragment_service_detail"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_service_detail"
-        android:label="fragment_service_detail" >
+        android:label="fragment_service_detail"
+        tools:layout="@layout/fragment_service_detail">
         <action
             android:id="@+id/action_fragment_service_detail_to_fragment_vendor_information"
             app:destination="@id/fragment_vendor_information" />
@@ -97,6 +107,7 @@
     <fragment
         android:id="@+id/fragment_vendor_information"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_vendor_information"
-        android:label="fragment_vendor_information" />
+        android:label="fragment_vendor_information"
+        tools:layout="@layout/fragment_vendor_information"/>
 
 </navigation>

@@ -46,11 +46,11 @@ class service_details_vendor_fragment : Fragment(){
     private var type:String? = null
     private var name:String? = null
     private var description:String? = null
-    private var price:String? = null
+    private var price:Long? = null
     private var contact:String? = null
     private var image:String? = null
     private var position:Int? = null
-    private var negotiate:Boolean? = null
+    //private var negotiate:Boolean? = null
 
     //val db = Firebase.firestore
     private val serviceViewModel : ServiceViewModel by activityViewModels()
@@ -65,7 +65,7 @@ class service_details_vendor_fragment : Fragment(){
     private lateinit var serviceCost: TextInputEditText
     private lateinit var serviceContact: TextInputEditText
     private lateinit var serviceImage: ImageView
-    private lateinit var serviceNegotiate: AutoCompleteTextView
+    //private lateinit var serviceNegotiate: AutoCompleteTextView
 
     private lateinit var serviceTypeLayout: TextInputLayout
     private lateinit var serviceNameLayout: TextInputLayout
@@ -85,11 +85,11 @@ class service_details_vendor_fragment : Fragment(){
             type = it.getString("type")
             name = it.getString("name")
             description = it.getString("description")
-            price = it.getString("price")
+            price = it.getLong("price")
             contact = it.getString("contact")
             image = it.getString("image")
             position = it.getInt("position")
-            negotiate = it.getBoolean("negotiate")
+            //negotiate = it.getBoolean("negotiate")
         }
     }
 
@@ -109,7 +109,7 @@ class service_details_vendor_fragment : Fragment(){
         serviceName = viewBinding.findViewById(R.id.vendor_name_service_edit_text)
         serviceDescription = viewBinding.findViewById(R.id.vendor_description_service_edit_text)
         serviceCost = viewBinding.findViewById(R.id.vendor_cost_service_edit_text)
-        serviceNegotiate = viewBinding.findViewById(R.id.vendor_negotiate_service_edit_text)
+        //serviceNegotiate = viewBinding.findViewById(R.id.vendor_negotiate_service_edit_text)
         serviceContact = viewBinding.findViewById(R.id.vendor_contact_edit_text)
         serviceImage = viewBinding.findViewById(R.id.descriptionImage)
 
@@ -121,48 +121,47 @@ class service_details_vendor_fragment : Fragment(){
 
         serviceViewModel.setServicesTypeFromDatabase() // custom adapter for select services
 
-        val costValue = arrayOf(getString(R.string.negotiate_text), getString(R.string.cost_text))
-        val negotiateAdapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, costValue)
-        serviceNegotiate.setAdapter(negotiateAdapter)
-        serviceNegotiate.setText(getString(R.string.negotiate_text), false)
-        serviceCost.setText(getString(R.string.negotiate_text))
-        serviceCost.isEnabled = false
+//        val costValue = arrayOf(getString(R.string.negotiate_text), getString(R.string.cost_text))
+//        val negotiateAdapter = ArrayAdapter(requireActivity(), R.layout.service_list_item, costValue)
+//        serviceNegotiate.setAdapter(negotiateAdapter)
+//        serviceNegotiate.setText(getString(R.string.negotiate_text), false)
+//        serviceCost.setText(getString(R.string.negotiate_text))
+//        serviceCost.isEnabled = false
 
-        serviceNegotiate.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
-                    serviceCost.isEnabled = false
-                    serviceCost.setText(getString(R.string.negotiate_text))
-                } else{
-                    serviceCost.isEnabled = true
-                    serviceCost.inputType = InputType.TYPE_CLASS_NUMBER
-                    serviceCost.setText("")
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {}
-        })
+//        serviceNegotiate.addTextChangedListener(object : TextWatcher{
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+//                    serviceCost.isEnabled = false
+//                    serviceCost.setText(getString(R.string.negotiate_text))
+//                } else{
+//                    serviceCost.isEnabled = true
+//                    serviceCost.inputType = InputType.TYPE_CLASS_NUMBER
+//                    serviceCost.setText("")
+//                }
+//            }
+//
+//            override fun afterTextChanged(p0: Editable?) {}
+//        })
         //Event listener
         addBtn.setOnClickListener{
             if(processingData())
             {
-                var isNegotiate = false
-                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
-                    isNegotiate = true
-                }
+//                var isNegotiate = false
+//                if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+//                    isNegotiate = true
+//                }
                 val service = Service(
                     serviceType.text.toString(),
                     serviceName.text.toString(),
                     serviceDescription.text.toString(),
-                    serviceCost.text.toString(),
+                    serviceCost.text.toString().toLong(),
                     serviceContact.text.toString(),
                     "",
                     5.0.toFloat(),
                     Utils.vendor.id,
                     Utils.vendor.Name,
-                    isNegotiate,
                 )
                 serviceViewModel.uploadFileAndSaveService(imageUri, service)
             }
@@ -204,33 +203,33 @@ class service_details_vendor_fragment : Fragment(){
 
         if(typeActivity.equals("edit")){
             toolbar.setTitle(R.string.edit_tittle_string)
-            if(!negotiate!!){
-                serviceNegotiate.setText(getString(R.string.cost_text),false)
-                serviceCost.setText(price)
-            }
+//            if(!negotiate!!){
+//                serviceNegotiate.setText(getString(R.string.cost_text),false)
+//                serviceCost.setText(price)
+//            }
             //serviceType.setText(type)
             serviceName.setText(name)
             serviceDescription.setText(description)
             serviceContact.setText(contact)
+            serviceCost.setText(price.toString())
             DownloadImageFromInternet(serviceImage).execute(image)
             addBtn.setText(R.string.save_edit_string)
             addBtn.setOnClickListener {
                 if(processingDataForUpdate()) {
-                    var isNegotiate = false
-                    if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
-                        isNegotiate = true
-                    }
+//                    var isNegotiate = false
+//                    if(serviceNegotiate.text.toString().equals(getString(R.string.negotiate_text))){
+//                        isNegotiate = true
+//                    }
                     val service = Service(
                         serviceType.text.toString(),
                         serviceName.text.toString(),
                         serviceDescription.text.toString(),
-                        serviceCost.text.toString(),
+                        serviceCost.text.toString().toLong(),
                         serviceContact.text.toString(),
                         image!!,
                         5.toFloat(),
                         Utils.vendor.id,
                         Utils.vendor.Name,
-                        isNegotiate,
                     )
                     if(!isSetImage){
                         serviceViewModel.updateService(position!!, service)
