@@ -26,7 +26,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/order_all_orders_recycler_view"
+            android:id="@+id/all_notification_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="8dp"
@@ -37,6 +37,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_service_layout"
             tools:listitem="@layout/layout_order_service" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/all_chat_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:flow_horizontalAlign="center"
+            app:flow_verticalAlign="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_service_layout"
+            tools:item="@layout/fragment_chat" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_service_layout"
@@ -51,15 +64,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:text="@string/all_tab_text" />
-
+                android:text="@string/NOTIFICATION" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accept_tab_text" />
-
+                android:text="@string/MESSAGE" />
 
 
         </com.google.android.material.tabs.TabLayout>
