@@ -6,6 +6,8 @@
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/drawable/drawable_spinner_filter.xml" value="0.166" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/drawable/ic_chevron_down_solid.xml" value="0.166" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/activity_auth.xml" value="0.1" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_chat.xml" value="0.15208333333333332" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_chat2.xml" value="0.15208333333333332" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_communication.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_credit.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.1203125" />
@@ -13,6 +15,7 @@
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/home_customer_fragment.xml" value="0.2" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_home_bar.xml" value="0.1" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_order_service.xml" value="0.12952898550724637" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/order_service_fragment.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/service_details_vendor_fragment.xml" value="0.1203125" />

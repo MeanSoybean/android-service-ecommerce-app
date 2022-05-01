@@ -189,4 +189,8 @@
     <string name="cancle_text">Bỏ chọn</string>
     <string name="notification_check_radio_group">Xin mời chọn loại và cách sắp xếp</string>
 
+    <!-- fragment_communication   -->
+    <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
+    <string name="notification_text_label">Thông báo</string>
+    <string name="message_text_label">Tin nhắn</string>
 </resources>
