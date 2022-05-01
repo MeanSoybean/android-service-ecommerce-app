@@ -19,6 +19,7 @@ import com.example.androiddevelopmentgroup7.utils.OrderTabValue
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -147,15 +148,16 @@ class TabFragmentOrderService() : Fragment() {
         if(filter != OrderTabValue.ALL){
             query = query.whereEqualTo("orderCurrent", filter)
         }
-        query.get()
+        query.orderBy("timeOrder", Query.Direction.DESCENDING).get()
             .addOnSuccessListener {  snapshot ->
+                var indexService = 0 // giữ trí sao cho service[index] = order[i]
                 Log.i("ASD",snapshot.documents.size.toString())
                 var count = 0
                 if(snapshot.size() == count){
                     loader.visibility = View.GONE
                 }
                 for(i in 0..(snapshot.size() - 1)){
-                    Log.i("ASD", snapshot.documents[i].get("idVendor").toString(),)
+
                     val tempOrder = Order(
                         snapshot.documents[i].get("idVendor").toString(),
                         snapshot.documents[i].get("idCustomer").toString(),
@@ -168,6 +170,7 @@ class TabFragmentOrderService() : Fragment() {
                         snapshot.documents[i].get("phoneNumber").toString(),
                         snapshot.documents[i].get("customerName").toString(),
                     )
+                    Log.i("ASD", (snapshot.documents[i].get("timeOrder") as Timestamp).toDate().toString(),)
                     tempOrder.idOrder = snapshot.documents[i].id
                     orderList.add(tempOrder)
                     db.collection("ServiceListings").document(tempOrder.idService).get()
@@ -187,32 +190,35 @@ class TabFragmentOrderService() : Fragment() {
                             serviceTemp.serviceID = doc.id
                             serviceList.add(serviceTemp)
                             val hashMap = HashMap<String, Any>()
-                            hashMap.put("idOrder", tempOrder.idOrder)
-                            hashMap.put("idVendor", tempOrder.idVendor)
-                            hashMap.put("idCustomer", tempOrder.idCustomer)
-                            hashMap.put("idService", tempOrder.idService)
-                            hashMap.put("timeOrder", tempOrder.timeOrder)
-                            hashMap.put("timeComing", tempOrder.timeComing)
-                            hashMap.put("orderAddress", tempOrder.orderAddress)
-                            hashMap.put("orderCurrent", tempOrder.orderCurrent)
-                            hashMap.put("price", tempOrder.price)
-                            hashMap.put("phoneNumber", tempOrder.phoneNumber)
+                            hashMap.put("idOrder", orderList.get(indexService).idOrder)
+                            hashMap.put("idVendor", orderList.get(indexService).idVendor)
+                            hashMap.put("idCustomer", orderList.get(indexService).idCustomer)
+                            hashMap.put("idService", orderList.get(indexService).idService)
+                            hashMap.put("timeOrder", orderList.get(indexService).timeOrder)
+                            hashMap.put("timeComing", orderList.get(indexService).timeComing)
+                            hashMap.put("orderAddress", orderList.get(indexService).orderAddress)
+                            hashMap.put("orderCurrent", orderList.get(indexService).orderCurrent)
+                            hashMap.put("price", orderList.get(indexService).price)
+                            hashMap.put("phoneNumber", orderList.get(indexService).phoneNumber)
                             hashMap.put("serviceImage", serviceTemp.serviceImage)
                             hashMap.put("serviceName", serviceTemp.serviceName)
                             hashMap.put("vendorName", serviceTemp.vendorName)
                             hashMap.put("serviceType", serviceTemp.serviceType)
                             hashMap.put("serviceDescription", serviceTemp.serviceDescription)
-                            hashMap.put("customerName", tempOrder.customerName)
+                            hashMap.put("customerName", orderList.get(indexService).customerName)
                             inforList.add(hashMap)
+                            Log.i("ASD", (hashMap.get("timeOrder") as Timestamp).toDate().toString(),)
                             adapter.notifyItemInserted(i)
                             count += 1
+                            indexService++
                             if(count == snapshot.size()){
                                 loader.visibility = View.GONE
                             }
                         }
                 }
-
-
+            }
+            .addOnFailureListener { exception ->
+                Log.i("ERROR", "Error getting documents.", exception)
             }
     }
     companion object {

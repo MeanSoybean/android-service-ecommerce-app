@@ -21,8 +21,13 @@ import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.Service
 import com.example.androiddevelopmentgroup7.utils.DownloadImageFromInternet
+import com.example.androiddevelopmentgroup7.utils.SortingAccording
+import com.example.androiddevelopmentgroup7.utils.SortingType
 import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.example.androiddevelopmentgroup7.viewModels.UserViewModel
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -69,14 +74,12 @@ class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val servicetemp: Service  = serviceList.get(position)
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
         holder.name_of_vendor.text = serviceList.get(position).serviceName
         holder.description_vendor_service.text = serviceList.get(position).serviceDescription
         holder.cost_vendor_service.text = serviceList.get(position).servicePrice.toString()
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
-
     }
 
     override fun getItemCount(): Int {
@@ -88,18 +91,24 @@ class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>):
 
 class home_customer_fragment : Fragment() {
     val db = Firebase.firestore
+
     // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
-    var m_text= ""
-    var mapBtn:Button? = null
-    var autoCompleteTV: AutoCompleteTextView? = null
+//    private var sortType:Int? = null
+//    private var sortAccording:Int? = null
+    private var mapBtn:Button? = null
+    private var sortingSpinner: Spinner? = null
+    private var filterSpnner:Spinner? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
+    private var loader:FrameLayout? = null
+    private var serviceType = ArrayList<String>()
+
+    private var searchBar: TextInputLayout? = null
+    private var searchContent:TextInputEditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
+//            sortType = it.getInt("SortingType")
+//            sortAccording = it.getInt("SortingAccording")
 //        }
     }
 
@@ -107,109 +116,158 @@ class home_customer_fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i("ASD", "Oncreate view")
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_customer_fragment, container, false)
         initComponent(rootView)
+        serviceViewModel.setServicesTypeFromDatabase()
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
         mapBtn?.setOnClickListener { findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_near_service_location) }
         serviceViewModel.setServiceListForUser()
         val adapter = MyServiceAdapterCustomerPage(serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
         recyclerView_services.layoutManager = LinearLayoutManager(activity)
-        adapter.onClick = { service, position ->
-            val bundle = Bundle()
-            bundle.putInt("position", position)
-            bundle.putString("type", service.serviceType)
-            bundle.putString("name", service.serviceName)
-            bundle.putString("description", service.serviceDescription)
-            bundle.putLong("price", service.servicePrice)
-            bundle.putString("contact", service.servicePhoneNumber)
-            bundle.putString("image", service.serviceImage)
-            //bundle.putBoolean("negotiate", service.negotiate)
-            bundle.putString("vendorID", service.vendorID)
-            bundle.putFloat("rating", service.serviceRating)
-            bundle.putString("vendorName", service.vendorName)
-            bundle.putString("serviceID", service.serviceID)
-            findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_service_detail, bundle)
-        }
-        adapter.onButtonClick = { servicetemp ->
-//            val userList = userViewModel.selectedServiceList.value!!
-//            val user = userList[0]
-//            Log.i("CHECK", userViewModel.selectedServiceList.value!!.toString())
-            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(context)
-            builder.setTitle("Ngày đặt lịch")
-
-// Set up the input
-            val dateNow = Calendar.getInstance().time
-            val input = EditText(context)
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setHint("Mời nhập ngày đặt lịch")
-            input.inputType = InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
-
-// Set up the buttons
-            builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-                // Here you get get input text from the Edittext
-                m_text = input.text.toString()
-                val calendar = Calendar.getInstance(TimeZone.getDefault())
-
-                val currentYear = calendar[Calendar.YEAR]
-                val currentMonth = calendar[Calendar.MONTH] + 1
-                val currentDay = calendar[Calendar.DAY_OF_MONTH]
-                val hour1 = calendar[Calendar.HOUR]
-                val minute1 = calendar[Calendar.MINUTE]
-                val time1 = hour1.toString()+':'+minute1.toString() + ' ' + currentDay.toString() + '/' +
-                        currentMonth.toString() + '/' +currentYear.toString()
-                //val id: String = db.collection("OrderListing").document().getId()
-                val data_ADD = hashMapOf(
-                    "nameVendor" to servicetemp.serviceName,
-                    "idCustomer" to Utils.customer.id,
-                    "orderAddress" to "Vẫn còn xung đột với login nên chưa để vô",
-                    "orderCurrent" to "Đang chờ xác nhận",
-                    "price" to "Thương lượng",
-                    "serviceImage" to "",
-                    "serviceName" to servicetemp.serviceName,
-                    "timeOrder" to time1,
-                    "timeComing" to m_text,
-                )
-                db.collection("OrderListing").add(data_ADD)
-//                val intent = Intent(context, MainActivity::class.java)
-//                startActivity(intent);
-
-            })
-            builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
-            builder.show()
-
-
-        }
-//        val items = serviceViewModel.selectedServiceList.value!!
-//        val name_service = ArrayList<String>()
-//        for (item in items){
-//            name_service.add(item.serviceName)
-//        }
-
-//        autoCompleteTV = rootView.findViewById(R.id.autoCompleteTextView)
-//        val adapter1 = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_single_choice, name_service) }
-//        autoCompleteTV!!.setAdapter(adapter1)
-//        autoCompleteTV!!.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(p0: Editable?) {}
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//
-//            }
-//        })
-
+        adapter.onClick = {service, position -> cartItemClick(service, position)}
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyDataSetChanged()
         })
+
+        serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypeList ->
+            serviceTypeList.add(0, getString(R.string.all_service))
+            serviceType.addAll(serviceTypeList)
+            val filterAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, serviceTypeList)
+            filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            filterSpnner?.adapter = filterAdapter
+        })
+        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            // Update the list UI
+            when(status){
+                "hide_loader" -> {
+                    loader?.visibility = View.GONE
+                }
+                "loading"-> {
+                    loader?.visibility = View.VISIBLE
+                }
+            }
+        })
         return rootView
     }
 
-    private fun initComponent(view:View){
-        mapBtn = view.findViewById(R.id.view_on_map_btn)
+    private fun cartItemClick(service:Service, position: Int){
+        val bundle = Bundle()
+        bundle.putInt("position", position)
+        bundle.putString("type", service.serviceType)
+        bundle.putString("name", service.serviceName)
+        bundle.putString("description", service.serviceDescription)
+        bundle.putLong("price", service.servicePrice)
+        bundle.putString("contact", service.servicePhoneNumber)
+        bundle.putString("image", service.serviceImage)
+        //bundle.putBoolean("negotiate", service.negotiate)
+        bundle.putString("vendorID", service.vendorID)
+        bundle.putFloat("rating", service.serviceRating)
+        bundle.putString("vendorName", service.vendorName)
+        bundle.putString("serviceID", service.serviceID)
+        findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_service_detail, bundle)
     }
+
+    private fun initComponent(view:View) {
+        loader = view.findViewById(R.id.loader_layout)
+        mapBtn = view.findViewById(R.id.view_on_map_btn)
+        sortingSpinner = view.findViewById(R.id.sort_service_btn)
+        filterSpnner = view.findViewById(R.id.filter_type_service_btn)
+        searchBar = view.findViewById(R.id.searchOutlinedTextLayout)
+        searchContent = view.findViewById(R.id.home_search_edit_text)
+
+        searchBar?.setEndIconOnClickListener {
+            Log.i("ASD", "Button click")
+            val name = searchContent?.text.toString()
+            sortingSpinner?.setSelection(0)
+            filterSpnner?.setSelection(0)
+            //serviceViewModel.findServiceByName(name)
+        }
+        val sortingAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.sorting_list,
+            android.R.layout.simple_spinner_item
+        )
+        sortingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        sortingSpinner?.adapter = sortingAdapter
+
+
+        filterSpnner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {runFilterStamentSorting(index) }
+        }
+
+        sortingSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {runSortingStamentSorting(index) }
+        }
+    }
+
+
+    private fun runSortingStamentSorting(index:Int){
+        var typeOfService = ""
+        var sortingType = ""
+        var sortingAccording = ""
+        when(filterSpnner?.selectedItem.toString()){
+            serviceType.get(1) -> typeOfService = serviceType.get(1)
+            serviceType.get(2) -> typeOfService = serviceType.get(2)
+            serviceType.get(3) -> typeOfService = serviceType.get(3)
+            serviceType.get(4) -> typeOfService = serviceType.get(4)
+        }
+        when(index){
+            1 -> {
+                sortingType = "servicePrice"
+                sortingAccording = "asc"
+            }
+            2 -> {
+                sortingType = "servicePrice"
+                sortingAccording = "des"
+            }
+            3 -> {
+                sortingType = "serviceRating"
+                sortingAccording = "asc"
+            }
+            4 -> {
+                sortingType = "serviceRating"
+                sortingAccording = "des"
+            }
+        }
+        serviceViewModel.queryDataFilter(sortingType, sortingAccording, typeOfService)
+    }
+
+
+    private fun runFilterStamentSorting(index:Int){
+        var typeOfService = ""
+        var sortingType = ""
+        var sortingAccording = ""
+        when(sortingSpinner?.selectedItemPosition){
+            1 -> {
+                sortingType = "servicePrice"
+                sortingAccording = "asc"
+            }
+            2 -> {
+                sortingType = "servicePrice"
+                sortingAccording = "des"
+            }
+            3 -> {
+                sortingType = "serviceRating"
+                sortingAccording = "asc"
+            }
+            4 -> {
+                sortingType = "serviceRating"
+                sortingAccording = "des"
+            }
+        }
+
+        if(index!=0){
+            typeOfService = filterSpnner?.selectedItem.toString()
+        }
+        serviceViewModel.queryDataFilter(sortingType, sortingAccording, typeOfService)
+    }
+
 
 //    companion object {
 //        /**

@@ -49,4 +49,17 @@ class OrderTabValue{
     }
 }
 
+class SortingType{
+    companion object{
+        val ASCENDING:Int = 1
+        val DESCENDING:Int = 0
+    }
+}
+class SortingAccording{
+    companion object{
+        val RATING:Int = 1
+        val PRICE:Int = 0
+    }
+}
+
 

@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.Service
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -41,6 +43,7 @@ class ServiceViewModel :  ViewModel() {
 //        Log.i("VENDORID", Utils.vendor.id)
         db.collection("ServiceListings")
             .whereEqualTo("vendorID", Utils.vendor.id)
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { services ->
                 Log.i("success", services.size().toString())
@@ -108,9 +111,11 @@ class ServiceViewModel :  ViewModel() {
         db.collection("ServiceListings")
             .add(service)
             .addOnSuccessListener { documentRefer ->
-                status.value = "add_service_sucess"
+                val createdAt = hashMapOf<String,Any>("createdAt" to Timestamp(Date()))
+                documentRefer.update(createdAt).addOnSuccessListener {
+                    status.value = "add_service_sucess"
+                }
             }
-
     }
 
 
@@ -183,7 +188,17 @@ class ServiceViewModel :  ViewModel() {
     fun updateService(position: Int, service: Service) {
         db.collection("ServiceListings")
             .document(serviceList.value!!.get(position).serviceID)
-            .set(service)
+            .update(
+                "serviceType", service.serviceType,
+                "serviceName", service.serviceName,
+                "serviceDescription", service.serviceDescription,
+                "servicePrice", service.servicePrice,
+                "servicePhoneNumber", service.servicePhoneNumber,
+                "serviceImage", service.serviceImage,
+                "serviceRating", service.serviceRating,
+                "vendorID", service.vendorID,
+                "vendorName", service.vendorName
+            )
             .addOnSuccessListener { documentRefer ->
                 status.value = "add_service_sucess"
                 serviceList.value = serviceList.value
@@ -230,6 +245,52 @@ class ServiceViewModel :  ViewModel() {
                 for(doc in snapshot){
                     db.collection("OrderListing").document(doc.id).delete()
                 }
+            }
+    }
+
+
+    fun queryDataFilter(sortingType:String, sortingAccording:String, typeOfService:String){
+        status.value = "loading"
+
+
+        var docRef = db.collection("ServiceListings").whereEqualTo("serviceID", "")
+        if(!typeOfService.equals("")){
+            docRef = docRef.whereEqualTo("serviceType", typeOfService)
+            Log.i("ASD", "vao tyoep of service")
+        }
+        if(!sortingType.equals("")){
+            if(sortingAccording.equals("des")){
+                docRef = docRef.orderBy(sortingType, Query.Direction.DESCENDING)
+            } else docRef = docRef.orderBy(sortingType)
+            Log.i("ASD", "vao sortingtype")
+        }
+        docRef.get().addOnSuccessListener { snapshot ->
+            val temp = ArrayList<Service>()
+            Log.i("ASD", snapshot.size().toString())
+            for(service in snapshot){
+                val serviceTemp = Service(
+                    service.data.get("serviceType").toString(),
+                    service.data.get("serviceName").toString(),
+                    service.data.get("serviceDescription").toString(),
+                    service.data.get("servicePrice").toString().toLong(),
+                    service.data.get("servicePhoneNumber").toString(),
+                    service.data.get("serviceImage").toString(),
+                    service.data.get("serviceRating").toString().toFloat(),
+                    service.data.get("vendorID").toString(),
+                    service.data.get("vendorName").toString(),
+                    //service.data.get("negotiate").toString().toBoolean(),
+                )
+                serviceTemp.serviceID = service.id
+                temp.add(serviceTemp)
+            }
+            Log.i("ASD", temp.size.toString())
+            serviceList.value!!.clear()
+            serviceList.value!!.addAll(temp)
+            serviceList.value = serviceList.value
+            status.value = "hide_loader"
+        }
+            .addOnFailureListener { exception ->
+                Log.i("ERROR", "Error getting documents.", exception)
             }
     }
 }
