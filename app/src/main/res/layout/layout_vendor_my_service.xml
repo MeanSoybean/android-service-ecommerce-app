@@ -61,11 +61,10 @@
 
         <TextView
             android:id="@+id/description_vendor_service"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:minLines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,22 +76,36 @@
             android:id="@+id/cost_vendor_service"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="5dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/service_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
+            app:layout_constraintTop_toBottomOf="@+id/phone_vendor_service"
             tools:text="Giá cả: cô chủ nhà đẹp là được" />
+
+        <TextView
+            android:id="@+id/phone_vendor_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/service_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
+            tools:text="038254210" />
 
         <Button
             android:id="@+id/service_edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:backgroundTint="@color/blue_accent_300"
             android:padding="16dp"
+            android:layout_marginTop="15dp"
             android:text="@string/edit_btn_text"
             android:textAllCaps="false"
             android:textSize="16sp"

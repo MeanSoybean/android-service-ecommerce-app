@@ -176,31 +176,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionServiceTextField" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/serviceIsNegotiate"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:boxStrokeColor="@color/blue_accent_300"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vendor_cost_service">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/serviceIsNegotiate"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                app:boxStrokeColor="@color/blue_accent_300"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/vendor_cost_service">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/vendor_negotiate_service_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:labelFor="@id/serviceIsNegotiate"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:textColor="@color/gray"
-                    android:textStyle="bold" />
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/vendor_negotiate_service_edit_text"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="none"-->
+<!--                    android:labelFor="@id/serviceIsNegotiate"-->
+<!--                    android:paddingTop="12dp"-->
+<!--                    android:paddingBottom="12dp"-->
+<!--                    android:textColor="@color/gray"-->
+<!--                    android:textStyle="bold" />-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/costServiceTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -214,13 +214,13 @@
                 app:boxStrokeColor="@color/blue_accent_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/serviceIsNegotiate">
+                app:layout_constraintTop_toBottomOf="@id/vendor_cost_service">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/vendor_cost_service_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:textColor="@color/gray"

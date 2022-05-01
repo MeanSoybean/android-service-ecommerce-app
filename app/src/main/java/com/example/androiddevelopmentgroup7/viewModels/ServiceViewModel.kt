@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androiddevelopmentgroup7.utils.Utils
 import com.example.androiddevelopmentgroup7.models.Service
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -48,13 +49,13 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceType").toString(),
                         service.data.get("serviceName").toString(),
                         service.data.get("serviceDescription").toString(),
-                        service.data.get("servicePrice").toString(),
+                        service.data.get("servicePrice").toString().toLong(),
                         service.data.get("servicePhoneNumber").toString(),
                         service.data.get("serviceImage").toString(),
                         service.data.get("serviceRating").toString().toFloat(),
                         service.data.get("vendorID").toString(),
                         service.data.get("vendorName").toString(),
-                        service.data.get("negotiate").toString().toBoolean()
+                        //service.data.get("negotiate").toString().toBoolean()
                     )
                     serviceTemp.serviceID = service.id
                     //Log.i("ServiceRating", serviceTemp.serviceRating.toString())
@@ -83,13 +84,13 @@ class ServiceViewModel :  ViewModel() {
                         service.data.get("serviceType").toString(),
                         service.data.get("serviceName").toString(),
                         service.data.get("serviceDescription").toString(),
-                        service.data.get("servicePrice").toString(),
+                        service.data.get("servicePrice").toString().toLong(),
                         service.data.get("servicePhoneNumber").toString(),
                         service.data.get("serviceImage").toString(),
                         service.data.get("serviceRating").toString().toFloat(),
                         service.data.get("vendorID").toString(),
                         service.data.get("vendorName").toString(),
-                        service.data.get("negotiate").toString().toBoolean(),
+                        //service.data.get("negotiate").toString().toBoolean(),
                     )
                     serviceTemp.serviceID = service.id
                     temp.add(serviceTemp)
@@ -104,7 +105,6 @@ class ServiceViewModel :  ViewModel() {
     }
 
     fun addServiceToList(service:Service) {
-
         db.collection("ServiceListings")
             .add(service)
             .addOnSuccessListener { documentRefer ->
@@ -112,6 +112,8 @@ class ServiceViewModel :  ViewModel() {
             }
 
     }
+
+
 
     fun uploadFileAndSaveService(imageUri: Uri, service:Service){
         // Create a reference to ""
@@ -147,6 +149,7 @@ class ServiceViewModel :  ViewModel() {
                 Log.i("DELETE IMAGE", it.toString())
             }
     }
+
 
 
     fun uploadFileAndUpdateService(imageUri: Uri, service: Service, position: Int){
@@ -207,20 +210,26 @@ class ServiceViewModel :  ViewModel() {
 
     fun deleteService(position: Int){
         status.value = "loading"
-        db.collection("Ser")
         db.collection("ServiceListings").document(serviceList.value!!.get(position).serviceID).get()
             .addOnSuccessListener { service ->
                 deleteImageFromUrl(service.get("serviceImage").toString())
                 db.collection("ServiceListings").document(serviceList.value!!.get(position).serviceID).delete()
                     .addOnSuccessListener {
                         status.value = "delete_success"
-
                         //notify observer that data changed
                         val serviceListTemp = serviceList.value!!
                         serviceListTemp.removeAt(position)
                         serviceList.value = serviceListTemp
-
                     }
+            }
+        db.collection("OrderListing")
+            .whereEqualTo("idService",serviceList.value!!.get(position).serviceID)
+            .whereEqualTo("idVendor",serviceList.value!!.get(position).vendorID)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                for(doc in snapshot){
+                    db.collection("OrderListing").document(doc.id).delete()
+                }
             }
     }
 }

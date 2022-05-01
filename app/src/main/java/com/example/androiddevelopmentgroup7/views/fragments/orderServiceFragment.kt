@@ -150,18 +150,15 @@ class MyOrderFragmentStageAdapter(fragmentManager: FragmentManager, lifecycle: L
 
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 class orderServiceFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    private var navigate: Int? = null
     private lateinit var tabTitle:Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            navigate = it.getInt("navigate")
         }
     }
 
@@ -186,6 +183,9 @@ class orderServiceFragment : Fragment() {
             getString(R.string.complete_tab_text),
             getString(R.string.cancel_tab_text),
         )
+//        if(navigate!=null){
+//            orderTabLayout.selectTab(orderTabLayout.getTabAt(navigate!!))
+//        }
         TabLayoutMediator(orderTabLayout, orderViewPager){ tab, position ->
             tab.text = tabTitle[position]
             Log.i("TAB", tab.text.toString())
@@ -204,11 +204,10 @@ class orderServiceFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(navigate: Int) =
             orderServiceFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt("navigate", navigate)
                 }
             }
     }
