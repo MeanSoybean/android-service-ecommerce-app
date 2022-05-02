@@ -153,7 +153,7 @@
     <string name="is_success_service_message">Bạn đã hoàn thành đơn này cho khách?</string>
     <string name="exist_document">Bạn đã có đơn phải làm trong ngày này, đơn này sẽ tự động huỷ!</string>
     <string name="none_service_order_found">Không tìm thấy đơn dịch vụ nào</string>
-
+    <string name="evalue_service">Đánh giá</string>
 
 
     <!--   layout_home -->
@@ -197,4 +197,11 @@
     <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
     <string name="notification_text_label">Thông báo</string>
     <string name="message_text_label">Tin nhắn</string>
+
+    <!-- fragment_rating_service   -->
+    <string name="rating_app_tittle_text">ĐÁNH GIÁ DỊCH VỤ</string>
+    <string name="message_feedback_label">Nhập đánh giá của bạn:</string>
+    <string name="send_btn">Gửi</string>
+    <string name="empty_message_feedback">Xin mời nhập đánh giá cho sản phẩm</string>
+
 </resources>

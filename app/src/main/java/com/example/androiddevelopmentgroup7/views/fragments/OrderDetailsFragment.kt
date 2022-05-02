@@ -191,6 +191,18 @@ class OrderDetailsFragment : Fragment() {
                 cancelBtn?.visibility = View.GONE
                 acceptBtn?.visibility = View.GONE
                 currentStateTextView?.text = requireActivity().getString(R.string.complete_tab_text)
+
+                if(Utils.typeUser == 0){
+                    acceptBtn?.visibility = View.VISIBLE
+                    acceptBtn?.setText(getString(R.string.evalue_service))
+                    acceptBtn?.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putString("serviceID", service!!.serviceID)
+                        findNavController().navigate(R.id.action_orderDetailsFragment_to_fragment_rating_service, bundle)
+                    }
+                }
+
+
             }
             OrderTabValue.CANCEL -> {
                 cancelBtn?.visibility = View.GONE

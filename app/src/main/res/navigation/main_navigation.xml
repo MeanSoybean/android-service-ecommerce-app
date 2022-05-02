@@ -72,7 +72,10 @@
         <action
             android:id="@+id/action_orderDetailsFragment_to_fragment_vendor_information"
             app:destination="@id/fragment_vendor_information" />
-<!--        <action-->
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_fragment_rating_service"
+            app:destination="@id/fragment_rating_service" />
+        <!--        <action-->
 <!--            android:id="@+id/action_orderDetailsFragment_to_orderServiceFragment"-->
 <!--            app:destination="@id/orderServiceFragment"/>-->
     </fragment>
@@ -110,6 +113,11 @@
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_vendor_information"
         android:label="fragment_vendor_information"
         tools:layout="@layout/fragment_vendor_information"/>
+    <fragment
+        android:id="@+id/fragment_rating_service"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_rating_service"
+        android:label="fragment_rating_service"
+        tools:layout="@layout/fragment_rating_service"/>
 
 
 </navigation>
