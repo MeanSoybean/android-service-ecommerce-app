@@ -1,6 +1,7 @@
 package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -44,40 +45,32 @@ private const val ARG_PARAM2 = "param2"
  * Use the [home_customer_fragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MyServiceAdapterCustomerPage(private var serviceList: ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapterCustomerPage.ViewHolder>(){
+class MyServiceAdapterCustomerPage(var context:Context,private var serviceList: ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapterCustomerPage.ViewHolder>(){
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         var name_vendor_service: TextView = listItemView.findViewById(R.id.name_vendor_service)
         var name_of_vendor: TextView = listItemView.findViewById(R.id.name_of_vendor)
-        var description_vendor_service: TextView = listItemView.findViewById(R.id.description_vendor_service)
-        var cost_vendor_service: TextView = listItemView.findViewById(R.id.cost_vendor_service)
+        var phone_vendor_service: TextView = listItemView.findViewById(R.id.phone_vendor_service)
+        var cost_vendor_service: TextView = listItemView.findViewById(R.id.service_price_tv)
         var service_image_view: ImageView = listItemView.findViewById(R.id.service_image_view)
         var service_rating_bar: RatingBar = listItemView.findViewById(R.id.service_rating_bar)
         init {
-            val messageBtnTemp = listItemView.findViewById<Button>(R.id.service_edit_btn)
-            messageBtnTemp.setOnClickListener {
-                onButtonClick?.invoke(serviceList[adapterPosition])
-            }
             listItemView.setOnClickListener { onClick?.invoke(serviceList[adapterPosition], adapterPosition) }
         }
     }
 
-
-    var onButtonClick: ((Service) -> Unit)? = null
     var onClick:((Service, Int) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val serviceView = inflater.inflate(R.layout.layout_home, parent, false)
-
-
         return ViewHolder(serviceView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (serviceList.get(position).serviceName + " - " + serviceList.get(position).serviceType).also { holder.name_vendor_service.text = it }
-        holder.name_of_vendor.text = serviceList.get(position).serviceName
-        holder.description_vendor_service.text = serviceList.get(position).serviceDescription
-        holder.cost_vendor_service.text = serviceList.get(position).servicePrice.toString()
+        holder.name_of_vendor.text = serviceList.get(position).vendorName
+        holder.phone_vendor_service.text = serviceList.get(position).servicePhoneNumber
+        (serviceList.get(position).servicePrice.toString() + context.getString(R.string.vietnamdong)).also { holder.cost_vendor_service.text = it }
         DownloadImageFromInternet(holder.service_image_view).execute(serviceList.get(position).serviceImage)
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
     }
@@ -124,9 +117,9 @@ class home_customer_fragment : Fragment() {
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
         mapBtn?.setOnClickListener { findNavController().navigate(R.id.action_home_customer_fragment_to_fragment_near_service_location) }
         serviceViewModel.setServiceListForUser()
-        val adapter = MyServiceAdapterCustomerPage(serviceViewModel.selectedServiceList.value!!)
+        val adapter = MyServiceAdapterCustomerPage(requireContext(),serviceViewModel.selectedServiceList.value!!)
         recyclerView_services.adapter = adapter
-        recyclerView_services.layoutManager = LinearLayoutManager(activity)
+        //recyclerView_services.layoutManager = LinearLayoutManager(activity)
         adapter.onClick = {service, position -> cartItemClick(service, position)}
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
