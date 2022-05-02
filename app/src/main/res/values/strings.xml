@@ -150,6 +150,8 @@
     <string name="is_success_service_title">Hoàn tất?</string>
     <string name="is_success_service_message">Bạn đã hoàn thành đơn này cho khách?</string>
     <string name="exist_document">Bạn đã có đơn phải làm trong ngày này, đơn này sẽ tự động huỷ!</string>
+    <string name="none_service_found">Không tìm thấy đơn dịch vụ nào</string>
+
 
 
     <!--   layout_home -->

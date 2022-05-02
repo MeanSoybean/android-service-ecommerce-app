@@ -50,6 +50,7 @@ class service_details_vendor_fragment : Fragment(){
     private var contact:String? = null
     private var image:String? = null
     private var position:Int? = null
+    private var rating:Float? = null
     //private var negotiate:Boolean? = null
 
     //val db = Firebase.firestore
@@ -88,6 +89,7 @@ class service_details_vendor_fragment : Fragment(){
             price = it.getLong("price")
             contact = it.getString("contact")
             image = it.getString("image")
+            rating = it.getFloat("rating")
             position = it.getInt("position")
             //negotiate = it.getBoolean("negotiate")
         }
@@ -227,7 +229,7 @@ class service_details_vendor_fragment : Fragment(){
                         serviceCost.text.toString().toLong(),
                         serviceContact.text.toString(),
                         image!!,
-                        5.toFloat(),
+                        rating!!,
                         Utils.vendor.id,
                         Utils.vendor.Name,
                     )
