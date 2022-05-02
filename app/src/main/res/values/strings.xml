@@ -199,4 +199,5 @@
     <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
     <string name="notification_text_label">Thông báo</string>
     <string name="message_text_label">Tin nhắn</string>
+    <string name="noti_top_bar">Thông báo</string>
 </resources>

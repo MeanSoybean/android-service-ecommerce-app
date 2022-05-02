@@ -15,15 +15,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b79053a9-c6a2-4035-bcf5-95ba0da485d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_communication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_communication.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/noti.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/fragments/fragment_notification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/androiddevelopmentgroup7/views/fragments/fragment_notification.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_noti.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_noti.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\fminhtu\.android\avd\Pixel_2_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[88597f16]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -61,10 +66,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="navigationResourceFile" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
-        <option value="Kotlin Class" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -101,7 +106,8 @@
     <property name="android-custom-viewC:/Users/khatu/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.5.0/8d3b87c7463f55053836b805e014cb238f64757a/material-1.5.0-sources.jar!/com/google/android/material/navigation/NavigationBarView.java_NavigationBarView_DIMENSIONS" value="1080&#10;1920" />
     <property name="android-custom-viewC:/Users/khatu/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.5.0/8d3b87c7463f55053836b805e014cb238f64757a/material-1.5.0-sources.jar!/com/google/android/material/navigation/NavigationBarView.java_SELECTED" value="NavigationBarView" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../shopping-android-app" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -109,11 +115,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\android-service-ecommerce-app\app\src\main\res\drawable" />
       <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\xml" />
       <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\layout" />
       <recent name="C:\Users\fminhtu\Documents\GitHub\android-service-ecommerce-app\app\src\main\res\drawable" />
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\res\drawable" />
-      <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\viewModels" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\StudyAtHCMUS\NamBa\MobileDevelopment\AndroidDevelopmentGroup7\app\src\main\java\com\example\androiddevelopmentgroup7\views\fragments" />

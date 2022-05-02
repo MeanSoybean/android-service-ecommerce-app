@@ -20,7 +20,7 @@
         android:layout_margin="8dp">
 
         <ImageView
-            android:id="@+id/product_image_view"
+            android:id="@+id/notification_image_view"
             android:layout_width="66dp"
             android:layout_height="49dp"
             android:layout_marginStart="8dp"
@@ -35,7 +35,7 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/cart_product_title_tv"
+            android:id="@+id/noti_title_tv"
             android:layout_width="275dp"
             android:layout_height="21dp"
             android:layout_marginStart="16dp"
@@ -43,13 +43,25 @@
             android:lines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/product_image_view"
+            app:layout_constraintStart_toEndOf="@+id/notification_image_view"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Thông báo bảo trì" />
 
+        <TextView
+            android:id="@+id/time_tv"
+            android:layout_width="272dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notification_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/noti_title_tv"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="22/04/2022 3.00PM" />
 
         <TextView
-            android:id="@+id/cart_product_price_tv"
+            android:id="@+id/description_tv"
             android:layout_width="272dp"
             android:layout_height="46dp"
             android:layout_marginStart="16dp"
@@ -58,9 +70,9 @@
             android:textColor="@color/blue_accent_300"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/product_image_view"
-            app:layout_constraintTop_toBottomOf="@+id/cart_product_title_tv"
-            app:layout_constraintVertical_bias="0.289"
+            app:layout_constraintStart_toEndOf="@+id/notification_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/time_tv"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Thông báo bảo trì hệ thống từ 22/04/2022 3.00PM" />
 
 
