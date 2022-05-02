@@ -150,7 +150,20 @@ class OrderDetailsFragment : Fragment() {
                 } else {
                     acceptBtn?.text = getString(R.string.accept_order_text)
                     acceptBtn?.setOnClickListener {
-                        updateState(OrderTabValue.ON_GOING)
+                        loader?.visibility = View.VISIBLE
+                        db.collection("OrderListing")
+                            .whereEqualTo("idVendor", service?.vendorID)
+                            .whereEqualTo("timeComing", order?.timeComing)
+                            .whereEqualTo("orderCurrent", OrderTabValue.ON_GOING)
+                            .get()
+                            .addOnSuccessListener { snapshot ->
+                                Log.i("snapshotsize", snapshot.documents.size.toString())
+                                if(snapshot.documents.size > 0){
+                                    updateState(OrderTabValue.CANCEL, R.string.exist_document)
+                                }
+                                else updateState(OrderTabValue.ON_GOING, R.string.success_message)
+                            }
+                        //updateState(OrderTabValue.ON_GOING)
                     }
 
                     cancelBtn?.text = getString(R.string.cancle_order_text)
@@ -204,20 +217,20 @@ class OrderDetailsFragment : Fragment() {
                     dialog.cancel()
                 }
                 .setPositiveButton(getString(R.string.accept_btn_text)) { dialog, _ ->
-                    updateState(state)
+                    updateState(state, R.string.success_message)
                     dialog.cancel()
                 }
                 .show()
         }
     }
 
-    private fun updateState(state:Int){
+    private fun updateState(state:Int, messageText: Int){
         loader?.visibility = View.VISIBLE
         db.collection("OrderListing").document(order!!.idOrder)
             .update("orderCurrent" , state)
             .addOnSuccessListener {
                 loader?.visibility = View.GONE
-                Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), messageText, Toast.LENGTH_LONG).show();
 //                findNavController().navigate(R.id.action_orderDetailsFragment_to_orderServiceFragment)
                 findNavController().popBackStack()
             }

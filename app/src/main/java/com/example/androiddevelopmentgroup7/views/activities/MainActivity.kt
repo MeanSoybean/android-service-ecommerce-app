@@ -1,11 +1,11 @@
 package com.example.androiddevelopmentgroup7.views.activities
 
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -13,7 +13,6 @@ import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.UserCustomer
 import com.example.androiddevelopmentgroup7.models.UserVendor
 import com.example.androiddevelopmentgroup7.utils.Utils
-import com.google.android.gms.maps.MapFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -135,4 +134,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }

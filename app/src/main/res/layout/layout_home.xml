@@ -1,118 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/service_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:checkable="true"
     android:clickable="true"
     android:focusable="true"
     app:cardElevation="0dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="@color/light_gray">
-    <!--        app:checkedIcon="@null"-->
+    app:strokeColor="#CCCCCC"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/name_of_vendor"
-            android:layout_width="223dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/gray"
-
-            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
-            app:layout_constraintTop_toBottomOf="@+id/cost_vendor_service"
-            tools:text="Thợ: Huỳnh Hoàng Giang" />
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp">
 
         <ImageView
             android:id="@+id/service_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             android:background="@drawable/round_outline_rect"
-            android:contentDescription="@string/img_item_vendor_service"
+            android:contentDescription="@string/add_img_item_desc"
             android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <TextView
+            android:id="@+id/name_vendor_service"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lines="2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/service_image_view"
+            tools:text="Item Name name name wofe348" />
 
         <RatingBar
             android:id="@+id/service_rating_bar"
             style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="83dp"
-            android:layout_height="19dp"
-            android:layout_marginBottom="78dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:progressTint="@color/gold"
-            android:rating="2"
-
-
+            android:rating="4.25"
             android:secondaryProgressTint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/service_image_view"
-            app:layout_constraintStart_toStartOf="@+id/service_image_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.883" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_vendor_service" />
 
         <TextView
-            android:id="@+id/name_vendor_service"
-            android:layout_width="234dp"
-            android:layout_height="0dp"
+            android:id="@+id/service_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@color/dark_gray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/service_image_view"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Giáo sư Kha chuyên sửa ống nước - sửa ống nước" />
-
-        <TextView
-            android:id="@+id/description_vendor_service"
-            android:layout_width="254dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="4dp"
-
-            android:minLines="2"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/gray"
-
-            app:layout_constraintStart_toEndOf="@+id/service_image_view"
-            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
-            app:layout_constraintTop_toBottomOf="@+id/name_vendor_service"
-            tools:text="Chuyên sửa các loại ống nước lớn nhỏ, sửa luôn tivi, máy vi tính" />
-
-        <TextView
-            android:id="@+id/cost_vendor_service"
-            android:layout_width="179dp"
-            android:layout_height="23dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/blue_accent_300"
-            app:layout_constraintStart_toEndOf="@+id/service_image_view"
-            app:layout_constraintStart_toStartOf="@+id/name_vendor_service"
-            app:layout_constraintTop_toBottomOf="@+id/description_vendor_service"
-            tools:text="Giá cả: Thương lượng" />
-
-        <Button
-            android:id="@+id/service_edit_btn"
-            android:layout_width="117dp"
-            android:layout_height="68dp"
-            android:backgroundTint="@color/blue_accent_300"
-            android:padding="16dp"
-            android:text="@string/take_schedule"
-            android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_of_vendor" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/service_rating_bar"
+            tools:text="500000 VNĐ" />
 
+        <TextView
+            android:id="@+id/name_of_vendor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/service_price_tv"
+            tools:text="Trần Tuấn Kha" />
+
+        <TextView
+            android:id="@+id/phone_vendor_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/name_of_vendor"
+            app:layout_constraintStart_toEndOf="@+id/name_of_vendor"
+            app:layout_constraintTop_toTopOf="@+id/name_of_vendor"
+            tools:text="0387256510" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

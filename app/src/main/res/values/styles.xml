@@ -9,4 +9,12 @@
         <item name="itemTextColor">@drawable/bottom_nav_selector</item>
         <item name="itemIconTint">@drawable/bottom_nav_selector</item>
     </style>
+
+    <string-array name="sorting_list">
+        <item>@string/none_sorting</item>
+        <item>@string/price_accending</item>
+        <item>@string/price_descending</item>
+        <item>@string/rating_accending</item>
+        <item>@string/rating_descending</item>
+    </string-array>
 </resources>

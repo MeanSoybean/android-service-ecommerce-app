@@ -68,6 +68,14 @@
     <string name="home_filter_text">Lọc:</string>
     <string name="home_type_service_text">Loại</string>
     <string name="home_price_service_text">Giá</string>
+    <string name="home_sorting_text">Sắp xếp:</string>
+    <string name="all_service">Tất cả dịch vụ</string>
+    <string name="none_sorting">Không</string>
+    <string name="price_accending">Giá tăng dần</string>
+    <string name="price_descending">Giá giảm dần</string>
+    <string name="rating_accending">Sao tăng dần</string>
+    <string name="rating_descending">Sao giảm dần</string>
+    <string name="none_service_found">Không tìm thấy dịch vụ nào</string>
 
     <!--   Bottom navigation bar-->
     <string name="bottom_nav_home_label">Trang chủ</string>
@@ -95,7 +103,7 @@
     <string name="delete_dialog_title_text">Xoá dịch vụ này?</string>
     <string name="delete_service_message_text">Bạn không thể khôi phục dịch vụ này nếu xoá</string>
     <string name="pro_cat_dialog_cancel_btn">Huỷ bỏ</string>
-    <string name="delete_dialog_delete_btn_text">Xoá</string>
+    <string name="delete_dialog_delete_btn_text">Chấp nhận</string>
 
 
     <!-- layout_order_vendor_service  -->
@@ -143,6 +151,11 @@
     <string name="confirm_service_success">Xác nhận hoàn tất</string>
     <string name="is_success_service_title">Hoàn tất?</string>
     <string name="is_success_service_message">Bạn đã hoàn thành đơn này cho khách?</string>
+    <string name="exist_document">Bạn đã có đơn phải làm trong ngày này, đơn này sẽ tự động huỷ!</string>
+    <string name="none_service_order_found">Không tìm thấy đơn dịch vụ nào</string>
+
+
+
     <!--   layout_home -->
     <string name="home_top_app_bar_text">TRANG CHỦ</string>
     <string name="take_schedule">ĐẶT LỊCH</string>
@@ -171,5 +184,19 @@
     <string name="customer">Khách hàng</string>
     <string name="MESSAGE">TIN NHẮN</string>
 
+    <!-- fragment_sorting -->
+    <string name="sorting_top_app_bar_text">SẮP XẾP</string>
+    <string name="sorting_according_label">Sắp xếp theo:</string>
+    <string name="sorting_according_price">Giá</string>
+    <string name="sorting_according_rating">Sao</string>
+    <string name="sorting_type_label">Loại sắp xếp:</string>
+    <string name="sorting_descending_text">Giảm dần</string>
+    <string name="sorting_ascending_text">Tăng dần</string>
+    <string name="cancle_text">Bỏ chọn</string>
+    <string name="notification_check_radio_group">Xin mời chọn loại và cách sắp xếp</string>
 
+    <!-- fragment_communication   -->
+    <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
+    <string name="notification_text_label">Thông báo</string>
+    <string name="message_text_label">Tin nhắn</string>
 </resources>

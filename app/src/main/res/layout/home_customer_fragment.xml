@@ -56,75 +56,75 @@
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/darker_gray"/>
-                <Button
-                    android:id="@+id/sort_service_btn"
+                <TextView
                     android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_sorting_text"/>
+                <Spinner
+                    android:id="@+id/sort_service_btn"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="165dp"
                     android:layout_height="match_parent"
                     android:text="@string/home_sort_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white"/>
+                    android:background="@drawable/drawable_spinner_filter"
+                    />
                 <TextView
                     android:layout_marginStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_filter_text"/>
-                <Button
+                <Spinner
                     android:id="@+id/filter_type_service_btn"
                     android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="165dp"
                     android:layout_height="match_parent"
-                    android:text="@string/home_type_service_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white"/>
-                <Button
-                    android:id="@+id/filte_rprice_service_btn"
-                    android:layout_marginStart="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/home_price_service_text"
-                    android:backgroundTint="@color/blue_accent_300"
-                    android:drawableRight="@drawable/ic_chevron_down_solid"
-                    android:drawableTint="@color/white" />
+                    android:popupBackground="@color/blue_accent_300"
+                    android:background="@drawable/drawable_spinner_filter"
+                    />
             </LinearLayout>
         </HorizontalScrollView>
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/address_empty_text_view"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="16dp"-->
-        <!--            android:layout_marginEnd="16dp"-->
-        <!--            android:fontFamily="@font/nunito_sans"-->
-        <!--            android:text="@string/no_addresses_text"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textAppearance="@style/TextAppearance.MyTheme.Headline3"-->
-        <!--            android:textColor="@color/blue_accent_300"-->
-        <!--            android:textStyle="bold"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <include
+            android:id="@+id/loader_layout"
+            layout="@layout/layout_circular_loader"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ultility_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/services_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="0dp"
+            android:padding="8dp"
+            android:clipToPadding="false"
             app:flow_horizontalAlign="center"
-            app:flow_verticalAlign="center"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ultility_bar"
             app:layout_constraintVertical_bias="0.0"
-            tools:itemCount="2"
+            app:spanCount="2"
+            tools:itemCount="10"
             tools:listitem="@layout/layout_home" />
-
+        <TextView
+            android:id="@+id/none_service_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/none_service_found"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/dark_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ultility_bar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
