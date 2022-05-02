@@ -94,7 +94,7 @@ class home_customer_fragment : Fragment() {
     private val serviceViewModel : ServiceViewModel by activityViewModels()
     private var loader:FrameLayout? = null
     private var serviceType = ArrayList<String>()
-
+    private var noneItemTextView:TextView? = null
     private var searchBar: TextInputLayout? = null
     private var searchContent:TextInputEditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +134,15 @@ class home_customer_fragment : Fragment() {
                 }
                 list.clear()
                 list.addAll(resultList)
+
                 Log.i("ASD","clearlist")
+            }
+            if(list.size == 0){
+                noneItemTextView?.visibility = View.VISIBLE
+                recyclerView_services?.visibility = View.GONE
+            } else {
+                noneItemTextView?.visibility = View.GONE
+                recyclerView_services?.visibility = View.VISIBLE
             }
             adapter.notifyDataSetChanged()
         })
@@ -180,34 +188,22 @@ class home_customer_fragment : Fragment() {
     private fun initComponent(view:View) {
         loader = view.findViewById(R.id.loader_layout)
         mapBtn = view.findViewById(R.id.view_on_map_btn)
+        noneItemTextView = view.findViewById(R.id.none_service_textview)
+        noneItemTextView?.visibility = View.GONE
         sortingSpinner = view.findViewById(R.id.sort_service_btn)
         filterSpnner = view.findViewById(R.id.filter_type_service_btn)
         searchBar = view.findViewById(R.id.searchOutlinedTextLayout)
         searchContent = view.findViewById(R.id.home_search_edit_text)
         searchContent?.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {Log.i("ASD", "BEFORE TEXT CHNAGE") }
-
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                Log.i("ASD", "ON TEXT CHNAGE")
                 if(searchContent?.text.toString().equals("")){
                     runFilterStament(filterSpnner?.selectedItemPosition!!)
-//                    if(filterSpnner?.selectedItemPosition != 0 && sortingSpinner?.selectedItemPosition == 0){
-//                        filterSpnner?.setSelection(0)
-//                    } else if(filterSpnner?.selectedItemPosition == 0 && sortingSpinner?.selectedItemPosition != 0){
-//                        sortingSpinner?.setSelection(0)
-//                    } else if(filterSpnner?.selectedItemPosition == 0 && sortingSpinner?.selectedItemPosition == 0){
-//                        serviceViewModel.queryDataFilter("","", "")
-//                    } else if(filterSpnner?.selectedItemPosition != 0 && sortingSpinner?.selectedItemPosition != 0){
-//                        runF
-//                    }
                 }
             }
-
-            override fun afterTextChanged(p0: Editable?) {Log.i("ASD", "AFTER AFTER CHNAGE")}
-
+            override fun afterTextChanged(p0: Editable?) {}
         })
         searchBar?.setEndIconOnClickListener {
-            Log.i("ASD", "Button click")
             var typeOfService = ""
             var sortingType = ""
             var sortingAccording = ""
@@ -233,7 +229,6 @@ class home_customer_fragment : Fragment() {
                 }
             }
             serviceViewModel.queryDataFilter(sortingType, sortingAccording, typeOfService)
-            //serviceViewModel.findServiceByName(name)
         }
         val sortingAdapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -285,10 +280,6 @@ class home_customer_fragment : Fragment() {
                 sortingAccording = "des"
             }
         }
-        Log.i("ASD", "sorting statement")
-        Log.i("ASD", "sortingType: "  + sortingType)
-        Log.i("ASD", "sortingAccording: "  + sortingAccording)
-        Log.i("ASD", "typeOfService: "  + typeOfService)
         serviceViewModel.queryDataFilter(sortingType, sortingAccording, typeOfService)
     }
 
@@ -319,14 +310,8 @@ class home_customer_fragment : Fragment() {
         if(index!=0){
             typeOfService = filterSpnner?.selectedItem.toString()
         }
-        Log.i("ASD", "filter statement")
-        Log.i("ASD", "sortingType: "  + sortingType)
-        Log.i("ASD", "sortingAccording: "  + sortingAccording)
-        Log.i("ASD", "typeOfService: "  + typeOfService)
         serviceViewModel.queryDataFilter(sortingType, sortingAccording, typeOfService)
     }
-
-
 
 //    companion object {
 //        /**
