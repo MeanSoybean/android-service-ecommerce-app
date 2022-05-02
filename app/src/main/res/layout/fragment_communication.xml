@@ -17,8 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/orders_app_bar">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/all_notification_recycler_view"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/order_all_orders_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,18 +36,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_communication_layout"
             />
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/all_chat_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            app:flow_horizontalAlign="center"
-            app:flow_verticalAlign="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_service_layout"
-            tools:item="@layout/fragment_chat" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_communication_layout"
@@ -57,15 +46,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="@color/blue_accent_300"
             app:tabSelectedTextColor="@color/blue_accent_300">
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/notification_text_label" />
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/message_text_label" />
+
         </com.google.android.material.tabs.TabLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
