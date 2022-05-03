@@ -29,6 +29,9 @@
             android:id="@+id/action_home_vendor_fragment_to_service_details_vendor_fragment"
             app:destination="@id/service_details_vendor_fragment"
             />
+        <action
+            android:id="@+id/action_home_vendor_fragment_to_fragment_rating_detail"
+            app:destination="@id/fragment_rating_detail" />
     </fragment>
     <fragment
         android:id="@+id/orderServiceFragment"
