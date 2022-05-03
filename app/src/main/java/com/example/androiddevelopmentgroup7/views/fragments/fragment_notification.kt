@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androiddevelopmentgroup7.R
@@ -24,6 +25,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
+import com.example.androiddevelopmentgroup7.models.Order
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,13 +40,18 @@ private const val ARG_PARAM2 = "param2"
  */
 
 class MyNotificationAdapter(var context: Context, private var notificationList:ArrayList<Notification>): RecyclerView.Adapter<MyNotificationAdapter.ViewHolder>(){
-
+    var onClick: ((Notification) -> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         var noti_title_tv: TextView = listItemView.findViewById(R.id.noti_title_tv)
         var description_tv: TextView = listItemView.findViewById(R.id.description_tv)
 
         var time_tv: TextView = listItemView.findViewById(R.id.time_tv)
         var notification_image_view: ImageView = listItemView.findViewById(R.id.notification_image_view)
+
+
+        init {
+            listItemView.setOnClickListener { onClick?.invoke(notificationList[adapterPosition]) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,13 +62,17 @@ class MyNotificationAdapter(var context: Context, private var notificationList:A
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        val contact: Notification = notificationList.get(position)
         val formatter = SimpleDateFormat("HH:mm:ss - dd/MM/yyyy")
         val date = (notificationList.get(position).Time as Timestamp).toDate()
         val convertDay = formatter.format(date)
+        val des_temp = notificationList.get(position).Description
+        var des_display :String =des_temp
+
+        if (des_temp.length>15) des_display=des_temp.substring(0,14)+"..."
         holder.notification_image_view.setImageResource(R.drawable.noti)
         holder.noti_title_tv.text  = notificationList.get(position).Name
-        holder.description_tv.text  = notificationList.get(position).Description
+        holder.description_tv.text  = des_display
         holder.time_tv.text  = convertDay
 
     }
@@ -81,7 +93,6 @@ class fragment_notification : Fragment() {
 
     private val notificationViewModel : NotificationViewModel by activityViewModels()
     // TODO: Rename and change types of parameters
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +122,9 @@ class fragment_notification : Fragment() {
         val loader = rootView.findViewById<FrameLayout>(R.id.loader_layout)
 
 
-
+        adapter.onClick = { contact ->
+            cartItemClick(contact)
+        }
         notificationViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
             adapter.notifyDataSetChanged()
@@ -134,5 +147,18 @@ class fragment_notification : Fragment() {
 
 
         return rootView
+    }
+
+
+
+    private fun cartItemClick(notification:Notification){
+        val bundle = Bundle()
+        val formatter = SimpleDateFormat("HH:mm:ss - dd/MM/yyyy")
+        val date = (notification.Time as Timestamp).toDate()
+        val convertDay = formatter.format(date)
+        bundle.putString("name", notification.Name)
+        bundle.putString("time", convertDay)
+        bundle.putString("description", notification.Description)
+        findNavController().navigate(R.id.action_fragment_notification_to_fragment_notification_details, bundle)
     }
 }

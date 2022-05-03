@@ -35,6 +35,7 @@ class NotificationViewModel : ViewModel()  {
                 Log.i("success", notifications.size().toString())
                 for (notification in notifications) {
                     val notificationTemp = Notification(
+                        notification.id,
                         notification.data.get("accountID").toString(),
                         notification.data.get("Name").toString(),
                         notification.data.get("Description").toString(),

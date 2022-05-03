@@ -90,7 +90,11 @@
         android:id="@+id/fragment_communication"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_communication"
         android:label="fragment_communication"
-        tools:layout="@layout/fragment_communication" />
+        tools:layout="@layout/fragment_communication" >
+        <action
+            android:id="@+id/action_fragment_notification_to_fragment_notification_details"
+            app:destination="@id/fragment_notification_details" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_service_detail"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_service_detail"
@@ -111,5 +115,18 @@
         android:label="fragment_vendor_information"
         tools:layout="@layout/fragment_vendor_information"/>
 
-
+<fragment
+    android:id="@+id/fragment_notification"
+    android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_notification"
+    android:label="fragment_notification"
+    tools:layout="@layout/fragment_notification"  >
+    <action
+        android:id="@+id/action_fragment_notification_to_fragment_notification_details"
+        app:destination="@id/fragment_notification_details" />
+</fragment>
+    <fragment
+        android:id="@+id/fragment_notification_details"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.notification_details"
+        android:label="fragment_notification_details"
+        tools:layout="@layout/fragment_notification_details"/>
 </navigation>
