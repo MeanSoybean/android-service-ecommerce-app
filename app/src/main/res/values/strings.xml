@@ -58,6 +58,8 @@
     <string name="order_dialog_btn_text">Đặt lịch</string>
     <string name="full_order_schedule">Thợ đã hết lịch trống</string>
     <string name="date_order">Ngày đặt lịch</string>
+    <string name="rating_view_text">Xem đánh giá</string>
+
 
     <!--  layout_home_bar  -->
     <string name="search_placeholder_text">Tìm kiếm dịch vụ</string>
@@ -153,7 +155,8 @@
     <string name="is_success_service_message">Bạn đã hoàn thành đơn này cho khách?</string>
     <string name="exist_document">Bạn đã có đơn phải làm trong ngày này, đơn này sẽ tự động huỷ!</string>
     <string name="none_service_order_found">Không tìm thấy đơn dịch vụ nào</string>
-
+    <string name="evalue_service">Đánh giá</string>
+    <string name="evalue_service_success">Đánh giá dịch vụ thành công</string>
 
 
     <!--   layout_home -->
@@ -194,15 +197,23 @@
     <string name="sorting_ascending_text">Tăng dần</string>
     <string name="cancle_text">Bỏ chọn</string>
     <string name="notification_check_radio_group">Xin mời chọn loại và cách sắp xếp</string>
+    <string name="noti_top_bar">Thông báo</string>
 
     <!-- fragment_communication   -->
     <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
     <string name="notification_text_label">Thông báo</string>
     <string name="message_text_label">Tin nhắn</string>
 
-
+    <!-- fragment_map   -->
     <string name="filter_radius_text">Bán kính</string>
     <string name="filter_service_text">Dịch vụ</string>
     <string name="filter_radius_content"> </string>
     <string name="filter_service_content" > </string>
+    <!-- fragment_rating_service   -->
+    <string name="rating_app_tittle_text">ĐÁNH GIÁ DỊCH VỤ</string>
+    <string name="message_feedback_label">Nhập đánh giá của bạn:</string>
+    <string name="send_btn">Gửi</string>
+    <string name="empty_message_feedback">Xin mời nhập đánh giá cho sản phẩm</string>
+    <!--    fragment_rating_detail-->
+    <string name="empty_rating_textview">Chưa có đánh giá nào về dịch vụ này</string>
 </resources>
