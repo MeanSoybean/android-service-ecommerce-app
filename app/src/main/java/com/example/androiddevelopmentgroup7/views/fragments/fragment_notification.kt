@@ -27,6 +27,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.models.Order
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,19 +42,23 @@ private const val ARG_PARAM2 = "param2"
 
 class MyNotificationAdapter(var context: Context, private var notificationList:ArrayList<Notification>): RecyclerView.Adapter<MyNotificationAdapter.ViewHolder>(){
     var onClick: ((Notification) -> Unit)? = null
+
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         var noti_title_tv: TextView = listItemView.findViewById(R.id.noti_title_tv)
         var description_tv: TextView = listItemView.findViewById(R.id.description_tv)
 
         var time_tv: TextView = listItemView.findViewById(R.id.time_tv)
         var notification_image_view: ImageView = listItemView.findViewById(R.id.notification_image_view)
-
+        var service_delete_btn: ImageView = listItemView.findViewById(R.id.service_delete_btn)
 
         init {
             listItemView.setOnClickListener { onClick?.invoke(notificationList[adapterPosition]) }
         }
     }
-
+    lateinit var onClickListener: OnClickListener
+    interface OnClickListener {
+        fun onDeleteClick(position: Int)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -74,7 +79,10 @@ class MyNotificationAdapter(var context: Context, private var notificationList:A
         holder.noti_title_tv.text  = notificationList.get(position).Name
         holder.description_tv.text  = des_display
         holder.time_tv.text  = convertDay
-
+        holder.service_delete_btn.setOnClickListener {
+            Log.i("DELETE", "delete")
+            onClickListener.onDeleteClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -142,15 +150,37 @@ class fragment_notification : Fragment() {
                     loader.visibility = View.VISIBLE
 
                 }
+                "delete_success" -> {
+                    loader.visibility = View.GONE
+                    Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
+                }
             }
         })
 
-
+        adapter.onClickListener = object : MyNotificationAdapter.OnClickListener {
+            override fun onDeleteClick(position: Int) {
+                showDeleteDialog(position)
+            }
+        }
         return rootView
     }
 
 
-
+    private fun showDeleteDialog(position: Int) {
+        context?.let {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.delete_dialog_title_text))
+                .setMessage(getString(R.string.delete_service_message_text))
+                .setNeutralButton(getString(R.string.pro_cat_dialog_cancel_btn)) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setPositiveButton(getString(R.string.delete_dialog_delete_btn_text)) { dialog, _ ->
+                    notificationViewModel.deleteNoti(position)
+                    dialog.cancel()
+                }
+                .show()
+        }
+    }
     private fun cartItemClick(notification:Notification){
         val bundle = Bundle()
         val formatter = SimpleDateFormat("HH:mm:ss - dd/MM/yyyy")
