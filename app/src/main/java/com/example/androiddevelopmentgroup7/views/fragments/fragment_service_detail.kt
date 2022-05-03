@@ -215,7 +215,18 @@ class fragment_service_detail : Fragment() {
                         "customerName" to customerName?.text.toString()
                     )).addOnSuccessListener {
                         loader?.visibility = View.GONE
+                        val tittle = getString(R.string.new_order_service)
+                        val message = getString(R.string.customer_text) + " " + customerName?.text.toString() + " " + getString(R.string.ordered_service) + name
+                        db.collection("Vendors").document(vendorID!!).get().addOnSuccessListener { doc ->
+                            db.collection("Notifications").add(hashMapOf(
+                                "Name" to tittle,
+                                "Description" to message,
+                                "accountID" to doc.data!!.get("AccountID"),
+                                "time" to Timestamp(Date()),
+                            ))
+                        }
                         findNavController().popBackStack()
+
                         //findNavController().navigate(R.id.action_fragment_service_detail_to_orderServiceFragment)
                         Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
                     }
