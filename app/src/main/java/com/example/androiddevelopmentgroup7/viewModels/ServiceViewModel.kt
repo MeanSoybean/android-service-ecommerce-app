@@ -293,5 +293,43 @@ class ServiceViewModel :  ViewModel() {
                 Log.i("ERROR", "Error getting documents.", exception)
             }
     }
+
+    fun queryDataFilter(typeOfService:String, radius: String){
+        status.value = "loading"
+
+        var docRef = db.collection("ServiceListings").whereEqualTo("serviceID", "")
+        if(!typeOfService.equals("")){
+            docRef = docRef.whereEqualTo("serviceType", typeOfService)
+            Log.i("ASD", "vao tyoep of service")
+        }
+
+        docRef.get().addOnSuccessListener { snapshot ->
+            val temp = ArrayList<Service>()
+            Log.i("ASD", snapshot.size().toString())
+            for(service in snapshot){
+                val serviceTemp = Service(
+                    service.data.get("serviceType").toString(),
+                    service.data.get("serviceName").toString(),
+                    service.data.get("serviceDescription").toString(),
+                    service.data.get("servicePrice").toString().toLong(),
+                    service.data.get("servicePhoneNumber").toString(),
+                    service.data.get("serviceImage").toString(),
+                    service.data.get("serviceRating").toString().toFloat(),
+                    service.data.get("vendorID").toString(),
+                    service.data.get("vendorName").toString(),
+                )
+                serviceTemp.serviceID = service.id
+                temp.add(serviceTemp)
+            }
+            Log.i("ASD", temp.size.toString())
+            serviceList.value!!.clear()
+            serviceList.value!!.addAll(temp)
+            serviceList.value = serviceList.value
+            status.value = "hide_loader"
+        }
+            .addOnFailureListener { exception ->
+                Log.i("ERROR", "Error getting documents.", exception)
+            }
+    }
 }
 

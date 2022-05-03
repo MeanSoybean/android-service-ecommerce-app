@@ -199,4 +199,10 @@
     <string name="commnication_app_tittle_text">HOẠT ĐỘNG</string>
     <string name="notification_text_label">Thông báo</string>
     <string name="message_text_label">Tin nhắn</string>
+
+
+    <string name="filter_radius_text">Bán kính</string>
+    <string name="filter_service_text">Dịch vụ</string>
+    <string name="filter_radius_content"> </string>
+    <string name="filter_service_content" > </string>
 </resources>
