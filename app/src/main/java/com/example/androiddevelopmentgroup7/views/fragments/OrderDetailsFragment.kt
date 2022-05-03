@@ -198,6 +198,7 @@ class OrderDetailsFragment : Fragment() {
                     acceptBtn?.setOnClickListener {
                         val bundle = Bundle()
                         bundle.putString("serviceID", service!!.serviceID)
+                        bundle.putString("customerName", order!!.customerName)
                         findNavController().navigate(R.id.action_orderDetailsFragment_to_fragment_rating_service, bundle)
                     }
                 }

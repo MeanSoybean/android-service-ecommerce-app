@@ -102,6 +102,9 @@
         <action
             android:id="@+id/action_fragment_service_detail_to_fragment_vendor_information"
             app:destination="@id/fragment_vendor_information" />
+        <action
+            android:id="@+id/action_fragment_service_detail_to_fragment_rating_detail"
+            app:destination="@id/fragment_rating_detail" />
     </fragment>
     <fragment
         android:id="@+id/fragment_near_service_location"
@@ -118,6 +121,11 @@
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_rating_service"
         android:label="fragment_rating_service"
         tools:layout="@layout/fragment_rating_service"/>
+    <fragment
+        android:id="@+id/fragment_rating_detail"
+        android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_rating_detail"
+        android:label="fragment_rating_detail"
+        tools:layout="@layout/fragment_rating_detail" />
 
 
 </navigation>

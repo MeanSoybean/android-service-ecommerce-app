@@ -30,6 +30,7 @@ private const val ARG_PARAM2 = "param2"
 class fragment_rating_service : Fragment() {
     // TODO: Rename and change types of parameters
     private var serviceID: String? = null
+    private var customerName:String? = null
     private var loader: FrameLayout? = null
     private var serviceImage: ImageView? = null
     private var serviceNameTextview: TextView? = null
@@ -40,10 +41,15 @@ class fragment_rating_service : Fragment() {
     private var sendBtn:Button? = null
     private var toolbar: MaterialToolbar? = null
     private var db = Firebase.firestore
+    private var serviceEvalue:MutableMap<*,*>? = null
+    private var numPerson:Int? = null
+    private var sumRating:Double? = null
+    //private var isRatingPrevious = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             serviceID = it.getString("serviceID")
+            customerName = it.getString("customerName")
         }
     }
 
@@ -74,20 +80,48 @@ class fragment_rating_service : Fragment() {
             if(feedbackMessage?.text.toString().equals("")){
                 Toast.makeText(requireContext(), R.string.empty_message_feedback, Toast.LENGTH_LONG).show()
             } else {
-                val detailRating = mutableMapOf<String, MutableMap<String, Any>>()
-                detailRating.put(Utils.customer.id , mutableMapOf("FeedBack" to "Qúa dữ", "Rating" to 3.5))
+                if(serviceEvalue != null){
+                    (serviceEvalue as MutableMap<String, MutableMap<String, Any>>)
+                        .put(
+                            Utils.customer.id ,
+                            mutableMapOf(
+                                "FeedBack" to feedbackMessage!!.text.toString(),
+                                "Rating" to serviceRatingBar?.rating as Any,
+                                "CustomerName" to Utils.customer.Name
+                            )
+                        )
+                } else {
+                    serviceEvalue = mutableMapOf(
+                        Utils.customer.id to mutableMapOf(
+                            "FeedBack" to feedbackMessage!!.text.toString(),
+                            "Rating" to serviceRatingBar?.rating,
+                            "CustomerName" to customerName
+                        )
+                    )
+                }
+                if(sumRating == null){
+                    sumRating = 0.0
+                    numPerson = 0
+                }
+                sumRating = sumRating!! + serviceRatingBar!!.rating.toDouble()
+                numPerson = numPerson!! + 1
+
+                //detailRating.put(Utils.customer.id , mutableMapOf("FeedBack" to "Qúa dữ", "Rating" to 3.5))
                 //val serviceRating = mutableMapOf("RatingDetails" to detailRating)
                 db.collection("ServiceRatings").document(serviceID!!).set(hashMapOf(
-                    "RatingDetails" to detailRating,
-                    "SumPerson" to 1,
-                    "SumRating" to 5
+                    "RatingDetails" to serviceEvalue,
+                    "SumPerson" to numPerson,
+                    "SumRating" to sumRating
                 ))
                     .addOnSuccessListener {
                         Log.i("ASD", "SUCCESS")
+                        Toast.makeText(requireContext(), getString(R.string.evalue_service_success), Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
                     }
                     .addOnFailureListener { exception ->
                         Log.i("ASD", "Error getting documents: ", exception)
                     }
+                db.collection("ServiceListings").document(serviceID!!).update("serviceRating", (sumRating!!/numPerson!!).toFloat())
             }
 
         }
@@ -98,16 +132,25 @@ class fragment_rating_service : Fragment() {
     private fun findPreviousRating(){
         db.collection("ServiceRatings").document(serviceID!!)
             .get().addOnSuccessListener { doc ->
-                if(doc != null){
-//                    val mapRating = doc.data!!.get("RatingDetails")
-//                    if(mapRating != null){
-//                        val personFeedback = (mapRating as Map<*,*>).get("FeedBack")
-//                        val personRating = mapRating.get("Rating")
-//                        serviceRatingBar?.rating = personRating.toString().toFloat()
-//                        feedbackMessage?.setText(personFeedback.toString())
-//                        Log.i("ASD", personRating.toString())
-//                        Log.i("ASD", personFeedback.toString())
-//                    }
+                if(doc.exists()){
+                    Log.i("ASD", "ServiceRating != null")
+                    val mapRating = doc.data?.get("RatingDetails")
+                    numPerson = doc.data?.get("SumPerson").toString().toInt()
+                    sumRating = doc.data?.get("SumRating").toString().toDouble()
+                    if(mapRating != null){
+                        serviceEvalue = mapRating as MutableMap<*, *>
+                        Log.i("ASD", "MAPRATING != null")
+                        val personRatingMap = (serviceEvalue)!!.get(Utils.customer.id) //map<idCustomer, danh gia>
+                        if(personRatingMap != null){
+                            val personStar = (personRatingMap as Map<*,*>).get("Rating")
+                            serviceRatingBar?.rating = personStar.toString().toFloat()
+                            feedbackMessage?.setText(personRatingMap.get("FeedBack").toString())
+                            Log.i("ASD", personStar.toString())
+                            Log.i("ASD", personRatingMap.get("FeedBack").toString())
+                            numPerson = numPerson!! - 1
+                            sumRating = sumRating!! - personStar.toString().toDouble()
+                        }
+                    }
                 }
                 loader?.visibility = View.GONE
             }
@@ -115,23 +158,25 @@ class fragment_rating_service : Fragment() {
     private fun setServiceView(){
         db.collection("ServiceListings").document(serviceID!!)
             .get().addOnSuccessListener { doc ->
-                DownloadImageFromInternet(serviceImage!!).execute(doc.data?.get("serviceImage").toString())
-                serviceNameTextview?.text = doc.data?.get("serviceName").toString()
-                serviceDescriptionTextview?.text = doc.data?.get("serviceDescription").toString()
-                (doc.data?.get("vendorName").toString() + " - " + doc.data?.get("servicePhoneNumber").toString()).also { namePhoneVendorTextview?.text = it }
-                val service = Service(
-                    doc.data?.get("serviceType").toString(),
-                    doc.data?.get("serviceName").toString(),
-                    doc.data?.get("serviceDescription").toString(),
-                    doc.data?.get("servicePrice").toString().toLong(),
-                    doc.data?.get("servicePhoneNumber").toString(),
-                    doc.data?.get("serviceImage").toString(),
-                    doc.data?.get("serviceRating").toString().toFloat(),
-                    doc.data?.get("vendorID").toString(),
-                    doc.data?.get("vendorName").toString(),
-                    //service.data.get("negotiate").toString().toBoolean(),
-                )
-                service.serviceID = doc.id
+                if(doc != null){
+                    DownloadImageFromInternet(serviceImage!!).execute(doc.data?.get("serviceImage").toString())
+                    serviceNameTextview?.text = doc.data?.get("serviceName").toString()
+                    serviceDescriptionTextview?.text = doc.data?.get("serviceDescription").toString()
+                    (doc.data?.get("vendorName").toString() + " - " + doc.data?.get("servicePhoneNumber").toString()).also { namePhoneVendorTextview?.text = it }
+                    val service = Service(
+                        doc.data?.get("serviceType").toString(),
+                        doc.data?.get("serviceName").toString(),
+                        doc.data?.get("serviceDescription").toString(),
+                        doc.data?.get("servicePrice").toString().toLong(),
+                        doc.data?.get("servicePhoneNumber").toString(),
+                        doc.data?.get("serviceImage").toString(),
+                        doc.data?.get("serviceRating").toString().toFloat(),
+                        doc.data?.get("vendorID").toString(),
+                        doc.data?.get("vendorName").toString(),
+                        //service.data.get("negotiate").toString().toBoolean(),
+                    )
+                    service.serviceID = doc.id
+                }
             }
     }
     companion object {
