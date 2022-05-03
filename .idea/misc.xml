@@ -87,7 +87,10 @@
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification_details.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_service.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_report_app.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_service_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_order_service.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar.xml" value="0.25416666666666665" />
@@ -96,6 +99,7 @@
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/list_noti.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/noti_top_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/order_service_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/report_top_bar.xml" value="0.24010416666666667" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/service_details_vendor_fragment.xml" value="0.25416666666666665" />
       </map>
     </option>

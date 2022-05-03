@@ -45,6 +45,7 @@
                         android:textColor="@color/green_500"
                         android:textSize="18sp" />
 
+
                     <ImageView
                         android:id="@+id/avatar_image_view"
                         android:layout_width="100dp"
@@ -344,6 +345,7 @@
                         android:text="Thay đổi mật khẩu"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
                 </LinearLayout>
             </LinearLayout>
 

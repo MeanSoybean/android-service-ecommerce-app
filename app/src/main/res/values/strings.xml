@@ -208,7 +208,7 @@
     <string name="filter_radius_text">Bán kính</string>
     <string name="filter_service_text">Dịch vụ</string>
     <string name="filter_radius_content"> </string>
-    <string name="filter_service_content" > </string>
+    <string name="filter_service_content"> </string>
     <!-- fragment_rating_service   -->
     <string name="rating_app_tittle_text">ĐÁNH GIÁ DỊCH VỤ</string>
     <string name="message_feedback_label">Nhập đánh giá của bạn:</string>
@@ -216,4 +216,5 @@
     <string name="empty_message_feedback">Xin mời nhập đánh giá cho sản phẩm</string>
     <!--    fragment_rating_detail-->
     <string name="empty_rating_textview">Chưa có đánh giá nào về dịch vụ này</string>
+    <string name="report_top_bar">PHẢN HỒI VỀ APP</string>
 </resources>
