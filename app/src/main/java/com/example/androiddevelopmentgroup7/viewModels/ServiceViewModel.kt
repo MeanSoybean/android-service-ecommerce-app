@@ -246,6 +246,7 @@ class ServiceViewModel :  ViewModel() {
                     db.collection("OrderListing").document(doc.id).delete()
                 }
             }
+        db.collection("ServiceRatings").document(serviceList.value!!.get(position).serviceID).delete()
     }
 
 
