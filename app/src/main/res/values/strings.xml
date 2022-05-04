@@ -153,8 +153,15 @@
     <string name="none_service_order_found">Không tìm thấy đơn dịch vụ nào</string>
     <string name="evalue_service">Đánh giá</string>
     <string name="evalue_service_success">Đánh giá dịch vụ thành công</string>
-
-
+    <string name="service_order">Đơn dịch vụ</string>
+    <string name="order_service_state">Thông báo trạng thái dịch vụ</string>
+    <string name="service_order_accepted">đã được xác nhận và thợ sẽ đến đúng ngày hẹn</string>
+    <string name="service_order_canceled_by_vendor">đã bị huỷ do thợ đã có lịch hẹn vào ngày</string>
+    <string name="service_order_completed">đã được hoàn thành</string>
+    <string name="customer_text">Khách hàng</string>
+    <string name="ordered_service">đã đặt dịch vụ</string>
+    <string name="canceled_service">đã huỷ dịch vụ</string>
+    <string name="new_order_service">Thông báo đơn dịch vụ mới</string>
     <!--   layout_home -->
     <string name="home_top_app_bar_text">TRANG CHỦ</string>
     <string name="take_schedule">ĐẶT LỊCH</string>
