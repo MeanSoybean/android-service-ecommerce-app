@@ -37,14 +37,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
             <RelativeLayout
                 android:id="@+id/profile_relative_layout"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="290dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/my_profile_app_bar"
@@ -114,7 +114,7 @@
                     android:layout_width="380dp"
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="180dp"
+                    android:layout_marginTop="170dp"
                     android:background="@drawable/profile_border"
                     android:backgroundTint="#E0F7FA"
                     app:cardCornerRadius="2dp">
@@ -218,8 +218,8 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.50"
                 app:layout_constraintStart_toStartOf="parent"
@@ -389,6 +389,34 @@
                         android:paddingLeft="25dp"
                         android:singleLine="true"
                         android:text="Thay đổi mật khẩu"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/sign_out_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/profile_border"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:srcCompat="@drawable/exit_drawable"
+                        app:tint="@color/blue_accent_300" />
+
+                    <TextView
+                        android:id="@+id/profile_sign_out_tv"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="25dp"
+                        android:singleLine="true"
+                        android:text="Đăng xuất"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 

@@ -63,7 +63,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
     private var radiusList = ArrayList<String>()
 
     private var serviceLatlngList = ArrayList<LatLng?>()
-    private var radius = 20.0 * 1000
+    private var radius = 20.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,9 +71,6 @@ class fragment_near_service_location : Fragment(), LocationListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_near_service_location, container, false)
         initComponent(view)
-
-        this.saveCurrentLocation()
-        this.mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as CustomMapFragment
 
         return view
     }
@@ -97,11 +94,14 @@ class fragment_near_service_location : Fragment(), LocationListener {
         setDataForSpinner()
         setOnItemSelectedListenerForSpinner()
         // map fragment
+        this.saveCurrentLocation()
+        this.mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as CustomMapFragment
+
+
     }
 
     private fun setDataForSpinner() {
-        radiusList.add("Tất cả")
-        for (radius: Int in 1..10) { radiusList.add(radius.toString() + " kms") }
+        for (radius: Int in 0..10) { radiusList.add(radius.toString() + " kms") }
         var filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, radiusList)
         filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
         radius_spinner?.adapter = filterAdapter
@@ -122,17 +122,33 @@ class fragment_near_service_location : Fragment(), LocationListener {
         serviceViewModel.status.value = "hide_loader"
     }
 
+    private fun setLoaderObserveToDrawMap() {
+        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            when(status){
+                "hide_loader" -> {
+                    loader?.visibility = View.GONE
+
+                    mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+                    getAndMarkerServiceList(radius)
+                    mapFragment!!.drawCircle(myLatlng, radius)
+                }
+                "loading"-> {
+                    loader?.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
     private fun setOnItemSelectedListenerForSpinner() {
         service_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
-                var typeOfService = ""
-
-                if(!service_spinner?.selectedItem.toString().equals(getString(R.string.all_service))) {
-                    typeOfService = service_spinner!!.getSelectedItem().toString()
-                }
+                var typeOfService = service_spinner!!.getSelectedItem().toString()
                 serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
-                setLoaderObserveToDrawMap()
+                mapFragment!!.clearMap()
+                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+                radius_spinner!!.setSelection(0)
+//                setLoaderObserveToDrawMap()
             }
         }
 
@@ -141,38 +157,15 @@ class fragment_near_service_location : Fragment(), LocationListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
                 mapFragment!!.clearMap()
                 mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-                radius = 20.0 * 1000.0
 
-                if (!radius_spinner?.selectedItem.toString().equals("Tất cả")) {
-                    radius = index * 1000.0
-                    mapFragment!!.drawCircle(myLatlng, radius)
-                }
+                radius = index * 1.0
+                mapFragment!!.drawCircle(myLatlng, radius)
 
                 getAndMarkerServiceList(radius)
             }
         }
     }
 
-    private fun setLoaderObserveToDrawMap() {
-        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
-            when(status){
-                "hide_loader" -> {
-                    loader?.visibility = View.GONE
-                    mapFragment!!.clearMap()
-                    mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-                    getAndMarkerServiceList(radius)
-
-                    if (!radius_spinner?.selectedItem.toString().equals("Tất cả")) {
-                        mapFragment!!.drawCircle(myLatlng, radius)
-                    }
-
-                }
-                "loading"-> {
-                    loader?.visibility = View.VISIBLE
-                }
-            }
-        })
-    }
 
     private fun getAndMarkerServiceList(radius: Double){
         try {
@@ -188,8 +181,8 @@ class fragment_near_service_location : Fragment(), LocationListener {
                                 document.data.get("latitude").toString().toDouble(),
                                 document.data.get("longitude").toString().toDouble()
                             )
-                            serviceLatlngList.add(latlng!!)
                         }
+                        serviceLatlngList.add(latlng!!)
                     }
                     .addOnFailureListener { exception ->
                         Log.w(ContentValues.TAG, "Error getting documents.", exception)
@@ -199,12 +192,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
 
             if (!serviceLatlngList.isEmpty()) {
                 for (i: Int in 0..serviceLatlngList.size) {
-                    if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng, serviceLatlngList[i]!!) <= radius) {
-//                        mapFragment!!.markerTo(
-//                            serviceLatlngList[i]!!,
-//                            address = serviceViewModel.selectedServiceList.value!![i].serviceName
-//                        )
-
+                    if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng, serviceLatlngList[i]!!) / 1000.0 <= radius) {
                         mapFragment!!.markerTo(
                             serviceLatlngList[i]!!,
                             serviceViewModel.selectedServiceList.value!![i]
@@ -212,11 +200,10 @@ class fragment_near_service_location : Fragment(), LocationListener {
                     }
                 }
             }
-
         } catch (e: IndexOutOfBoundsException) {
             Log.i("IndexOutOfBounds:", e.toString())
         }
-
+        serviceLatlngList = ArrayList<LatLng?>()
     }
 
     private fun getCurrentLocation() {
