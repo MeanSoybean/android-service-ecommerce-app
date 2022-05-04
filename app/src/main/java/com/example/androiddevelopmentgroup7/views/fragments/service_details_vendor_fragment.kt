@@ -162,7 +162,7 @@ class service_details_vendor_fragment : Fragment(){
                     serviceContact.text.toString(),
                     "",
                     5.0.toFloat(),
-                    Utils.vendor.id,
+                    Utils.vendor.accountID,
                     Utils.vendor.name,
                 )
                 serviceViewModel.uploadFileAndSaveService(imageUri, service)
@@ -230,7 +230,7 @@ class service_details_vendor_fragment : Fragment(){
                         serviceContact.text.toString(),
                         image!!,
                         rating!!,
-                        Utils.vendor.id,
+                        Utils.vendor.accountID,
                         Utils.vendor.name,
                     )
                     if(!isSetImage){

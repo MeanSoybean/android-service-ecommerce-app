@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".views.fragments.ProfileFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -102,7 +101,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
-                                android:text="@string/customer"
+                                android:text="@string/vendor_text"
                                 android:textColor="@color/blue_accent_300"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -154,7 +153,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:inputType="textShortMessage"
                                 android:paddingTop="10dp"
                                 android:text="0"
                                 android:textColor="@color/blue_accent_300"
@@ -220,7 +218,7 @@
                         android:src="@drawable/phone_account_drawable"
                         app:tint="@color/blue_accent_300" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/profile_phone_tv"
 
                         android:layout_width="wrap_content"
@@ -228,7 +226,6 @@
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
-                        android:inputType="phone"
                         android:paddingLeft="25dp"
                         android:singleLine="true"
                         android:text="098989701"
@@ -253,14 +250,13 @@
                         app:srcCompat="@drawable/location_account_drawable"
                         app:tint="@color/blue_accent_300" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/profile_address_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
-                        android:inputType="textShortMessage"
                         android:paddingLeft="25dp"
                         android:singleLine="true"
                         android:text="Ho Chi Minh"

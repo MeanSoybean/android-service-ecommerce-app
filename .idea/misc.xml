@@ -16,11 +16,13 @@
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.1203125" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_detail.xml" value="0.264" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_service.xml" value="0.264" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_report_app.xml" value="0.15416666666666667" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_service_detail.xml" value="0.2" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_sorting.xml" value="0.176" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_user_profile.xml" value="0.10960144927536232" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/fragment_vendor_information.xml" value="0.12590579710144928" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/home_customer_fragment.xml" value="0.2" />
-        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.1203125" />
+        <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.176" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_home.xml" value="0.264" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_home_bar.xml" value="0.1" />
         <entry key="..\:/StudyAtHCMUS/NamBa/MobileDevelopment/android-service-ecommerce-app/app/src/main/res/layout/layout_order_service.xml" value="0.12952898550724637" />
@@ -87,7 +89,6 @@
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification_details.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.25416666666666665" />
-        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_detail.xml" value="0.121875" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_service.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_report_app.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_service_detail.xml" value="0.25416666666666665" />

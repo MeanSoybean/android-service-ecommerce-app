@@ -1,11 +1,11 @@
 package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.util.Log
+import com.example.androiddevelopmentgroup7.models.Service
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import java.text.DecimalFormat
 
@@ -65,7 +65,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
     fun markerFrom(location: LatLng, address: String) {
         fromLatLng = location
 
-        googleMap!!.addMarker(MarkerOptions()
+        val marker = googleMap!!.addMarker(MarkerOptions()
             .position(location)
             .title(address))
     }
@@ -73,10 +73,21 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
     fun markerTo(location: LatLng, address: String) {
         val distance = roundTwoDecimals(distance(fromLatLng, location) / 1000)
 
-        googleMap!!.addMarker(MarkerOptions()
+        var marker = googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title(address + " - distance: " + distance + " km")
+            .title(address + " - Khoảng cách: " + distance + " kms")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+    }
+
+    fun markerTo(location: LatLng, service: Service) {
+        val distance = roundTwoDecimals(distance(fromLatLng, location) / 1000)
+
+        val marker = googleMap!!.addMarker(MarkerOptions()
+            .position(location)
+            .title(service.serviceName + " - Khoảng cách: " + distance + " kms")
+            .snippet(service.serviceDescription)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+
     }
 
     fun markerRandom(location: LatLng, address: String) {
@@ -84,7 +95,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
         googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title(address + " - distance: " + distance + " km")
+            .title(address + " - Khoảng cách: " + distance + " kms")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
     }
 

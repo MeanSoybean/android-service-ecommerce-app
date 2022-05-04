@@ -63,6 +63,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
     private var radiusList = ArrayList<String>()
 
     private var serviceLatlngList = ArrayList<LatLng?>()
+    private var radius = 20.0 * 1000
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,8 +93,10 @@ class fragment_near_service_location : Fragment(), LocationListener {
 
         //service view model
         setServiceViewModel()
+        //spinner
+        setDataForSpinner()
+        setOnItemSelectedListenerForSpinner()
         // map fragment
-
     }
 
     private fun setDataForSpinner() {
@@ -104,7 +107,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
         radius_spinner?.adapter = filterAdapter
 
         serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypeList ->
-            serviceTypeList.add(0, getString(R.string.all_service))
+//            serviceTypeList.add(0, getString(R.string.all_service))
             serviceType.addAll(serviceTypeList)
             filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, serviceTypeList)
             filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
@@ -116,14 +119,53 @@ class fragment_near_service_location : Fragment(), LocationListener {
     private fun setServiceViewModel() {
         serviceViewModel.setServicesTypeFromDatabase()
         serviceViewModel.setServiceListForUser()
-        setDataForSpinner()
-        setOnItemSelectedListenerForSpinner()
-
         serviceViewModel.status.value = "hide_loader"
+    }
+
+    private fun setOnItemSelectedListenerForSpinner() {
+        service_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+                var typeOfService = ""
+
+                if(!service_spinner?.selectedItem.toString().equals(getString(R.string.all_service))) {
+                    typeOfService = service_spinner!!.getSelectedItem().toString()
+                }
+                serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
+                setLoaderObserveToDrawMap()
+            }
+        }
+
+        radius_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+                mapFragment!!.clearMap()
+                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+                radius = 20.0 * 1000.0
+
+                if (!radius_spinner?.selectedItem.toString().equals("Tất cả")) {
+                    radius = index * 1000.0
+                    mapFragment!!.drawCircle(myLatlng, radius)
+                }
+
+                getAndMarkerServiceList(radius)
+            }
+        }
+    }
+
+    private fun setLoaderObserveToDrawMap() {
         serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
             when(status){
                 "hide_loader" -> {
                     loader?.visibility = View.GONE
+                    mapFragment!!.clearMap()
+                    mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+                    getAndMarkerServiceList(radius)
+
+                    if (!radius_spinner?.selectedItem.toString().equals("Tất cả")) {
+                        mapFragment!!.drawCircle(myLatlng, radius)
+                    }
+
                 }
                 "loading"-> {
                     loader?.visibility = View.VISIBLE
@@ -132,64 +174,49 @@ class fragment_near_service_location : Fragment(), LocationListener {
         })
     }
 
-    private fun setOnItemSelectedListenerForSpinner() {
-        service_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
-                var typeOfService = ""
-                if(!service_spinner?.selectedItem.toString().equals(getString(R.string.all_service))) {
-                    typeOfService = service_spinner!!.getSelectedItem().toString()
-                }
-                serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
-                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+    private fun getAndMarkerServiceList(radius: Double){
+        try {
+            var latlng: LatLng? = null
+
+            for (service: Service in serviceViewModel.selectedServiceList.value!!) {
+                this.database.collection("Locations")
+                    .whereEqualTo("accountID", service.vendorID)
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) { // 1
+                            latlng = LatLng(
+                                document.data.get("latitude").toString().toDouble(),
+                                document.data.get("longitude").toString().toDouble()
+                            )
+                            serviceLatlngList.add(latlng!!)
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                    }
             }
-        }
+            Log.w("Service latlng list:", serviceLatlngList.toString())
 
-        radius_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
-                var radius = 20.0
-                if (index != 0) {
-                    radius = index * 1000.0
-                }
+            if (!serviceLatlngList.isEmpty()) {
+                for (i: Int in 0..serviceLatlngList.size) {
+                    if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng, serviceLatlngList[i]!!) <= radius) {
+//                        mapFragment!!.markerTo(
+//                            serviceLatlngList[i]!!,
+//                            address = serviceViewModel.selectedServiceList.value!![i].serviceName
+//                        )
 
-                mapFragment!!.clearMap()
-                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-                mapFragment!!.drawCircle(myLatlng, radius)
-                markerServiceList(radius)
-            }
-        }
-    }
-
-    private fun markerServiceList(radius: Double){
-        var latlng: LatLng? = null
-        for (service: Service in serviceViewModel.selectedServiceList.value!!) {
-            this.database.collection("Locations")
-                .whereEqualTo("accountID", service.vendorID)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        latlng = LatLng(
-                            document.data.get("latitude").toString().toDouble(),
-                            document.data.get("longitude").toString().toDouble()
+                        mapFragment!!.markerTo(
+                            serviceLatlngList[i]!!,
+                            serviceViewModel.selectedServiceList.value!![i]
                         )
-                        serviceLatlngList.add(latlng!!)
                     }
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
-                }
-        }
-//        Log.w("Service latlng list:", serviceLatlngList.toString())
-        for (i: Int in 0 until serviceLatlngList.size) {
-            if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng,serviceLatlngList[i]!!) <= radius) {
-                mapFragment!!.markerTo(
-                    serviceLatlngList[i]!!,
-                    serviceViewModel.selectedServiceList.value!![i].serviceName
-                )
             }
+
+        } catch (e: IndexOutOfBoundsException) {
+            Log.i("IndexOutOfBounds:", e.toString())
         }
-        serviceLatlngList = ArrayList<LatLng?>()
+
     }
 
     private fun getCurrentLocation() {

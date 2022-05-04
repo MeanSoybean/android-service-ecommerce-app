@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.Profile
@@ -56,6 +58,8 @@ class ProfileFragment : Fragment(), LocationListener {
     private var profile_role_tv: TextView?= null
     private var toolbar: MaterialToolbar? = null
     private var profile_feedback_tv:TextView? =null
+    private var loader: FrameLayout? = null
+
     private var locationManager: LocationManager? = null
     private var latlng: LatLng? = null
     private val locationPermissionCode = 2
@@ -66,6 +70,7 @@ class ProfileFragment : Fragment(), LocationListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
         initComponent(view)
+
         getProfile(auth.currentUser!!.uid)
         return view
     }
@@ -80,6 +85,7 @@ class ProfileFragment : Fragment(), LocationListener {
         this.profile_update_tv = view.findViewById(R.id.profile_update_tv)
         this.profile_role_tv = view.findViewById(R.id.profile_role_tv)
         this.get_current_location_tv = view.findViewById(R.id.get_current_location_tv)
+        this.loader = view.findViewById(R.id.profile_loader_layout)
 
         this.profile_feedback_tv = view.findViewById(R.id.profile_feedback_tv)
         if (Utils.typeUser == 0) {
@@ -127,6 +133,7 @@ class ProfileFragment : Fragment(), LocationListener {
         this.profile_address_tv!!.setText(profile.address)
         this.profile_rating_tv!!.setText(profile.rating)
         this.profile_payment_details_tv!!.setText(profile.paymentDetails)
+        this.loader?.visibility = View.GONE
     }
 
     private fun getProfile(accountID: String) {
@@ -150,7 +157,6 @@ class ProfileFragment : Fragment(), LocationListener {
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents.", exception)
             }
-
     }
 
     private fun updateProfile() {

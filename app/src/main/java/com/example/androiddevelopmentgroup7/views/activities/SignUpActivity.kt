@@ -62,16 +62,20 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
         )
         val accountDocRef = db.collection("Accounts").document(user.uid)
         accountDocRef.set(data)
-            .addOnSuccessListener { onWriteCustomerAccountDocSucceeded(accountDocRef, name) }
+            .addOnSuccessListener { onWriteCustomerAccountDocSucceeded(accountDocRef, name, email) }
             .addOnFailureListener { onSignUpFailed() }
     }
 
-    private fun onWriteCustomerAccountDocSucceeded(accountDocRef: DocumentReference, name: String) {
+    private fun onWriteCustomerAccountDocSucceeded(accountDocRef: DocumentReference, name: String, email: String) {
         // Firebase Customer document
         val data = hashMapOf(
             "accountID" to accountDocRef.id,
+            "email" to email,
             "name" to name,
-            "rating" to 5
+            "phoneNumber" to "",
+            "address" to "",
+            "rating" to 0.0f,
+            "paymentDetails" to ""
         )
         val customerDocRef = db.collection("Customers").document(accountDocRef.id)
         customerDocRef.set(data)
@@ -123,19 +127,21 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
         )
         val accountDocRef = db.collection("Accounts").document(user.uid)
         accountDocRef.set(data)
-            .addOnSuccessListener { onWriteVendorAccountDocSucceeded(accountDocRef, name, phone, address) }
+            .addOnSuccessListener { onWriteVendorAccountDocSucceeded(accountDocRef, name, phone, address, email) }
             .addOnFailureListener { onSignUpFailed() }
     }
 
-    private fun onWriteVendorAccountDocSucceeded(accountDocRef: DocumentReference, name: String, phone: String, address: String) {
+    private fun onWriteVendorAccountDocSucceeded(accountDocRef: DocumentReference, name: String, phone: String, address: String, email: String) {
 
         // Firebase Vendor document
         val data = hashMapOf(
             "accountID" to accountDocRef.id,
+            "email" to email,
             "name" to name,
             "phoneNumber" to phone,
             "address" to address,
-            "rating" to 5
+            "rating" to 0.0f,
+            "paymentDetails" to ""
         )
         val vendorDocRef = db.collection("Vendors").document(accountDocRef.id)
         vendorDocRef.set(data)
