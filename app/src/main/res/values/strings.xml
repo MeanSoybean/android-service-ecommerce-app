@@ -1,15 +1,7 @@
 <resources>
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
-    <string name="facebook_application_id" translatable="false">962521014407744</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb962521014407744</string>
-
-
-    <!--    <string name="app_name">Android Development Group7</string>-->
 
     <string name="app_name">Service Marketplace</string>
-    <string name="activity_launch_title">Service Marketplace</string>
-    <string name="button_sign_in">Sign In</string>
-    <string name="button_sign_up">Sign Up</string>
     <string name="activity_sign_up_title">Sign Up</string>
     <string name="fragment_sign_up_vendor_label">Vendor Sign Up</string>
     <string name="fragment_sign_up_customer_label">Customer Sign Up</string>
@@ -24,8 +16,12 @@
     <string name="signup_phone_number_hint">Phone Number</string>
     <string name="signup_vendor_name_hint">Full Name / Company Name</string>
     <string name="signup_address_hint">Address</string>
+    <string name="activity_sign_in_title">Sign In</string>
+    <string name="signin_btn_text">Sign In</string>
+    <string name="signin_signup_question_unclickable">Don\'t have an account?</string>
+    <string name="signin_signup_question_clickable">Sign Up</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="vietnamdong"> VNĐ</string>
     <string name="vendor_my_services">DỊCH VỤ CỦA TÔI</string>
     <string name="edit_btn_text">CHỈNH SỬA</string>
