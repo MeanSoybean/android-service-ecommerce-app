@@ -1,13 +1,13 @@
 package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.Service
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import java.text.DecimalFormat
@@ -47,20 +47,39 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             // Add Marker on Map
 //        }
 
-        googleMap!!.setOnMarkerClickListener { marker ->
-            if (marker .isInfoWindowShown) {
-                marker .hideInfoWindow()
-            } else {
-                marker .showInfoWindow()
-                for (i: Int in 0..markerList.size - 1) {
-                    if (markerList[i] == marker) {
-                        Log.i("My service", serviceList[i].serviceName)
-                        break
-                    }
+        googleMap!!.setOnInfoWindowClickListener(OnInfoWindowClickListener { marker ->
+            for (i: Int in 0..markerList.size - 1) {
+                if (markerList[i] == marker) {
+//                    Log.i("My service", serviceList[i].serviceName)
+                    cartItemClick(serviceList[i])
+                    break
                 }
+            }
+        })
+
+        googleMap!!.setOnMarkerClickListener { marker ->
+            if (marker.isInfoWindowShown) {
+                marker.hideInfoWindow()
+            } else {
+                marker.showInfoWindow()
             }
             true
         }
+    }
+
+    private fun cartItemClick(service:Service){
+        val bundle = Bundle()
+        bundle.putString("type", service.serviceType)
+        bundle.putString("name", service.serviceName)
+        bundle.putString("description", service.serviceDescription)
+        bundle.putLong("price", service.servicePrice)
+        bundle.putString("contact", service.servicePhoneNumber)
+        bundle.putString("image", service.serviceImage)
+        bundle.putString("vendorID", service.vendorID)
+        bundle.putFloat("rating", service.serviceRating)
+        bundle.putString("vendorName", service.vendorName)
+        bundle.putString("serviceID", service.serviceID)
+        findNavController().navigate(R.id.action_fragment_near_service_location_to_fragment_service_detail, bundle)
     }
 
     fun clearMap() {
@@ -78,6 +97,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             .position(location)
             .title(address))
 
+        googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 11.5f))
     }
 
     fun markerTo(location: LatLng, address: String) {
@@ -87,6 +107,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             .position(location)
             .title(address + " - Khoảng cách: " + distance + " km")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+
     }
 
     fun markerTo(location: LatLng, service: Service) {
@@ -97,6 +118,8 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             .title(service.serviceName + " - Khoảng cách: " + distance + " km")
             .snippet(service.serviceDescription)
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
+
+
 
         markerList.add(marker!!)
         serviceList.add(service)

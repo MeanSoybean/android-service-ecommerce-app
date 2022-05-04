@@ -99,6 +99,8 @@ class fragment_near_service_location : Fragment(), LocationListener {
     }
 
     private fun setDataForSpinner() {
+        serviceType = ArrayList<String>()
+        radiusList = ArrayList<String>()
         for (radius: Int in 0..10) { radiusList.add(radius.toString() + " km") }
         var filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, radiusList)
         filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
@@ -141,14 +143,15 @@ class fragment_near_service_location : Fragment(), LocationListener {
                 mapFragment!!.clearMap()
                 mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
                 mapFragment!!.drawCircle(myLatlng, radius)
-//                getAndMarkerServiceList(radius)
+                getAndMarkerServiceList(radius)
             }
         }
 
         radius_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
-//                serviceViewModel.queryDataFilter("servicePrice", "des", service_spinner!!.selectedItem.toString())
+                val typeOfService = service_spinner!!.getSelectedItem().toString()
+                serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
                 radius = index * 1.0
                 mapFragment!!.clearMap()
                 mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")

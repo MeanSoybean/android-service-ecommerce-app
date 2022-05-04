@@ -121,7 +121,11 @@
         android:id="@+id/fragment_near_service_location"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_near_service_location"
         android:label="fragment_near_service_location"
-        tools:layout="@layout/fragment_near_service_location" />
+        tools:layout="@layout/fragment_near_service_location" >
+        <action
+            android:id="@+id/action_fragment_near_service_location_to_fragment_service_detail"
+            app:destination="@id/fragment_service_detail" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_vendor_information"
         android:name="com.example.androiddevelopmentgroup7.views.fragments.fragment_vendor_information"
