@@ -24,12 +24,16 @@
             android:exported="false" />
         <activity
             android:name=".views.activities.SignInActivity"
-            android:noHistory="true"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
+        <activity
+            android:name=".views.activities.ForgotPasswordActivity"
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".views.activities.SignUpActivity"
-            android:noHistory="true"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".views.activities.SplashActivity"
             android:exported="true"

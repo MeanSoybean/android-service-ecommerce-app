@@ -24,6 +24,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var signupPrompt: TextView
     private lateinit var signinButton: Button
     private lateinit var loader: FrameLayout
+    private lateinit var forgotPassword: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,11 @@ class SignInActivity : AppCompatActivity() {
 
         signinButton = findViewById(R.id.signin_confirm_button)
         signinButton.setOnClickListener { onClickSignInButton() }
+
+        forgotPassword = findViewById(R.id.forgot_password_tv)
+        forgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
     }
 
     private fun onClickSignInButton() {

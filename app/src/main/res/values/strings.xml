@@ -181,7 +181,7 @@
     <string name="new_password_hint_label">Nhập mật khẩu mới</string>
     <string name="current_password_hint_label">Nhập mật khẩu hiện tại</string>
     <string name="confirm_password_hint_label">Nhập lại mật khẩu mới</string>
-    <string name="current_password_label_text">Mật khẩu hện tại</string>
+    <string name="current_password_label_text">Mật khẩu hiện tại</string>
     <string name="new_password_label_text">Mật khẩu mới</string>
     <string name="confirm_password_label_text">Xác nhận mật khẩu</string>
     <string name="change_password_btn_text">Thay đổi</string>
@@ -225,5 +225,13 @@
     <string name="vendor_information">THÔNG TIN THỢ</string>
     <string name="could_not_sign_in">Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.</string>
     <string name="could_not_sign_up">Đăng ký thất bại. Vui lòng kiểm tra lại email và mật khẩu.</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="activity_forgot_password_title">Quên mật khẩu</string>
+    <string name="send_reset_email">Gửi email đặt lại mật khẩu</string>
+    <string name="reset_email_sent">Đã gửi thành công email đặt lại mật khẩu.</string>
+    <string name="reset_email_failed">Đã gửi thất bại email đặt lại mật khẩu.</string>
+    <string name="hcmus_address">227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh</string>
+    <string name="hcmus_lat">10.763433624739413</string>
+    <string name="hcmus_long">106.68266356064339</string>
 
 </resources>

@@ -43,19 +43,18 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    onSignUpCustomerSucceeded(email, password, name)
+                    onSignUpCustomerSucceeded(email, name)
                 } else {
                     onSignUpFailed()
                 }
             }
     }
 
-    private fun onSignUpCustomerSucceeded(email: String, password: String, name: String) {
+    private fun onSignUpCustomerSucceeded(email: String, name: String) {
         val user = auth.currentUser!!
         // Firebase Account document
         val data: HashMap<String, Any> = hashMapOf(
             "email" to email,
-            "password" to password,
             "role" to "Customer",
             "UID" to user.uid,
             "accountStatus" to "Activated"
@@ -74,22 +73,37 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
             "name" to name,
             "phoneNumber" to "",
             "address" to "",
-            "rating" to 0.0f,
+            "rating" to 5.0f,
             "paymentDetails" to ""
         )
         val customerDocRef = db.collection("Customers").document(accountDocRef.id)
         customerDocRef.set(data)
             .addOnSuccessListener {
-                Utils.typeUser = 0
-                Utils.customer = UserCustomer(
-                    accountDocRef.id,
-                    name,
-                    "",
-                    "",
-                    5.0f,
-                    "",
+                val locationData = hashMapOf(
+                    "accountID" to accountDocRef.id,
+                    "address" to getString(R.string.hcmus_address),
+                    "latitude" to getString(R.string.hcmus_lat),
+                    "longitude" to getString(R.string.hcmus_long),
                 )
-                startActivity(Intent(this, MainActivity::class.java))
+                val locationDocRef = db.collection("Locations").document(accountDocRef.id)
+                locationDocRef.set(locationData)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Utils.typeUser = 0
+                            Utils.customer = UserCustomer(
+                                data["accountID"] as String,
+                                data["name"] as String,
+                                data["phoneNumber"] as String,
+                                data["address"] as String,
+                                data["rating"] as Float,
+                                data["paymentDetails"] as String,
+                            )
+                            startActivity(Intent(this, MainActivity::class.java))
+                        }
+                        else {
+                            onSignUpFailed()
+                        }
+                    }
             }
             .addOnFailureListener {
                 onSignUpFailed()
@@ -108,19 +122,18 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    onSignUpVendorSucceeded(email, password, name, phone, address)
+                    onSignUpVendorSucceeded(email, name, phone, address)
                 } else {
                     onSignUpFailed()
                 }
             }
     }
 
-    private fun onSignUpVendorSucceeded(email: String, password: String, name: String, phone: String, address: String) {
+    private fun onSignUpVendorSucceeded(email: String, name: String, phone: String, address: String) {
         val user = auth.currentUser!!
         // Firebase Account document
         val data: HashMap<String, Any> = hashMapOf(
             "email" to email,
-            "password" to password,
             "role" to "Vendor",
             "UID" to user.uid,
             "accountStatus" to "Activated"
@@ -132,7 +145,6 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
     }
 
     private fun onWriteVendorAccountDocSucceeded(accountDocRef: DocumentReference, name: String, phone: String, address: String, email: String) {
-
         // Firebase Vendor document
         val data = hashMapOf(
             "accountID" to accountDocRef.id,
@@ -140,25 +152,38 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
             "name" to name,
             "phoneNumber" to phone,
             "address" to address,
-            "rating" to 0.0f,
-            "paymentDetails" to ""
+            "rating" to 5.0f,
         )
         val vendorDocRef = db.collection("Vendors").document(accountDocRef.id)
         vendorDocRef.set(data)
             .addOnSuccessListener {
-                Utils.typeUser = 1
-                Utils.vendor = UserVendor(
-                    accountDocRef.id,
-                    name,
-                    phone,
-                    address,
-                    5.0f,
+                val locationData = hashMapOf(
+                    "accountID" to accountDocRef.id,
+                    "address" to getString(R.string.hcmus_address),
+                    "latitude" to getString(R.string.hcmus_lat),
+                    "longitude" to getString(R.string.hcmus_long),
                 )
-                startActivity(Intent(this, MainActivity::class.java))
+                val locationDocRef = db.collection("Locations").document(accountDocRef.id)
+                locationDocRef.set(locationData)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Utils.typeUser = 1
+                            Utils.vendor = UserVendor(
+                                data["accountID"] as String,
+                                data["name"] as String,
+                                data["phoneNumber"] as String,
+                                data["address"] as String,
+                                data["rating"] as Float,
+                            )
+                            startActivity(Intent(this, MainActivity::class.java))
+                        }
+                        else {
+                            onSignUpFailed()
+                        }
+                    }
             }
             .addOnFailureListener {
                 onSignUpFailed()
             }
     }
-
 }
