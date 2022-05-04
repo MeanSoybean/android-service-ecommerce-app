@@ -42,7 +42,7 @@ class ServiceViewModel :  ViewModel() {
         serviceList.value = temp
 //        Log.i("VENDORID", Utils.vendor.id)
         db.collection("ServiceListings")
-            .whereEqualTo("vendorID", Utils.vendor.id)
+            .whereEqualTo("vendorID", Utils.vendor.accountID)
             .orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { services ->

@@ -203,7 +203,7 @@ class fragment_service_detail : Fragment() {
                 .setPositiveButton(getString(R.string.order_dialog_btn_text)) { dialog, _ ->
                     loader?.visibility = View.VISIBLE
                     db.collection("OrderListing").add(hashMapOf(
-                        "idCustomer" to Utils.customer.id,
+                        "idCustomer" to Utils.customer.accountID,
                         "idService" to serviceID,
                         "idVendor" to vendorID,
                         "orderAddress" to customerAddress?.text.toString(),

@@ -7,6 +7,4 @@ data class UserCustomer(
     var address:String,
     var rating:Float,
     var paymentDetails:String
-){
-    var id:String = ""
-}
+)

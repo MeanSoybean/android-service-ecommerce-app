@@ -83,7 +83,7 @@ class fragment_rating_service : Fragment() {
                 if(serviceEvalue != null){
                     (serviceEvalue as MutableMap<String, MutableMap<String, Any>>)
                         .put(
-                            Utils.customer.id ,
+                            Utils.customer.accountID ,
                             mutableMapOf(
                                 "FeedBack" to feedbackMessage!!.text.toString(),
                                 "Rating" to serviceRatingBar?.rating as Any,
@@ -92,7 +92,7 @@ class fragment_rating_service : Fragment() {
                         )
                 } else {
                     serviceEvalue = mutableMapOf(
-                        Utils.customer.id to mutableMapOf(
+                        Utils.customer.accountID to mutableMapOf(
                             "FeedBack" to feedbackMessage!!.text.toString(),
                             "Rating" to serviceRatingBar?.rating,
                             "CustomerName" to customerName
@@ -140,7 +140,7 @@ class fragment_rating_service : Fragment() {
                     if(mapRating != null){
                         serviceEvalue = mapRating as MutableMap<*, *>
                         Log.i("ASD", "MAPRATING != null")
-                        val personRatingMap = (serviceEvalue)!!.get(Utils.customer.id) //map<idCustomer, danh gia>
+                        val personRatingMap = (serviceEvalue)!!.get(Utils.customer.accountID) //map<idCustomer, danh gia>
                         if(personRatingMap != null){
                             val personStar = (personRatingMap as Map<*,*>).get("Rating")
                             serviceRatingBar?.rating = personStar.toString().toFloat()

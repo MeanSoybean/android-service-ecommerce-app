@@ -6,6 +6,4 @@ data class UserVendor(
     var phoneNumber:String,
     var address:String,
     var rating: Float,
-){
-    var id: String = ""
-}
+)

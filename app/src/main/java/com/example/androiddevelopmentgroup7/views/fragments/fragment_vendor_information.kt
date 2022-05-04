@@ -73,7 +73,8 @@ class fragment_vendor_information : Fragment() {
         this.profile_rating_tv!!.setText(profile.rating)
     }
     private fun getProfile() {
-        db.collection("Vendors").document("qNLu7DVILPNpmw8ST8IjBdpgGXF2")
+        Log.i("vendorid", vendorID!!.toString())
+        db.collection("Vendors").document(vendorID!!)
             .get()
             .addOnSuccessListener { result ->
                     val profile = Profile(
