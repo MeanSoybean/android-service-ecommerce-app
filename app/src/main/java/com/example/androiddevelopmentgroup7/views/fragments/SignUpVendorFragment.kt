@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
@@ -60,7 +61,7 @@ class SignUpVendorFragment : Fragment() {
     }
 
     private fun setupButtons(view: View) {
-        view.findViewById<Button>(R.id.signup_cancel_button).setOnClickListener {
+        view.findViewById<TextView>(R.id.signup_cancel_button).setOnClickListener {
             startActivity(Intent(requireActivity(), SignInActivity::class.java))
         }
         view.findViewById<Button>(R.id.customer_signup_switch_button).setOnClickListener {
