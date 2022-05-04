@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
-        //auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123") //customer
+//        auth.signInWithEmailAndPassword("khatuantran11@gmail.com", "123123") //vendor
+        auth.signInWithEmailAndPassword("bioclaw@gmail.com", "dummyPassword123") //customer
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                                 Log.i("CURRENT USER", user.uid)
                             } else {
                                 Utils.typeUser = 0
-                                Log.i("ACCOOURBID",doc.documents[0].id )
+                                Log.i("ACCOUNTID",doc.documents[0].id )
                                 db.collection("Customers")
                                     .whereEqualTo("AccountID", doc.documents[0].id)
                                     .get()

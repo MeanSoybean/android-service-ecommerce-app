@@ -56,7 +56,7 @@ class ProfileFragment : Fragment(), LocationListener {
     private var profile_payment_details_tv: TextView?= null
     private var profile_role_tv: TextView?= null
     private var toolbar: MaterialToolbar? = null
-
+    private var profile_feedback_tv:TextView? =null
     private var locationManager: LocationManager? = null
     private var latlng: LatLng? = null
     private val locationPermissionCode = 2
@@ -82,6 +82,7 @@ class ProfileFragment : Fragment(), LocationListener {
         this.profile_role_tv = view.findViewById(R.id.profile_role_tv)
         this.get_current_location_tv = view.findViewById(R.id.get_current_location_tv)
 
+        this.profile_feedback_tv = view.findViewById(R.id.profile_feedback_tv)
         if (Utils.typeUser == 0) {
             collectionPath = "Customers"
             this.profile_role_tv!!.text = "Khách hàng"
@@ -107,7 +108,9 @@ class ProfileFragment : Fragment(), LocationListener {
             updateProfile()
             Toast.makeText(activity, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show()
         }
-
+        this.profile_feedback_tv!!.setOnClickListener() {
+            findNavController().navigate(R.id.action_profile_fragment_to_fragment_report_app)
+        }
         this.get_current_location_tv?.setOnClickListener() {
             try {
                 getCurrentLocation()
@@ -128,7 +131,7 @@ class ProfileFragment : Fragment(), LocationListener {
     }
 
     private fun getProfile(accountID: String) {
-        this.database.collection("Customers")
+        this.database.collection(collectionPath!!)
             .whereEqualTo("accountID", accountID)
             .get()
             .addOnSuccessListener { result ->
@@ -161,7 +164,7 @@ class ProfileFragment : Fragment(), LocationListener {
             this.profile_payment_details_tv!!.getText().toString(),
             this.auth.currentUser!!.uid)
 
-        database.collection("Customers")
+        database.collection(collectionPath!!)
             .document(auth.currentUser!!.uid)
             .set(new_profile)
 

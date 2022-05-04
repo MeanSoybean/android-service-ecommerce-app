@@ -224,4 +224,5 @@
     <!--    fragment_rating_detail-->
     <string name="empty_rating_textview">Chưa có đánh giá nào về dịch vụ này</string>
     <string name="report_top_bar">PHẢN HỒI VỀ APP</string>
+    <string name="report_success">Phản hồi về ứng dụng thành công</string>
 </resources>

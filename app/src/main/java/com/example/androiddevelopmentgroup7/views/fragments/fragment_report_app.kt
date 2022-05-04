@@ -17,6 +17,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,16 +56,23 @@ class fragment_report_app : Fragment() {
             if(feedbackMessage?.text.toString().equals("")){
                 Toast.makeText(requireContext(), R.string.empty_message_feedback, Toast.LENGTH_LONG).show()
             } else {
-
                 var sumRating = 0.0;
                 sumRating = sumRating!! + serviceRatingBar!!.rating.toDouble()
                 val data_ADD = hashMapOf(
-                    "accountID" to auth.currentUser!!.uid,
-                    "content" to feedbackMessage,
-                    "rating" to sumRating,
-                    "time" to Timestamp(Date())
+                    "accountID" to auth.currentUser!!.uid.toString(),
+                    "content" to feedbackMessage?.text.toString(),
+                    "rating" to sumRating as Number,
+                    "time" to Timestamp(Date()) as Timestamp
                 )
-                db.collection("ReportListing").add(data_ADD)
+                db.collection("ReportListings").add(data_ADD)
+                    .addOnSuccessListener {
+                        Log.i("ASD", "SUCCESS")
+                        Toast.makeText(requireContext(), getString(R.string.report_success), Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.i("ASD", "Error getting documents: ", exception)
+                    }
             }
 
         }
