@@ -3,11 +3,8 @@ package com.example.androiddevelopmentgroup7.views.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.UserCustomer
 import com.example.androiddevelopmentgroup7.models.UserVendor
@@ -26,16 +23,28 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var passwordET: EditText
     private lateinit var signupPrompt: TextView
     private lateinit var signinButton: Button
+    private lateinit var loader: FrameLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         setupElements()
+        signInIfAlreadyLoggedIn()
+    }
+
+    private fun signInIfAlreadyLoggedIn() {
+        val user = auth.currentUser
+        loader.visibility = View.VISIBLE
+        user?.let {
+            onSignInSucceeded()
+        }
     }
 
     private fun setupElements() {
         auth = Firebase.auth
         db = Firebase.firestore
+        loader = findViewById(R.id.loader_layout)
         emailET = findViewById(R.id.signin_email_edit_text)
         passwordET = findViewById(R.id.signin_password_edit_text)
 
@@ -46,13 +55,13 @@ class SignInActivity : AppCompatActivity() {
 
         signinButton = findViewById(R.id.signin_confirm_button)
         signinButton.setOnClickListener { onClickSignInButton() }
-
     }
 
     private fun onClickSignInButton() {
         val email = emailET.text.toString()
         val password = passwordET.text.toString()
         if (isDataValid()) {
+            loader.visibility = View.VISIBLE
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -68,6 +77,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun onSignInFailed() {
         Toast.makeText(this, "Could not sign in with username and password.", Toast.LENGTH_SHORT).show()
+        loader.visibility = View.GONE
     }
 
     private fun onSignInSucceeded() {
@@ -79,9 +89,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun onAccountDocumentFound(doc: DocumentSnapshot?) {
-        val role = doc?.getString("role")
-        Log.i("Role logging:",role.toString())
-        when (role) {
+        when (doc?.getString("role")) {
             "Customer" -> handleRoleIsCustomerOnLogin(doc)
             "Vendor" -> handleRoleIsVendorOnLogin(doc)
             "Admin" -> handleRoleIsAdminOnLogin(doc)

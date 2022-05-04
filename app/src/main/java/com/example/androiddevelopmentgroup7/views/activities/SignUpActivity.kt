@@ -3,6 +3,8 @@ package com.example.androiddevelopmentgroup7.views.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import com.example.androiddevelopmentgroup7.views.fragments.ICustomerSignUp
 import com.example.androiddevelopmentgroup7.views.fragments.IVendorSignUp
@@ -10,28 +12,34 @@ import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.UserCustomer
 import com.example.androiddevelopmentgroup7.models.UserVendor
 import com.example.androiddevelopmentgroup7.utils.Utils
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
-    private val auth = Firebase.auth
-    private val db = Firebase.firestore
-
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
+    private lateinit var loader: FrameLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        auth = Firebase.auth
+        db = Firebase.firestore
+        loader = findViewById(R.id.loader_layout)
     }
 
     private fun onSignUpFailed() {
         Toast.makeText(this, "Could not sign up. We're sorry!", Toast.LENGTH_SHORT).show()
+        loader.visibility = View.GONE
     }
 
     override fun signUpCustomer(name: String, email: String, password: String) {
         // Auth create
-        // TODO: waiting bar
-
+        loader.visibility = View.VISIBLE
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -92,8 +100,7 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
         password: String
     ) {
         // Auth create
-        // TODO: waiting bar
-
+        loader.visibility = View.VISIBLE
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
