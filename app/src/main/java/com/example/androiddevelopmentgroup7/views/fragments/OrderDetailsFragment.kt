@@ -269,17 +269,14 @@ class OrderDetailsFragment : Fragment() {
     private fun pushNotification(destinationUserType:Int, tittle:String, message:String){
         val collection:String
         val documentId:String
-        val accountID:String
         when(destinationUserType){
             0 -> {
                 collection = "Customers"
                 documentId = order!!.idCustomer
-                accountID = "accountID"
             }
             else -> {
                 collection = "Vendors"
                 documentId = order!!.idVendor
-                accountID = "AccountID"
             }
         }
         Log.i("ASDDD", collection + documentId)
@@ -287,7 +284,7 @@ class OrderDetailsFragment : Fragment() {
             db.collection("Notifications").add(hashMapOf(
                 "Name" to tittle,
                 "Description" to message,
-                "accountID" to doc.data!!.get(accountID),
+                "accountID" to doc.data!!.get("accountID"),
                 "time" to Timestamp(Date()),
             ))
         }
