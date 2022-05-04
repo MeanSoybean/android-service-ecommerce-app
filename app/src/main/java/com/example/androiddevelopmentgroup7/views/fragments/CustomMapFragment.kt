@@ -13,43 +13,36 @@ import java.text.DecimalFormat
 class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
     private var circleOptions: CustomMapFragment? = null
-    lateinit var fromLatLng: LatLng
+    private var fromLatLng: LatLng? = null
 
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(gmap: GoogleMap) {
         googleMap = gmap
 
         // Set default position // hcmus => latlng() // ten
-        val hadilao = LatLng(10.907290, 106.643590)
+//        val hadilao = LatLng(10.907290, 106.643590)
         val hcmus = LatLng(10.76253285, 106.68228373754832)
-        val uef = LatLng(10.7970171, 106.7031929)
-        val uel = LatLng(10.87038795, 106.77833429198822)
-
-        markerFrom(hcmus, "HCMUS")
-        markerTo(hadilao, "Hadilao")
-        markerTo(uef, "UEF")
-        markerTo(uel, "UEL")
-
+//        val uef = LatLng(10.7970171, 106.7031929)
+//        val uel = LatLng(10.87038795, 106.77833429198822)
+//
+//        markerFrom(hcmus, "HCMUS")
+//        markerTo(hadilao, "Hadilao")
+//        markerTo(uef, "UEF")
+//        markerTo(uel, "UEL")
+//
         googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 11.0f))
-        drawCircle(hcmus, 20000.0)
+//        drawCircle(hcmus, 20000.0)
 
         googleMap!!.setOnMapClickListener { latLng ->
-            val randomLatLng = LatLng(latLng.latitude, latLng.longitude)
-            val address = "Unknown"
-            markerRandom(randomLatLng, address)
+//            val randomLatLng = LatLng(latLng.latitude, latLng.longitude)
+//            val address = "Unknown"
+//            markerRandom(randomLatLng, address)
             // Clear previously click position.
 //            googleMap!!.clear()
             // Zoom the Marker
 //            googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0f))
             // Add Marker on Map
         }
-
-//        val line: Polyline = googleMap!!.addPolyline(
-//            PolylineOptions()
-//                .add(vietnam, cambodia)
-//                .width(5f)
-//                .color(Color.RED)
-//        )
 
         googleMap!!.setOnMarkerClickListener { marker ->
             if (marker.isInfoWindowShown) {
@@ -61,12 +54,20 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
         }
     }
 
+    fun clearMap() {
+        googleMap!!.clear()
+    }
+
+    fun moveCamera(latlng: LatLng, zoom: Float) {
+        googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, zoom))
+    }
+
     fun markerFrom(location: LatLng, address: String) {
         fromLatLng = location
 
         googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title("Marker in " + address))
+            .title(address))
     }
 
     fun markerTo(location: LatLng, address: String) {
@@ -87,7 +88,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
     }
 
-    fun distance(from: LatLng, to: LatLng): Double { //meter
+    fun distance(from: LatLng?, to: LatLng): Double { //meter
         return SphericalUtil.computeDistanceBetween(from, to)
     }
 

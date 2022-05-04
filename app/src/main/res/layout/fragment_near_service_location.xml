@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- TODO: Update blank fragment layout -->
 
     <include
         android:id="@+id/loader_layout"
@@ -33,9 +32,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loader_layout"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout="@layout/fragment_near_service_location" />
+        app:layout_constraintTop_toBottomOf="@+id/loader_layout" />
+
+    <include
+        android:id="@+id/map_loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="0dp"
+        android:layout_height="659dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_detail_app_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

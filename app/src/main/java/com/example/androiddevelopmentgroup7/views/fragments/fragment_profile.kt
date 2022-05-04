@@ -128,7 +128,7 @@ class ProfileFragment : Fragment(), LocationListener {
     }
 
     private fun getProfile(accountID: String) {
-        this.database.collection("Customers")
+        this.database.collection(collectionPath!!)
             .whereEqualTo("accountID", accountID)
             .get()
             .addOnSuccessListener { result ->
@@ -161,7 +161,7 @@ class ProfileFragment : Fragment(), LocationListener {
             this.profile_payment_details_tv!!.getText().toString(),
             this.auth.currentUser!!.uid)
 
-        database.collection("Customers")
+        database.collection(collectionPath!!)
             .document(auth.currentUser!!.uid)
             .set(new_profile)
 
