@@ -11,12 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
-    <include
-        android:id="@+id/loader_layout"
-        layout="@layout/layout_circular_loader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/report_top_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
