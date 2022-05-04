@@ -20,6 +20,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -158,10 +159,22 @@ class OrderDetailsFragment : Fragment() {
                             .get()
                             .addOnSuccessListener { snapshot ->
                                 Log.i("snapshotsize", snapshot.documents.size.toString())
+                                val tittle = getString(R.string.order_service_state)
+                                var message = ""
                                 if(snapshot.documents.size > 0){
                                     updateState(OrderTabValue.CANCEL, R.string.exist_document)
+                                    message = getString(R.string.service_order) + " " +
+                                            service!!.serviceName + " " +
+                                            getString(R.string.service_order_canceled_by_vendor) + " " +
+                                            order!!.timeComing
                                 }
-                                else updateState(OrderTabValue.ON_GOING, R.string.success_message)
+                                else {
+                                    updateState(OrderTabValue.ON_GOING, R.string.success_message)
+                                    message = getString(R.string.service_order) + " " +
+                                            service!!.serviceName + " " +
+                                            getString(R.string.service_order_accepted)
+                                }
+                                pushNotification(0, tittle, message)
                             }
                         //updateState(OrderTabValue.ON_GOING)
                     }
@@ -231,9 +244,49 @@ class OrderDetailsFragment : Fragment() {
                 }
                 .setPositiveButton(getString(R.string.accept_btn_text)) { dialog, _ ->
                     updateState(state, R.string.success_message)
+                    if(Utils.typeUser == 0){
+                        val tiltle = getString(R.string.order_service_state)
+                        val message = getString(R.string.customer_text) + " " +
+                                order!!.customerName + " " +
+                                getString(R.string.canceled_service) + " " + service!!.serviceName
+                        pushNotification(1, tiltle, message)
+                    } else {
+                        val tiltle = getString(R.string.order_service_state)
+                        var message = ""
+                        if(state == OrderTabValue.CANCEL) {
+                            message = getString(R.string.vendor_text) + " " + service!!.vendorName + " " + getString(R.string.canceled_service) + " " + service!!.serviceName
+                        } else if(state == OrderTabValue.COMPLETE){
+                            message = getString(R.string.service_order) + " " + service!!.serviceName + " " + getString(R.string.service_order_completed)
+                        }
+                        pushNotification(0, tiltle, message)
+                    }
                     dialog.cancel()
                 }
                 .show()
+        }
+    }
+
+    private fun pushNotification(destinationUserType:Int, tittle:String, message:String){
+        val collection:String
+        val documentId:String
+        when(destinationUserType){
+            0 -> {
+                collection = "Customers"
+                documentId = order!!.idCustomer
+            }
+            else -> {
+                collection = "Vendors"
+                documentId = order!!.idVendor
+            }
+        }
+        Log.i("ASDDD", collection + documentId)
+        db.collection(collection).document(documentId).get().addOnSuccessListener { doc ->
+            db.collection("Notifications").add(hashMapOf(
+                "Name" to tittle,
+                "Description" to message,
+                "accountID" to doc.data!!.get("accountID"),
+                "time" to Timestamp(Date()),
+            ))
         }
     }
 

@@ -111,19 +111,19 @@ class TabFragmentOrderService() : Fragment() {
         //0:Customer 1: Vendor
         if(Utils.typeUser == 1){
             when(tabIndex){
-                OrderTabValue.ALL -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.ALL,recyclerView_services!!, loader)
-                OrderTabValue.WAITING_ACCEPT -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.WAITING_ACCEPT,recyclerView_services!!, loader)
-                OrderTabValue.ON_GOING -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.ON_GOING,recyclerView_services!!, loader)
-                OrderTabValue.COMPLETE -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.COMPLETE,recyclerView_services!!, loader)
-                OrderTabValue.CANCEL -> createListItem("idVendor", Utils.vendor.id, OrderTabValue.CANCEL,recyclerView_services!!, loader)
+                OrderTabValue.ALL -> createListItem("idVendor", Utils.vendor.accountID, OrderTabValue.ALL,recyclerView_services!!, loader)
+                OrderTabValue.WAITING_ACCEPT -> createListItem("idVendor", Utils.vendor.accountID, OrderTabValue.WAITING_ACCEPT,recyclerView_services!!, loader)
+                OrderTabValue.ON_GOING -> createListItem("idVendor", Utils.vendor.accountID, OrderTabValue.ON_GOING,recyclerView_services!!, loader)
+                OrderTabValue.COMPLETE -> createListItem("idVendor", Utils.vendor.accountID, OrderTabValue.COMPLETE,recyclerView_services!!, loader)
+                OrderTabValue.CANCEL -> createListItem("idVendor", Utils.vendor.accountID, OrderTabValue.CANCEL,recyclerView_services!!, loader)
             }
         } else {
             when(tabIndex){
-                OrderTabValue.ALL -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.ALL,recyclerView_services!!, loader)
-                OrderTabValue.WAITING_ACCEPT -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.WAITING_ACCEPT,recyclerView_services!!, loader)
-                OrderTabValue.ON_GOING -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.ON_GOING,recyclerView_services!!, loader)
-                OrderTabValue.COMPLETE -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.COMPLETE,recyclerView_services!!, loader)
-                OrderTabValue.CANCEL -> createListItem("idCustomer", Utils.customer.id, OrderTabValue.CANCEL,recyclerView_services!!, loader)
+                OrderTabValue.ALL -> createListItem("idCustomer", Utils.customer.accountID, OrderTabValue.ALL,recyclerView_services!!, loader)
+                OrderTabValue.WAITING_ACCEPT -> createListItem("idCustomer", Utils.customer.accountID, OrderTabValue.WAITING_ACCEPT,recyclerView_services!!, loader)
+                OrderTabValue.ON_GOING -> createListItem("idCustomer", Utils.customer.accountID, OrderTabValue.ON_GOING,recyclerView_services!!, loader)
+                OrderTabValue.COMPLETE -> createListItem("idCustomer", Utils.customer.accountID, OrderTabValue.COMPLETE,recyclerView_services!!, loader)
+                OrderTabValue.CANCEL -> createListItem("idCustomer", Utils.customer.accountID, OrderTabValue.CANCEL,recyclerView_services!!, loader)
             }
         }
 

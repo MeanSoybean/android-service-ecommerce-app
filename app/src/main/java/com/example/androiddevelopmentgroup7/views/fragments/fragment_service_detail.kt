@@ -203,7 +203,7 @@ class fragment_service_detail : Fragment() {
                 .setPositiveButton(getString(R.string.order_dialog_btn_text)) { dialog, _ ->
                     loader?.visibility = View.VISIBLE
                     db.collection("OrderListing").add(hashMapOf(
-                        "idCustomer" to Utils.customer.id,
+                        "idCustomer" to Utils.customer.accountID,
                         "idService" to serviceID,
                         "idVendor" to vendorID,
                         "orderAddress" to customerAddress?.text.toString(),
@@ -215,7 +215,19 @@ class fragment_service_detail : Fragment() {
                         "customerName" to customerName?.text.toString()
                     )).addOnSuccessListener {
                         loader?.visibility = View.GONE
+                        val tittle = getString(R.string.new_order_service)
+                        val message = getString(R.string.customer_text) + " " +
+                                customerName?.text.toString() + " " +
+                                getString(R.string.ordered_service) + " " +
+                                name
+                            db.collection("Notifications").add(hashMapOf(
+                                "Name" to tittle,
+                                "Description" to message,
+                                "accountID" to vendorID!!,
+                                "time" to Timestamp(Date()),
+                            ))
                         findNavController().popBackStack()
+
                         //findNavController().navigate(R.id.action_fragment_service_detail_to_orderServiceFragment)
                         Toast.makeText(requireContext(), R.string.success_message, Toast.LENGTH_LONG).show();
                     }

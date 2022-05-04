@@ -96,11 +96,12 @@ class MyServiceAdapter(var context: Context, private var serviceList:ArrayList<S
 
 class home_vendor_fragment : Fragment() {
     val db = Firebase.firestore
+
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null
 //    private var param2: String? = null
     private val serviceViewModel : ServiceViewModel by activityViewModels()
-
+    private var emptyServiceTextView:TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        arguments?.let {
@@ -116,7 +117,7 @@ class home_vendor_fragment : Fragment() {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.home_vendor_fragment, container, false)
         val recyclerView_services = rootView.findViewById<RecyclerView>(R.id.services_recycler_view)
-
+        emptyServiceTextView = rootView.findViewById(R.id.service_empty_text_view)
         serviceViewModel.setServiceList()
         val adapter = MyServiceAdapter(requireContext(),serviceViewModel.selectedServiceList.value!!)
         adapter.onItemClick = {position ->
@@ -161,6 +162,13 @@ class home_vendor_fragment : Fragment() {
 
         serviceViewModel.selectedServiceList.observe(viewLifecycleOwner, Observer { list ->
             // Update the list UI
+            if(list.size == 0){
+                emptyServiceTextView?.visibility = View.VISIBLE
+                recyclerView_services.visibility = View.GONE
+            } else{
+                emptyServiceTextView?.visibility = View.GONE
+                recyclerView_services.visibility = View.VISIBLE
+            }
             adapter.notifyDataSetChanged()
             Log.i("DATASET CHANGE", "data set change")
         })
