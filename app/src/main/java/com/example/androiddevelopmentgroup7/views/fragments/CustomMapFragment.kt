@@ -107,7 +107,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
         googleMap!!.addCircle(
             CircleOptions()
                 .center(location)
-                .radius(radius)
+                .radius(radius * 1000.0)
                 .strokeWidth(0f)
                 .fillColor(0x550000FF)
         )
