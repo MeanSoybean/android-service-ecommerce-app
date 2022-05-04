@@ -2,7 +2,10 @@ package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.os.Bundle
 import android.util.Log
+import androidx.navigation.fragment.findNavController
+import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.Service
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
@@ -14,14 +17,17 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
     private var googleMap: GoogleMap? = null
     private var circleOptions: CustomMapFragment? = null
     private var fromLatLng: LatLng? = null
+    private var markerList: ArrayList<Marker> = ArrayList<Marker>()
+    private var serviceList: ArrayList<Service> = ArrayList<Service>()
 
     @SuppressLint("PotentialBehaviorOverride")
     override fun onMapReady(gmap: GoogleMap) {
         googleMap = gmap
-
+        val hcmus = LatLng(10.76253285, 106.68228373754832)
+        googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 11.0f))
         // Set default position // hcmus => latlng() // ten
 //        val hadilao = LatLng(10.907290, 106.643590)
-        val hcmus = LatLng(10.76253285, 106.68228373754832)
+
 //        val uef = LatLng(10.7970171, 106.7031929)
 //        val uel = LatLng(10.87038795, 106.77833429198822)
 //
@@ -29,11 +35,8 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
 //        markerTo(hadilao, "Hadilao")
 //        markerTo(uef, "UEF")
 //        markerTo(uel, "UEL")
-//
-        googleMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 11.0f))
 //        drawCircle(hcmus, 20000.0)
-
-        googleMap!!.setOnMapClickListener { latLng ->
+//        googleMap!!.setOnMapClickListener { latLng ->
 //            val randomLatLng = LatLng(latLng.latitude, latLng.longitude)
 //            val address = "Unknown"
 //            markerRandom(randomLatLng, address)
@@ -42,13 +45,19 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
             // Zoom the Marker
 //            googleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.0f))
             // Add Marker on Map
-        }
+//        }
 
         googleMap!!.setOnMarkerClickListener { marker ->
-            if (marker.isInfoWindowShown) {
-                marker.hideInfoWindow()
+            if (marker .isInfoWindowShown) {
+                marker .hideInfoWindow()
             } else {
-                marker.showInfoWindow()
+                marker .showInfoWindow()
+                for (i: Int in 0..markerList.size - 1) {
+                    if (markerList[i] == marker) {
+                        Log.i("My service", serviceList[i].serviceName)
+                        break
+                    }
+                }
             }
             true
         }
@@ -68,6 +77,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
         val marker = googleMap!!.addMarker(MarkerOptions()
             .position(location)
             .title(address))
+
     }
 
     fun markerTo(location: LatLng, address: String) {
@@ -75,7 +85,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
         var marker = googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title(address + " - Khoảng cách: " + distance + " kms")
+            .title(address + " - Khoảng cách: " + distance + " km")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
     }
 
@@ -84,10 +94,12 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
         val marker = googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title(service.serviceName + " - Khoảng cách: " + distance + " kms")
+            .title(service.serviceName + " - Khoảng cách: " + distance + " km")
             .snippet(service.serviceDescription)
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
 
+        markerList.add(marker!!)
+        serviceList.add(service)
     }
 
     fun markerRandom(location: LatLng, address: String) {
@@ -95,7 +107,7 @@ class CustomMapFragment : SupportMapFragment(), OnMapReadyCallback {
 
         googleMap!!.addMarker(MarkerOptions()
             .position(location)
-            .title(address + " - Khoảng cách: " + distance + " kms")
+            .title(address + " - Khoảng cách: " + distance + " km")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
     }
 

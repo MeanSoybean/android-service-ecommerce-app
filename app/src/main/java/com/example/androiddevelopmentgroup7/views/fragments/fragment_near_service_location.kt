@@ -99,7 +99,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
     }
 
     private fun setDataForSpinner() {
-        for (radius: Int in 0..10) { radiusList.add(radius.toString() + " kms") }
+        for (radius: Int in 0..10) { radiusList.add(radius.toString() + " km") }
         var filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, radiusList)
         filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
         radius_spinner?.adapter = filterAdapter
@@ -157,7 +157,6 @@ class fragment_near_service_location : Fragment(), LocationListener {
             }
         }
     }
-
 
     private fun getAndMarkerServiceList(radius: Double){
         try {
