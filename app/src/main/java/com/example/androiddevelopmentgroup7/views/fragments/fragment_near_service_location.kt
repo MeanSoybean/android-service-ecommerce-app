@@ -13,14 +13,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
-import com.example.androiddevelopmentgroup7.models.Profile
+import com.example.androiddevelopmentgroup7.models.Service
 import com.example.androiddevelopmentgroup7.models.UserLocation
+import com.example.androiddevelopmentgroup7.viewModels.ServiceViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.ktx.auth
@@ -39,17 +42,27 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class fragment_near_service_location : Fragment(), LocationListener {
-    // TODO: Rename and change types of parameters
-    private var param1: String  ? = null
+    // TODO: Rename and change types ofa parameters
+    private var param1: String? = null
     private var param2: String? = null
     private var toolbar:MaterialToolbar? = null
+    private var loader: FrameLayout? = null
+    private var service_spinner: Spinner? = null
+    private var radius_spinner: Spinner? = null
+
     private var mapFragment: CustomMapFragment? = null
     private var locationManager: LocationManager? = null
-    private var latlng: LatLng? = null
+    private var myLatlng: LatLng =  LatLng(10.76253285, 106.68228373754832)
     private var userLocation: UserLocation? = null
     private val locationPermissionCode = 2
     private val database = Firebase.firestore
     private val auth = Firebase.auth
+
+    private val serviceViewModel : ServiceViewModel by activityViewModels()
+    private var serviceType = ArrayList<String>()
+    private var radiusList = ArrayList<String>()
+
+    private var serviceLatlngList = ArrayList<LatLng?>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,21 +71,125 @@ class fragment_near_service_location : Fragment(), LocationListener {
         val view = inflater.inflate(R.layout.fragment_near_service_location, container, false)
         initComponent(view)
 
+        this.saveCurrentLocation()
+        this.mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as CustomMapFragment
+
         return view
     }
 
 
     @SuppressLint("PotentialBehaviorOverride")
     private fun initComponent(view:View){
+        this.loader = view.findViewById(R.id.map_loader_layout)
         this.toolbar = view.findViewById(R.id.topAppBar)
+        this.service_spinner = view.findViewById(R.id.filter_type_service_spinner)
+        this.radius_spinner = view.findViewById(R.id.filter_radius_spinner)
+        //toolbar
         this.toolbar?.setTitle(getString(R.string.map_app_tittle_text))
         this.toolbar?.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-        this.mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as CustomMapFragment
-        saveCurrentLocation()
+        //service view model
+        setServiceViewModel()
+        // map fragment
 
+    }
+
+    private fun setDataForSpinner() {
+        radiusList.add("Tất cả")
+        for (radius: Int in 1..10) { radiusList.add(radius.toString() + " kms") }
+        var filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, radiusList)
+        filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
+        radius_spinner?.adapter = filterAdapter
+
+        serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypeList ->
+            serviceTypeList.add(0, getString(R.string.all_service))
+            serviceType.addAll(serviceTypeList)
+            filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, serviceTypeList)
+            filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
+            service_spinner?.adapter = filterAdapter
+        })
+
+    }
+
+    private fun setServiceViewModel() {
+        serviceViewModel.setServicesTypeFromDatabase()
+        serviceViewModel.setServiceListForUser()
+        setDataForSpinner()
+        setOnItemSelectedListenerForSpinner()
+
+        serviceViewModel.status.value = "hide_loader"
+        serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
+            when(status){
+                "hide_loader" -> {
+                    loader?.visibility = View.GONE
+                }
+                "loading"-> {
+                    loader?.visibility = View.VISIBLE
+                }
+            }
+        })
+    }
+
+    private fun setOnItemSelectedListenerForSpinner() {
+        service_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+                var typeOfService = ""
+                if(!service_spinner?.selectedItem.toString().equals(getString(R.string.all_service))) {
+                    typeOfService = service_spinner!!.getSelectedItem().toString()
+                }
+                serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
+                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+            }
+        }
+
+        radius_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+                var radius = 20.0
+                if (index != 0) {
+                    radius = index * 1000.0
+                }
+
+                mapFragment!!.clearMap()
+                mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
+                mapFragment!!.drawCircle(myLatlng, radius)
+                markerServiceList(radius)
+            }
+        }
+    }
+
+    private fun markerServiceList(radius: Double){
+        var latlng: LatLng? = null
+        for (service: Service in serviceViewModel.selectedServiceList.value!!) {
+            this.database.collection("Locations")
+                .whereEqualTo("accountID", service.vendorID)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        latlng = LatLng(
+                            document.data.get("latitude").toString().toDouble(),
+                            document.data.get("longitude").toString().toDouble()
+                        )
+                        serviceLatlngList.add(latlng!!)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents.", exception)
+                }
+        }
+//        Log.w("Service latlng list:", serviceLatlngList.toString())
+        for (i: Int in 0 until serviceLatlngList.size) {
+            if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng,serviceLatlngList[i]!!) <= radius) {
+                mapFragment!!.markerTo(
+                    serviceLatlngList[i]!!,
+                    serviceViewModel.selectedServiceList.value!![i].serviceName
+                )
+            }
+        }
+        serviceLatlngList = ArrayList<LatLng?>()
     }
 
     private fun getCurrentLocation() {
@@ -89,7 +206,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
-        this.latlng = LatLng(location.latitude, location.longitude)
+        this.myLatlng = LatLng(location.latitude, location.longitude)
 //        Log.i(ContentValues.TAG, "Location: " + latlng.toString())
 //        Toast.makeText(requireContext(), "Location: " + latlng.toString(), Toast.LENGTH_SHORT).show()
     }
@@ -111,20 +228,21 @@ class fragment_near_service_location : Fragment(), LocationListener {
     }
 
     fun saveCurrentLocation() {
-        getCurrentLocation()
+        this.getCurrentLocation()
+
         this.database.collection("Locations")
             .whereEqualTo("accountID", auth.currentUser!!.uid)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     this.userLocation = UserLocation(
-                        document.data.get("accountID") as String,
-                        document.data.get("address") as String,
-                        this.latlng?.latitude.toString(),
-                        this.latlng?.longitude.toString()
+                        document.data.get("accountID").toString(),
+                        document.data.get("address").toString(),
+                        this.myLatlng.latitude.toString(),
+                        this.myLatlng.longitude.toString()
                     )
                 }
-                Log.i("HIHI", this.userLocation.toString())
+//                Log.i("HIHI", this.userLocation.toString())
                 this.database.collection("Locations")
                     .document(auth.currentUser!!.uid)
                     .set(this.userLocation!!)

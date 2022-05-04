@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.example.androiddevelopmentgroup7.views.fragments.fragment_rating_detail">
+
+    <include
+        android:id="@+id/rating_detail_app_bar"
+        layout="@layout/layout_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+    <include
+        android:id="@+id/loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rating_detail_app_bar" />
+    <TextView
+        android:id="@+id/empty_rating_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="@string/empty_rating_textview"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rating_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rating_detail_app_bar"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/rating_list_item"
+        />
+</RelativeLayout>

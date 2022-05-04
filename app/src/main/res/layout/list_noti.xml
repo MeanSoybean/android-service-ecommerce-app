@@ -13,11 +13,10 @@
     app:strokeWidth="1dp">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/notification_image_view"
@@ -36,11 +35,10 @@
 
         <TextView
             android:id="@+id/noti_title_tv"
-            android:layout_width="275dp"
-            android:layout_height="21dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:lines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/notification_image_view"
@@ -49,8 +47,8 @@
 
         <TextView
             android:id="@+id/time_tv"
-            android:layout_width="272dp"
-            android:layout_height="21dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:textStyle="bold"
@@ -62,8 +60,8 @@
 
         <TextView
             android:id="@+id/description_tv"
-            android:layout_width="272dp"
-            android:layout_height="46dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
@@ -73,8 +71,21 @@
             app:layout_constraintStart_toEndOf="@+id/notification_image_view"
             app:layout_constraintTop_toBottomOf="@+id/time_tv"
             app:layout_constraintVertical_bias="1.0"
-            tools:text="Thông báo bảo trì hệ thống từ 22/04/2022 3.00PM" />
+            tools:text="Thông báo bảo trì " />
 
+        <ImageView
+            android:id="@+id/service_delete_btn"
+            android:layout_width="35dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/round_button"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/ic_delete_24"
+            app:layout_constraintStart_toEndOf="@+id/description_tv"
+            app:layout_constraintTop_toBottomOf="@+id/noti_title_tv"
+            app:tint="@color/gray" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

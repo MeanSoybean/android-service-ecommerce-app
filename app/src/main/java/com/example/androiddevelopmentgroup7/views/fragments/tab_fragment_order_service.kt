@@ -134,7 +134,7 @@ class TabFragmentOrderService() : Fragment() {
     private fun itemClickApdater(adapter: MyOrderAdapter){
         adapter.onItemClick = { hasmap ->
             val bundle = Bundle()
-            Log.i("ASD", hasmap.get("idOrder").toString())
+            Log.i("IDORDER", hasmap.get("idOrder").toString())
             bundle.putString("idOrder", hasmap.get("idOrder").toString())
             findNavController().navigate(R.id.action_orderServiceVendorFragment_to_orderDetailsFragment, bundle)
         }
@@ -142,7 +142,6 @@ class TabFragmentOrderService() : Fragment() {
 
     private fun createListItem(typeUserID:String, userID:String, filter:Int, recyclerView: RecyclerView, loader:FrameLayout){
         val orderList = ArrayList<Order>()
-        val serviceList = ArrayList<Service>()
         val inforList = ArrayList<HashMap<String, Any>>()
         val adapter = MyOrderAdapter(requireContext(), inforList)
         recyclerView.adapter = adapter
@@ -154,14 +153,13 @@ class TabFragmentOrderService() : Fragment() {
         }
         query.orderBy("timeOrder", Query.Direction.DESCENDING).get()
             .addOnSuccessListener {  snapshot ->
-                var indexService = 0 // giữ trí sao cho service[index] = order[i]
-                Log.i("ASD",snapshot.documents.size.toString())
-                var count = 0
-                if(snapshot.size() == count){
+                val idServiceList = ArrayList<String>()
+                if(snapshot.size() == 0){
                     loader.visibility = View.GONE
                     noneItemTextView?.visibility = View.VISIBLE
                     recyclerView_services?.visibility = View.GONE
                 }
+
                 for(i in 0..(snapshot.size() - 1)){
 
                     val tempOrder = Order(
@@ -176,50 +174,47 @@ class TabFragmentOrderService() : Fragment() {
                         snapshot.documents[i].get("phoneNumber").toString(),
                         snapshot.documents[i].get("customerName").toString(),
                     )
-                    Log.i("ASD", (snapshot.documents[i].get("timeOrder") as Timestamp).toDate().toString(),)
                     tempOrder.idOrder = snapshot.documents[i].id
                     orderList.add(tempOrder)
-                    db.collection("ServiceListings").document(tempOrder.idService).get()
-                        .addOnSuccessListener { doc ->
-                            val serviceTemp = Service(
-                                doc.get("serviceType").toString(),
-                                doc.get("serviceName").toString(),
-                                doc.get("serviceDescription").toString(),
-                                doc.get("servicePrice").toString().toLong(),
-                                doc.get("servicePhoneNumber").toString(),
-                                doc.get("serviceImage").toString(),
-                                doc.get("serviceRating").toString().toFloat(),
-                                doc.get("vendorID").toString(),
-                                doc.get("vendorName").toString(),
-                                //service.data.get("negotiate").toString().toBoolean()
-                            )
-                            serviceTemp.serviceID = doc.id
-                            serviceList.add(serviceTemp)
-                            val hashMap = HashMap<String, Any>()
-                            hashMap.put("idOrder", orderList.get(indexService).idOrder)
-                            hashMap.put("idVendor", orderList.get(indexService).idVendor)
-                            hashMap.put("idCustomer", orderList.get(indexService).idCustomer)
-                            hashMap.put("idService", orderList.get(indexService).idService)
-                            hashMap.put("timeOrder", orderList.get(indexService).timeOrder)
-                            hashMap.put("timeComing", orderList.get(indexService).timeComing)
-                            hashMap.put("orderAddress", orderList.get(indexService).orderAddress)
-                            hashMap.put("orderCurrent", orderList.get(indexService).orderCurrent)
-                            hashMap.put("price", orderList.get(indexService).price)
-                            hashMap.put("phoneNumber", orderList.get(indexService).phoneNumber)
-                            hashMap.put("serviceImage", serviceTemp.serviceImage)
-                            hashMap.put("serviceName", serviceTemp.serviceName)
-                            hashMap.put("vendorName", serviceTemp.vendorName)
-                            hashMap.put("serviceType", serviceTemp.serviceType)
-                            hashMap.put("serviceDescription", serviceTemp.serviceDescription)
-                            hashMap.put("customerName", orderList.get(indexService).customerName)
-                            inforList.add(hashMap)
-                            Log.i("ASD", (hashMap.get("timeOrder") as Timestamp).toDate().toString(),)
-                            adapter.notifyItemInserted(i)
-                            count += 1
-                            indexService++
-                            if(count == snapshot.size()){
-                                loader.visibility = View.GONE
+                    idServiceList.add(tempOrder.idService)
+                }
+                if(idServiceList.size > 0) {
+                    db.collection("ServiceListings").whereIn(FieldPath.documentId(), idServiceList).get()
+                        .addOnSuccessListener { snapshot ->
+                            var count = 0
+                            for(order in orderList){
+                                for(service in snapshot){
+                                    if(order.idService.equals(service.id)){
+                                        val hashMap = HashMap<String, Any>()
+                                        hashMap.put("idOrder", order.idOrder)
+                                        hashMap.put("idVendor", order.idVendor)
+                                        hashMap.put("idCustomer", order.idCustomer)
+                                        hashMap.put("idService", order.idService)
+                                        hashMap.put("timeOrder", order.timeOrder)
+                                        hashMap.put("timeComing", order.timeComing)
+                                        hashMap.put("orderAddress", order.orderAddress)
+                                        hashMap.put("orderCurrent", order.orderCurrent)
+                                        hashMap.put("price", order.price)
+                                        hashMap.put("phoneNumber", order.phoneNumber)
+                                        hashMap.put("serviceImage", service.data.get("serviceImage")!!)
+                                        hashMap.put("serviceName", service.data.get("serviceName")!!)
+                                        hashMap.put("vendorName",service.data.get("vendorName")!!)
+                                        hashMap.put("serviceType", service.data.get("serviceType")!!)
+                                        hashMap.put("serviceDescription", service.data.get("serviceDescription")!!)
+                                        hashMap.put("customerName", order.customerName)
+                                        Log.i("ASDD", order.idService)
+                                        Log.i("ASDD", service.id)
+                                        inforList.add(hashMap)
+                                        adapter.notifyItemInserted(count)
+                                    }
+                                }
+                                count++
+                                if(count == snapshot.size()){
+                                    loader.visibility = View.GONE
+                                }
+
                             }
+
                         }
                 }
             }

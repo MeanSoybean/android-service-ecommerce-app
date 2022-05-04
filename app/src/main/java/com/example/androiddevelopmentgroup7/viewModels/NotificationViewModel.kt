@@ -1,5 +1,6 @@
 package com.example.androiddevelopmentgroup7.viewModels
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -53,5 +54,27 @@ class NotificationViewModel : ViewModel()  {
 
     }
 
+    fun deleteNoti(position: Int){
+        status.value = "loading"
+        db.collection("Notifications").document(serviceList.value!!.get(position).notiID)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+
+
+        db.collection("Notifications").document(serviceList.value!!.get(position).notiID).get()
+            .addOnSuccessListener { service ->
+                db.collection("Notifications").document(serviceList.value!!.get(position).notiID).delete()
+                    .addOnSuccessListener {
+                        status.value = "delete_success"
+                        //notify observer that data changed
+                        val serviceListTemp = serviceList.value!!
+                        serviceListTemp.removeAt(position)
+                        serviceList.value = serviceListTemp
+                    }
+            }
+
+
+    }
 
 }

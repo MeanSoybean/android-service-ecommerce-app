@@ -40,9 +40,7 @@ import com.google.firebase.ktx.Firebase
 
 class MyServiceAdapter(var context: Context, private var serviceList:ArrayList<Service>): RecyclerView.Adapter<MyServiceAdapter.ViewHolder>(){
     lateinit var onClickListener: OnClickListener
-
-
-
+    var onItemClick:((Int) -> Unit)? = null
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
         var name_vendor_service: TextView = listItemView.findViewById(R.id.name_vendor_service)
         var description_vendor_service: TextView = listItemView.findViewById(R.id.description_vendor_service)
@@ -52,6 +50,9 @@ class MyServiceAdapter(var context: Context, private var serviceList:ArrayList<S
         var phone_vendor_service: TextView = listItemView.findViewById(R.id.phone_vendor_service)
         var service_edit_btn: Button = listItemView.findViewById(R.id.service_edit_btn)
         var service_delete_btn: ImageView = listItemView.findViewById(R.id.service_delete_btn)
+        init {
+            listItemView.setOnClickListener { onItemClick?.invoke(adapterPosition) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -68,8 +69,6 @@ class MyServiceAdapter(var context: Context, private var serviceList:ArrayList<S
         (serviceList.get(position).servicePrice.toString() + context.getString(R.string.vietnamdong)).also { holder.cost_vendor_service.text = it }
         holder.phone_vendor_service.text = serviceList.get(position).servicePhoneNumber
         holder.service_rating_bar.rating = serviceList.get(position).serviceRating
-
-
         //event
         holder.service_edit_btn.setOnClickListener {
             Log.i("EDIT", "edit")
@@ -120,6 +119,11 @@ class home_vendor_fragment : Fragment() {
 
         serviceViewModel.setServiceList()
         val adapter = MyServiceAdapter(requireContext(),serviceViewModel.selectedServiceList.value!!)
+        adapter.onItemClick = {position ->
+            val bundle = Bundle()
+            bundle.putString("serviceID", serviceViewModel.selectedServiceList.value!!.get(position).serviceID)
+            findNavController().navigate(R.id.action_home_vendor_fragment_to_fragment_rating_detail, bundle)
+        }
         adapter.onClickListener = object : MyServiceAdapter.OnClickListener {
             override fun onEditClick(position: Int) {
                 val service = serviceViewModel.selectedServiceList.value!!.get(position)

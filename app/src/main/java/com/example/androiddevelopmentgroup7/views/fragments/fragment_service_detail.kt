@@ -61,6 +61,7 @@ class fragment_service_detail : Fragment() {
     private var servicePrice:TextView? = null
     private var orderBtn: Button? = null
     private var serviceInformationVendorBtn:Button? = null
+    private var ratingDetailBtn:Button? = null
     private var toolbar:MaterialToolbar? = null
 
     private var customerName:TextInputEditText? = null
@@ -234,6 +235,7 @@ class fragment_service_detail : Fragment() {
         serviceType = view.findViewById(R.id.service_type_text)
         toolbar = view.findViewById(R.id.topAppBar)
         orderBtn = view.findViewById(R.id.accept_service_btn)
+        ratingDetailBtn = view.findViewById(R.id.service_rating_btn)
         serviceInformationVendorBtn = view.findViewById(R.id.information_vendor_btn)
 
         customerName = view.findViewById(R.id.customer_name_edit_text)
@@ -265,6 +267,12 @@ class fragment_service_detail : Fragment() {
             val bundle = Bundle()
             bundle.putString("vendorID", vendorID)
             findNavController().navigate(R.id.action_fragment_service_detail_to_fragment_vendor_information, bundle)
+        }
+
+        ratingDetailBtn?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("serviceID", serviceID)
+            findNavController().navigate(R.id.action_fragment_service_detail_to_fragment_rating_detail, bundle)
         }
     }
 
