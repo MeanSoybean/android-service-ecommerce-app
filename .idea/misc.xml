@@ -56,11 +56,12 @@
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/drawable/round_outline_rect.xml" value="0.11" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/activity_main.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/alert_dialog_with_edittext.xml" value="0.2259963768115942" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/filter_spinner_layout.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_communication.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_credit.xml" value="0.25" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_map.xml" value="0.16893115942028986" />
-        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_near_service_location.xml" value="0.264" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_near_service_location.xml" value="0.2" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_service_detail.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/fragment_sign_up_vendor.xml" value="0.18840579710144928" />
@@ -71,6 +72,7 @@
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/image_message_layout.xml" value="0.2259963768115942" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_home.xml" value="0.264" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_home_bar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_map_filter_bar.xml" value="0.264" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_order_service.xml" value="0.2" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/fminhtu/Documents/GitHub/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar_not_icon.xml" value="0.12360688956433637" />
@@ -85,14 +87,19 @@
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_notification_details.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_order_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_rating_service.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_report_app.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_service_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/home_vendor_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_order_service.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_top_bar_not_icon.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/layout_vendor_my_service.xml" value="0.25416666666666665" />
-        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/list_noti.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/list_noti.xml" value="0.264" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/noti_top_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/order_service_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/report_top_bar.xml" value="0.24010416666666667" />
         <entry key="..\:/android-service-ecommerce-app/app/src/main/res/layout/service_details_vendor_fragment.xml" value="0.25416666666666665" />
       </map>
     </option>

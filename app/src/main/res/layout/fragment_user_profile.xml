@@ -45,6 +45,7 @@
                         android:textColor="@color/green_500"
                         android:textSize="18sp" />
 
+
                     <ImageView
                         android:id="@+id/avatar_image_view"
                         android:layout_width="100dp"
@@ -100,6 +101,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
+                                android:id="@+id/profile_role_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingTop="10dp"
@@ -199,6 +201,7 @@
                         android:layout_gravity="center_vertical"
                         android:focusableInTouchMode="false"
                         android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
                         android:singleLine="true"
                         android:text="hobaotruongmaugiao@gmail.com"
                         android:textSize="16sp"
@@ -231,6 +234,7 @@
                         android:focusableInTouchMode="true"
                         android:inputType="phone"
                         android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
                         android:singleLine="true"
                         android:text="098989701"
                         android:textSize="16sp"
@@ -257,18 +261,29 @@
                     <EditText
                         android:id="@+id/profile_address_tv"
 
-                        android:layout_width="300dp"
+                        android:layout_width="245dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
                         android:inputType="textShortMessage"
                         android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
                         android:singleLine="true"
                         android:text="Ho Chi Minh"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:id="@+id/get_current_location_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Định vị"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -297,6 +312,7 @@
                         android:focusableInTouchMode="true"
                         android:inputType="textShortMessage"
                         android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
                         android:text="Family scholarship"
                         android:textSize="16sp"
                         android:textStyle="normal"
@@ -326,9 +342,10 @@
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="25dp"
                         android:singleLine="true"
-                        android:text="Change your password"
+                        android:text="Thay đổi mật khẩu"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
                 </LinearLayout>
             </LinearLayout>
 
