@@ -7,23 +7,39 @@
     android:orientation="vertical"
     tools:context=".views.fragments.ProfileFragment">
 
+    <include
+        android:id="@+id/my_profile_app_bar"
+        layout="@layout/layout_top_bar_not_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/profile_loader_layout"
+        layout="@layout/layout_circular_loader"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_app_bar" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_profile_app_bar"
+        app:layout_constraintVertical_bias="0.111">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <include
-                android:id="@+id/my_profile_app_bar"
-                layout="@layout/layout_top_bar_not_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:id="@+id/profile_relative_layout"
@@ -31,7 +47,8 @@
                 android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_profile_app_bar">
+                app:layout_constraintTop_toBottomOf="@+id/my_profile_app_bar"
+                tools:ignore="NotSibling">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/background_layout"
@@ -261,11 +278,11 @@
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
+                        android:hint="Nhập số điện thoại"
                         android:inputType="phone"
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
                         android:singleLine="true"
-                        android:text="098989701"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         tools:ignore="TouchTargetSizeCheck" />
@@ -295,11 +312,11 @@
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
+                        android:hint="Nhập địa chỉ liên lạc"
                         android:inputType="textShortMessage"
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
                         android:singleLine="true"
-                        android:text="Ho Chi Minh"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         tools:ignore="TouchTargetSizeCheck" />
@@ -339,10 +356,10 @@
                         android:layout_gravity="center_vertical"
                         android:background="@null"
                         android:focusableInTouchMode="true"
+                        android:hint="Nhập thông tin thanh toán"
                         android:inputType="textShortMessage"
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
-                        android:text="Family scholarship"
                         android:textSize="16sp"
                         android:textStyle="normal"
                         tools:ignore="TouchTargetSizeCheck" />
@@ -380,6 +397,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
