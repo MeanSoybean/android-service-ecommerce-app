@@ -63,7 +63,7 @@ class fragment_near_service_location : Fragment(), LocationListener {
     private var radiusList = ArrayList<String>()
 
     private var serviceLatlngList = ArrayList<LatLng?>()
-    private var radius = 20.0
+    private var radius = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,8 +96,6 @@ class fragment_near_service_location : Fragment(), LocationListener {
         // map fragment
         this.saveCurrentLocation()
         this.mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map) as CustomMapFragment
-
-
     }
 
     private fun setDataForSpinner() {
@@ -107,7 +105,6 @@ class fragment_near_service_location : Fragment(), LocationListener {
         radius_spinner?.adapter = filterAdapter
 
         serviceViewModel.serviceTypeLivaData.observe(viewLifecycleOwner, Observer { serviceTypeList ->
-//            serviceTypeList.add(0, getString(R.string.all_service))
             serviceType.addAll(serviceTypeList)
             filterAdapter = ArrayAdapter(requireContext(), R.layout.layout_filter_spinner, serviceTypeList)
             filterAdapter.setDropDownViewResource(R.layout.layout_filter_spinner)
@@ -118,49 +115,44 @@ class fragment_near_service_location : Fragment(), LocationListener {
 
     private fun setServiceViewModel() {
         serviceViewModel.setServicesTypeFromDatabase()
-        serviceViewModel.setServiceListForUser()
-        serviceViewModel.status.value = "hide_loader"
-    }
-
-    private fun setLoaderObserveToDrawMap() {
+//        serviceViewModel.setServiceListForUser()
         serviceViewModel.status.observe(viewLifecycleOwner, Observer { status ->
             when(status){
                 "hide_loader" -> {
                     loader?.visibility = View.GONE
-
-                    mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-                    getAndMarkerServiceList(radius)
-                    mapFragment!!.drawCircle(myLatlng, radius)
                 }
                 "loading"-> {
                     loader?.visibility = View.VISIBLE
                 }
             }
         })
+
+        serviceViewModel.status.value = "hide_loader"
     }
 
     private fun setOnItemSelectedListenerForSpinner() {
         service_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
-                var typeOfService = service_spinner!!.getSelectedItem().toString()
+                val typeOfService = service_spinner!!.getSelectedItem().toString()
                 serviceViewModel.queryDataFilter("servicePrice", "des", typeOfService)
+                radius = 0.0
+                radius_spinner!!.setSelection(0)
                 mapFragment!!.clearMap()
                 mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-                radius_spinner!!.setSelection(0)
-//                setLoaderObserveToDrawMap()
+                mapFragment!!.drawCircle(myLatlng, radius)
+//                getAndMarkerServiceList(radius)
             }
         }
 
         radius_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, index: Int, p3: Long) {
+//                serviceViewModel.queryDataFilter("servicePrice", "des", service_spinner!!.selectedItem.toString())
+                radius = index * 1.0
                 mapFragment!!.clearMap()
                 mapFragment!!.markerFrom(myLatlng, "Vị trí hiện tại")
-
-                radius = index * 1.0
                 mapFragment!!.drawCircle(myLatlng, radius)
-
                 getAndMarkerServiceList(radius)
             }
         }
@@ -173,33 +165,24 @@ class fragment_near_service_location : Fragment(), LocationListener {
 
             for (service: Service in serviceViewModel.selectedServiceList.value!!) {
                 this.database.collection("Locations")
-                    .whereEqualTo("accountID", service.vendorID)
+                    .document(service.vendorID)
                     .get()
-                    .addOnSuccessListener { result ->
-                        for (document in result) { // 1
-                            latlng = LatLng(
-                                document.data.get("latitude").toString().toDouble(),
-                                document.data.get("longitude").toString().toDouble()
-                            )
+                    .addOnSuccessListener { document ->
+                        val latlng = LatLng(
+                            document.get("latitude").toString().toDouble(),
+                            document.get("longitude").toString().toDouble()
+                        )
+                        serviceLatlngList.add(latlng)
+
+                        if ( mapFragment!!.distance(myLatlng, latlng) / 1000.0 <= radius) {
+                            mapFragment!!.markerTo(latlng, service)
                         }
-                        serviceLatlngList.add(latlng!!)
                     }
                     .addOnFailureListener { exception ->
                         Log.w(ContentValues.TAG, "Error getting documents.", exception)
                     }
             }
-            Log.w("Service latlng list:", serviceLatlngList.toString())
 
-            if (!serviceLatlngList.isEmpty()) {
-                for (i: Int in 0..serviceLatlngList.size) {
-                    if (serviceLatlngList[i] != null && mapFragment!!.distance(myLatlng, serviceLatlngList[i]!!) / 1000.0 <= radius) {
-                        mapFragment!!.markerTo(
-                            serviceLatlngList[i]!!,
-                            serviceViewModel.selectedServiceList.value!![i]
-                        )
-                    }
-                }
-            }
         } catch (e: IndexOutOfBoundsException) {
             Log.i("IndexOutOfBounds:", e.toString())
         }
