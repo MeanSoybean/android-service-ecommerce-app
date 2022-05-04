@@ -2,24 +2,24 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
 
     <string name="app_name">Service Marketplace</string>
-    <string name="activity_sign_up_title">Sign Up</string>
-    <string name="fragment_sign_up_vendor_label">Vendor Sign Up</string>
-    <string name="fragment_sign_up_customer_label">Customer Sign Up</string>
-    <string name="signup_name_hint">Full Name</string>
+    <string name="activity_sign_up_title">Đăng ký</string>
+    <string name="fragment_sign_up_vendor_label">Đăng ký Vendor</string>
+    <string name="fragment_sign_up_customer_label">Đăng ký Customer</string>
+    <string name="signup_name_hint">Họ và Tên</string>
     <string name="signup_email_hint">E-Mail</string>
-    <string name="signup_password_hint">Password</string>
-    <string name="signup_conf_password_hint">Confirm Password</string>
-    <string name="cancel_btn_text">Cancel</string>
-    <string name="signup_btn_text">Sign Up</string>
-    <string name="vendor_signup_switch_text">Sign up as Vendor</string>
-    <string name="customer_signup_switch_text">Sign up as Customer</string>
-    <string name="signup_phone_number_hint">Phone Number</string>
-    <string name="signup_vendor_name_hint">Full Name / Company Name</string>
-    <string name="signup_address_hint">Address</string>
-    <string name="activity_sign_in_title">Sign In</string>
-    <string name="signin_btn_text">Sign In</string>
-    <string name="signin_signup_question_unclickable">Don\'t have an account?</string>
-    <string name="signin_signup_question_clickable">Sign Up</string>
+    <string name="signup_password_hint">Mật khẩu</string>
+    <string name="signup_conf_password_hint">Nhập lại mật khẩu</string>
+    <string name="cancel_btn_text">Huỷ</string>
+    <string name="signup_btn_text">Đăng ký</string>
+    <string name="vendor_signup_switch_text">Đăng ký tài khoản Thợ / Nhà cung cấp dịch vụ</string>
+    <string name="customer_signup_switch_text">Đăng ký tài khoản Khách hàng</string>
+    <string name="signup_phone_number_hint">Số điện thoại</string>
+    <string name="signup_vendor_name_hint">Họ và Tên / Tên doanh nghiệp</string>
+    <string name="signup_address_hint">Địa chỉ</string>
+    <string name="activity_sign_in_title">Đăng nhập</string>
+    <string name="signin_btn_text">Đăng nhập</string>
+    <string name="signin_signup_question_unclickable">Bạn không có tài khoản?</string>
+    <string name="signin_signup_question_clickable">Đăng ký</string>
 
 
     <string name="vietnamdong"> VNĐ</string>
@@ -223,5 +223,7 @@
     <string name="report_success">Phản hồi về ứng dụng thành công</string>
     <!--    fragment_vendor_information-->
     <string name="vendor_information">THÔNG TIN THỢ</string>
+    <string name="could_not_sign_in">Đăng nhập thất bại. Vui lòng kiểm tra lại email và mật khẩu.</string>
+    <string name="could_not_sign_up">Đăng ký thất bại. Vui lòng kiểm tra lại email và mật khẩu.</string>
 
 </resources>

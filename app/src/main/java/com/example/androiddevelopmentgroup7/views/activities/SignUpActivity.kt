@@ -33,7 +33,7 @@ class SignUpActivity : AppCompatActivity(), ICustomerSignUp, IVendorSignUp {
     }
 
     private fun onSignUpFailed() {
-        Toast.makeText(this, "Could not sign up. We're sorry!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.could_not_sign_up), Toast.LENGTH_SHORT).show()
         loader.visibility = View.GONE
     }
 

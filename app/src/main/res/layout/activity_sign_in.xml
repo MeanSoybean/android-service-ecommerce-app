@@ -17,16 +17,28 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/login_image_view"
+        android:layout_width="0dp"
+        android:layout_height="280dp"
+        android:scaleType="fitStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/auth_bg_img"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/activity_sign_in_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="48sp"
-        android:text="@string/activity_sign_in_title"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/activity_sign_in_title"
+        android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <LinearLayout
         android:layout_width="match_parent"
