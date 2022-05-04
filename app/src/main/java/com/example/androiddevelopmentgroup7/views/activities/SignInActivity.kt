@@ -76,7 +76,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun onSignInFailed() {
-        Toast.makeText(this, "Could not sign in with username and password.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.could_not_sign_in), Toast.LENGTH_SHORT).show()
         loader.visibility = View.GONE
     }
 

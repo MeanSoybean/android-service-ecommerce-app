@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -25,6 +26,7 @@ import com.example.androiddevelopmentgroup7.R
 import com.example.androiddevelopmentgroup7.models.Profile
 import com.example.androiddevelopmentgroup7.models.UserLocation
 import com.example.androiddevelopmentgroup7.utils.Utils
+import com.example.androiddevelopmentgroup7.views.activities.SignInActivity
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.ktx.auth
@@ -59,7 +61,7 @@ class ProfileFragment : Fragment(), LocationListener {
     private var toolbar: MaterialToolbar? = null
     private var profile_feedback_tv:TextView? =null
     private var loader: FrameLayout? = null
-
+    private var profile_sign_out_tv: TextView? = null
     private var locationManager: LocationManager? = null
     private var latlng: LatLng? = null
     private val locationPermissionCode = 2
@@ -86,6 +88,7 @@ class ProfileFragment : Fragment(), LocationListener {
         this.profile_role_tv = view.findViewById(R.id.profile_role_tv)
         this.get_current_location_tv = view.findViewById(R.id.get_current_location_tv)
         this.loader = view.findViewById(R.id.profile_loader_layout)
+        this.profile_sign_out_tv = view.findViewById(R.id.profile_sign_out_tv)
 
         this.profile_feedback_tv = view.findViewById(R.id.profile_feedback_tv)
         if (Utils.typeUser == 0) {
@@ -123,6 +126,12 @@ class ProfileFragment : Fragment(), LocationListener {
                 Toast.makeText(activity, "Định vị không thành công.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
+        }
+
+        this.profile_sign_out_tv?.setOnClickListener {
+            auth.signOut()
+            startActivity(Intent(requireActivity(), SignInActivity::class.java))
+            requireActivity().finish()
         }
     }
 
