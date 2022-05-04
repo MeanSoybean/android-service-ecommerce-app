@@ -87,7 +87,7 @@ class fragment_rating_service : Fragment() {
                             mutableMapOf(
                                 "FeedBack" to feedbackMessage!!.text.toString(),
                                 "Rating" to serviceRatingBar?.rating as Any,
-                                "CustomerName" to Utils.customer.Name
+                                "CustomerName" to Utils.customer.name
                             )
                         )
                 } else {
