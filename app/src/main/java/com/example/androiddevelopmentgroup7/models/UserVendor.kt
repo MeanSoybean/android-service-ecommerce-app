@@ -1,11 +1,11 @@
 package com.example.androiddevelopmentgroup7.models
 
 data class UserVendor(
-    var AccountID: String,
-    var Name:String,
-    var PhoneNumber:String,
-    var Address:String,
-    var Rating: Float,
+    var accountID: String,
+    var name:String,
+    var phoneNumber:String,
+    var address:String,
+    var rating: Float,
 ){
     var id: String = ""
 }

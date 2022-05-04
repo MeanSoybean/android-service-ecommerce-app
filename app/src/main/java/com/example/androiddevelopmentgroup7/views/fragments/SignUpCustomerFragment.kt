@@ -1,6 +1,7 @@
 package com.example.androiddevelopmentgroup7.views.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.androiddevelopmentgroup7.R
+import com.example.androiddevelopmentgroup7.views.activities.SignInActivity
 import com.google.android.material.textfield.TextInputEditText
 
 interface ICustomerSignUp {
@@ -20,7 +22,6 @@ interface ICustomerSignUp {
  * A simple [Fragment] subclass.
  */
 class SignUpCustomerFragment : Fragment() {
-    //TODO: data validation after each edit text update
     private lateinit var nameET: TextInputEditText
     private lateinit var emailET: TextInputEditText
     private lateinit var passwordET: TextInputEditText
@@ -56,7 +57,7 @@ class SignUpCustomerFragment : Fragment() {
 
     private fun setupButtons(view: View) {
         view.findViewById<Button>(R.id.signup_cancel_button).setOnClickListener {
-            activity?.finish()
+            startActivity(Intent(requireActivity(), SignInActivity::class.java))
         }
         view.findViewById<Button>(R.id.vendor_signup_switch_button).setOnClickListener {
             findNavController().navigate(R.id.action_signUpCustomerFragment_to_signUpVendorFragment)
