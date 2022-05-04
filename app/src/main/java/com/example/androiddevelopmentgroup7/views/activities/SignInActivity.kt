@@ -35,8 +35,8 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signInIfAlreadyLoggedIn() {
         val user = auth.currentUser
-        loader.visibility = View.VISIBLE
         user?.let {
+            loader.visibility = View.VISIBLE
             onSignInSucceeded()
         }
     }
