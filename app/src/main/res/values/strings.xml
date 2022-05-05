@@ -233,5 +233,6 @@
     <string name="hcmus_address">227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh</string>
     <string name="hcmus_lat">10.763433624739413</string>
     <string name="hcmus_long">106.68266356064339</string>
+    <string name="reset_email_empty">Trường email không được bỏ trống.</string>
 
 </resources>

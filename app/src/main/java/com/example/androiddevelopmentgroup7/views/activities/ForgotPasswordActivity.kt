@@ -27,14 +27,28 @@ class ForgotPasswordActivity : AppCompatActivity() {
         confirmButton = findViewById(R.id.confirm_button)
         confirmButton.setOnClickListener {
             val email = emailET.text.toString()
-            Firebase.auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, getString(R.string.reset_email_sent), Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, getString(R.string.reset_email_failed), Toast.LENGTH_SHORT).show()
+            if (!email.isBlank()) {
+                Firebase.auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                this,
+                                getString(R.string.reset_email_sent),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this,
+                                getString(R.string.reset_email_failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
+            }
+            else {
+
+                Toast.makeText(this, getString(R.string.reset_email_empty), Toast.LENGTH_SHORT).show()
+            }
         }
         cancelTV = findViewById(R.id.go_back)
         cancelTV.setOnClickListener { startActivity(Intent(this, SignInActivity::class.java)) }
